@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
+% data
+\newcommand{\myDefDocType}{Projektdokumentation}
+
+\newcommand{\myDefUniversity}{Hochschule für Technik und Wirtschaft Dresden}
+\newcommand{\myDefDepartment}{Fakultät Informatik/Mathematik}
+\newcommand{\myDefSeminar}{Tangible Interactions}
+\newcommand{\myDefAuthorA}{Dominic Berge}
+\newcommand{\myDefAuthorB}{Anja Cichon}
+\newcommand{\myDefAuthorC}{Christian Drossel}
+\newcommand{\myDefAuthorD}{Timon Fehse}
+\newcommand{\myDefAuthorE}{Norman Mörsch}
+\newcommand{\myDefAuthorF}{Manuel Schilling}
+
+\newcommand{\myDefTitle}{Dokumentation unseres Superprojekts (und nichts geringeres als das)}
+
+\newcommand{\myDefSupervisor}{Prof.~Dr.-Ing.Dietrich Kammer}
+\newcommand{\myDefDateHandIn}{27.\,01.~2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
+% switches
+\newif\iftitlefinal{}
+\newif\iftitlelogo{}
+\newif\ifchapquot{}
+\newif\ifgfxhdr{}
+
+\titlefinaltrue{}
+%\titlefinalfalse{}
+\titlelogotrue{}
+%\titlelogofalse{}
+\gfxhdrtrue{}
+%\gfxhdrfalse{}
+\chapquottrue{}
+%\chapquotfalse{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
+% Quotation
+\ifchapquot{}
+    \setkomafont{dictumtext}{\small\itshape}
+    \setkomafont{dictumauthor}{\small\upshape}
+    \renewcommand*\dictumwidth{0.6\linewidth}
+    %\renewcommand*\dictumauthorformat[1]{--- #1}
+    %\renewcommand*\dictumrule{}
+    %\renewcommand{\raggeddictumtext}{\raggedleft}
+
+    \newcommand{\condquote}[2]{\setchapterpreamble{\dictum[#2]{#1}}}
+    \newcommand{\condquotebook}[3]{\setchapterpreamble{\dictum[#2, \emph{#3}]{#1}}}
+\else{}
+    \newcommand{\condquote}[2]{}
+    \newcommand{\condquotebook}[3]{}
+\fi{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
+% TOC entries
+\newcommand{\pseudoentry}[1]{%
+    \phantomsection{}
+    \pdfbookmark[1]{#1}{bm:#1}
+}
+\newcommand{\pseudochapter}[1]{%
+    \chapter*{#1}
+    \phantomsection{}
+    \pdfbookmark[1]{#1}{bm:#1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
+% Table color
+\definecolor{tablecol-even}{gray}{0.92}
+\definecolor{tablecol-odd}{gray}{1.0}

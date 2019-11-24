@@ -1,0 +1,57 @@
+\begin{titlepage}
+    \thispagestyle{empty}
+    \pseudoentry{Titelseite}
+    \enlargethispage{35mm}
+    \setlength{\headheight}{0mm}
+
+    \sffamily
+
+
+
+    % Head
+    \iftitlelogo{}
+        \hspace{-1cm}\includegraphics[scale=0.2]{img/Htw-dresden-logo}
+    \else
+        {%
+            \mdseries
+            \Huge \MakeUppercase{\myDefUniversity}\\\vspace{0.5em}
+        }
+    \fi
+
+    \vfill
+    \vspace{10mm}
+    \begin{center}
+        \begin{huge}
+            \myDefTitle{}
+            \vfill
+        \end{huge}
+        \begin{Large}
+            Im Rahmen der Lehrveranstaltung \\ 
+            \myDefSeminar{}
+            \vfill
+        \end{Large}
+
+    \end{center}
+
+    \vfill
+    \iftitlefinal{}
+        \begin{small}
+            \begin{tabularx}{\textwidth}{llXll}
+            	von: & \myDefAuthorA{} & & Abgabedatum:  & \myDefDateHandIn{}\\
+            	& \myDefAuthorB{} \\
+            	& \myDefAuthorC{} \\
+            	& \myDefAuthorD{} \\
+            	& \myDefAuthorE{} \\
+            	& \myDefAuthorF{} \\
+                Betreuer:    & \myDefSupervisor{} \\
+            \end{tabularx}
+        \end{small}
+        \vspace{2em}
+    \fi
+    \vspace{3em}
+
+    \normalsize
+
+\end{titlepage}
+
+% vim: set spelllang=de_20

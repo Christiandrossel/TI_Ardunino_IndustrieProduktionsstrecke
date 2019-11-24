@@ -1,0 +1,185 @@
+\documentclass[
+    a4paper,
+    fontsize=11pt,
+    draft=false,
+    headsepline=true,footsepline=true,
+    plainfootsepline=true,
+    parskip=half,
+    bibliography=totoc,
+    BCOR=15mm,DIV=16
+    ]{scrbook}
+
+% font/encoding
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% lang
+\usepackage[ngerman]{babel}
+
+% footnotes
+\usepackage[bottom]{footmisc}
+
+% ams
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% si units
+\usepackage{siunitx}
+
+% graphix
+\usepackage{graphicx}
+
+% header
+\usepackage[automark,headsepline]{scrlayer-scrpage}
+
+% floating envs
+\usepackage{booktabs}
+\usepackage{tabularx}
+%\usepackage{listings}
+\usepackage[list=false]{subcaption}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+%\usepackage[algochapter]{algorithm2e}
+
+% quote
+\usepackage[babel,english=british]{csquotes}
+
+% bib
+\usepackage[bibencoding=utf8,backend=biber,sorting=nyt]{biblatex}
+
+% gloss
+\usepackage[nonumberlist,acronym,hyperfirst=false,nopostdot,nomain]{glossaries}
+
+% index
+\usepackage{makeidx}
+
+% appendix
+\usepackage[page,header]{appendix}
+
+% hyperrefs
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% prefix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% defines
+\input{src/aux-defines}
+% glossary
+\input{src/aux-glssettings}
+\input{src/aux-acronyms}
+\input{src/aux-symbols}
+% index
+\makeindex
+
+\title{\myDefDocType\\\myDefTitle}
+\author{\myDefAuthor}
+%\date{\arbeitsDatum}
+
+\pagestyle{headings}
+
+% hyperrefs...
+\hypersetup{%
+    pdftitle={\myDefDocType\ --- \myDefTitle},
+    pdfsubject={\myDefDocType\ --- \myDefTitle},
+    pdfauthor={\myDefAuthorA},
+    colorlinks=false,
+    hidelinks,
+    linktoc=all,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarkstype=toc
+}{}
+
+% bibliography resources
+\addbibresource[label=bib]{bib/bibliography.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Conditions
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Start
+	\pagenumbering{roman}
+	
+    % title page
+    \include{src/front-titlepage}
+    %\cleardoublepage\
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % header
+    \ifgfxhdr{}
+        \setlength{\headheight}{2.0em}
+        \lehead{\includegraphics[scale=0.08]{img/Htw-dresden-logo}}
+        \cehead{\leftmark}
+        \rehead{}
+
+        \lohead{}
+        \cohead{\rightmark}
+        \rohead{}
+    \fi{}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % abstract
+    \include{src/front-kurzfassung}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % ToC, ToF, ToT
+    \cleardoublepage{}
+    \phantomsection{}
+    \pdfbookmark[1]{Table of Contents}{bm:toc}
+    \setcounter{tocdepth}{1}
+    \tableofcontents
+
+    \cleardoublepage{}
+    \phantomsection{}
+    \pdfbookmark[1]{List of Figures}{bm:lof}
+    \listoffigures
+
+    \cleardoublepage{}
+    \phantomsection{}
+    \pdfbookmark[1]{List of Tables}{bm:lot}
+    \listoftables
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Acronyms, Symbols
+    \cleardoublepage{}
+    \phantomsection{}
+    \pdfbookmark[1]{Acronyms}{bm:glsacr}
+    \printglossary[type=\acronymtype]
+
+    \cleardoublepage{}
+    \phantomsection{}
+    \pdfbookmark[1]{Symbols}{bm:glssymb}
+    \printglossary[type=symbols,style=symbol]
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Content
+    \cleardoublepage{}
+    \newcounter{romansave}
+    \setcounter{romansave}{\value{page}}
+    \pagenumbering{arabic}
+
+    \include{src/chap-test}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Appendix
+    %\appendix
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Bibliography, Publications
+    \printbibliography{}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Index
+    \printindex{}
+
+\end{document}
+
