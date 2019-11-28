@@ -8,11 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    Button btnOn, btnOff;
     BluetoothCommunicator btComm;
 
     @Override
@@ -21,25 +21,27 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        btnOn  = findViewById(R.id.button);
-        btnOff = findViewById(R.id.button2);
+        final Switch drillL  = findViewById(R.id.swDrillL);
+        final Switch drillR = findViewById(R.id.swDrillR);
 
         btComm = new BluetoothCommunicator();
         checkBTState();
 
-        btnOn.setOnClickListener(new OnClickListener() {
+        drillL.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                for (BluetoothClient client : btComm.getClients()) {
-                    client.sendData("R");
-                }
+                if (drillL.isChecked())
+                    btComm.setDrillFree(2);
+                else
+                    btComm.setDrillBusy(2);
             }
         });
 
-        btnOff.setOnClickListener(new OnClickListener() {
+        drillR.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                for (BluetoothClient client : btComm.getClients()) {
-                    client.sendData("L");
-                }
+                if (drillR.isChecked())
+                    btComm.setDrillFree(1);
+                else
+                    btComm.setDrillBusy(1);
             }
         });
     }
