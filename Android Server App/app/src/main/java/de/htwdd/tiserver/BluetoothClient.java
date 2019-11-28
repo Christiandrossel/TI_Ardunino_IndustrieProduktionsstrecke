@@ -1,10 +1,8 @@
 package de.htwdd.tiserver;
 
-import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,13 +15,42 @@ public class BluetoothClient {
     private OutputStream _outStream;
     private InputStream _inStream;
     private Thread _readingThread;
-    private ClientType _type;
+    private IMachineCommunicator _machineCom;
 
-    public BluetoothClient(BluetoothDevice device) {
-        _btDevice = device;
+    private class AsyncRead implements Runnable {
+        InputStream _stream;
+
+        AsyncRead(InputStream stream) {
+            _stream = stream;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    byte[] buffer = new  byte[256];
+                    int bytes;
+                    bytes = _stream.read(buffer);
+                    String input = new String(buffer);
+                    if(!(input.equals("") || input.equals("\r\n"))) {
+
+                        Log.d("BluetoothClient", new String(buffer, 0, bytes) + "---------------------------------");
+
+                        sendData(_machineCom.getFreeDrill() + "");
+                    }
+                } catch (IOException e) {
+                    return;
+                }
+            }
+        }
     }
 
-    public boolean connect() {
+    BluetoothClient(BluetoothDevice device, IMachineCommunicator btCom) {
+        _btDevice = device;
+        _machineCom = btCom;
+    }
+
+    boolean connect() {
         try {
             UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
             _btSocket = _btDevice.createRfcommSocketToServiceRecord(uuid);
@@ -40,7 +67,7 @@ public class BluetoothClient {
         return true;
     }
 
-    public void disconnect() {
+    void disconnect() {
         try {
             _readingThread.interrupt();
             _outStream.flush();
@@ -51,7 +78,7 @@ public class BluetoothClient {
         }
     }
 
-    public void sendData(String message) {
+    void sendData(String message) {
         byte[] msgBuffer = message.getBytes();
 
         Log.i("BluetoothClient", "==> Send data: " + message);
@@ -64,25 +91,4 @@ public class BluetoothClient {
     }
 }
 
-class AsyncRead implements Runnable {
-    InputStream _stream;
 
-    AsyncRead(InputStream stream) {
-        _stream = stream;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                byte[] buffer = new  byte[256];
-                int bytes;
-                bytes = _stream.read(buffer);
-                // ToDo: make buffer readable
-                Log.d("BluetoothClient", buffer.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
