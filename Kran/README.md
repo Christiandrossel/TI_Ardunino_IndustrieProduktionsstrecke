@@ -1,4 +1,4 @@
 ## Kran
 
 (Bisheriger Aufbau)
-![Bild](Kran Sketch_Steckplatine.jpeg)
+![Aufbau Kran](Kran_Sketch_Steckplatine.jpg)
