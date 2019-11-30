@@ -1,4 +1,4 @@
-#Client Anwendung
+# Client Anwendung
 
 Mit diesen Client wird eine Rote LED ein und ausgeschaltet.
 
@@ -9,7 +9,7 @@ Außerdem muss ein 10-kOhm Widerstand hinter der LED platziert werden.
 
 ![Aufbau](hc-05-serial_Steckplatine.jpg)
 
-##Verwendung
+## Verwendung
 
 Um den Client vorerst zu testen gibt es im Google Play Store 
 [diese App](https://play.google.com/store/apps/details?id=com.circuitmagic.arduinobluetooth)
