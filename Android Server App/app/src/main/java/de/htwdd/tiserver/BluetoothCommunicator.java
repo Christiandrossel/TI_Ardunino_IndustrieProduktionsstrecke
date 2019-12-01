@@ -22,10 +22,16 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         _clients = new ArrayList<>();
     }
 
+    /**
+     * @return returns true, if the Device has Bluetooth and Bluetooth is enabled
+     */
     boolean isReady() {
         return (btAdapter!=null && btAdapter.isEnabled());
     }
 
+    /**
+     * (Re)connect the device to all possible BluetoothClients
+     */
     void connect() {
         if (btAdapter == null)
             return;
@@ -39,12 +45,18 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         }
     }
 
+    /**
+     * Disconnect the device from all BluetoothClients
+     */
     void disconnect() {
         for (BluetoothClient client : _clients) {
             client.disconnect();
         }
     }
 
+    /**
+     * @return returns a List with all connected BluetoothClients
+     */
     List<BluetoothClient> getClients() {
         return _clients;
     }
@@ -79,8 +91,8 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         _clients.clear();
 
         // Connect to all Rodoter
-        for (int i = 0; i < XBEE_MAC_ADRESSES.length; i++) {
-            BluetoothDevice device = btAdapter.getRemoteDevice(XBEE_MAC_ADRESSES[i]);
+        for (String xbeeMacAdress : XBEE_MAC_ADRESSES) {
+            BluetoothDevice device = btAdapter.getRemoteDevice(xbeeMacAdress);
             BluetoothClient client = new BluetoothClient(device, this);
             if (client.connect())
                 _clients.add(client);
