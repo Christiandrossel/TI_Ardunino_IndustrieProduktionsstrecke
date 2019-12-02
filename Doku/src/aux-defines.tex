@@ -52,10 +52,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%m
 % TOC entries
+
+% show e.g. title page only in sidebar of pdf
 \newcommand{\pseudoentry}[1]{%
     \phantomsection{}
     \pdfbookmark[1]{#1}{bm:#1}
 }
+
+% chapter style headline, no TOC entry but pdf sidebar entry
 \newcommand{\pseudochapter}[1]{%
     \chapter*{#1}
     \phantomsection{}
