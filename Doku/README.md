@@ -33,10 +33,24 @@ Für den letzten Schritt (Feld unterhalb von `User :` füllen) kann auch der Ass
 
 ### Übersetzung
 
-Ausgangspunkt der Übersetzung bildet immer das Hauptdokument projektdokumentation.tex. Alle anderen TeX-Dateien werden von hier aus referenziert.
+Ausgangspunkt der Übersetzung bildet immer das Hauptdokument **projektdokumentation.tex**. Alle anderen TeX-Dateien werden von hier aus referenziert.
 Es wird davon ausgegangen, dass zur Konvertierung in ein PDF-Dokument PDFLaTeX eingesetzt wird.
 Für eine vollständige Übersetzung ist folgender Ablauf empfohlen:
 `PDFLaTeX -> Biber -> Makeindex -> glossaries -> PDFLaTeX -> PDFLaTeX`
+
+### Überblick Dateien
+
+Die Struktur des Dokuments wird in der Datei **projektdokumentation.tex** festgelegt. Dort werden auch allgemeine Einstellungen vorgenommen.
+Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
+
+- **aux-defines.tex**: Definition von Variablen, If-Statments und eigenen Befehlen
+- **front-titlepage.tex**: Titelseite des Dokuments
+- **aux-acronymes.tex**: Abkürzungsverzeichnis, Auflistung aller verwendeten Abkürzungen
+- **aux-gls-settings.tex**: spezielle Einstellungen für Symbole-Glossar
+- **aux-symbols-tex**: Inhalt des Glossars Symbole, Auflistung aller Glossareinträge
+- **front-kurzfassung.tex**: inhaltliche Kurzfassung/Zusammenfassung am Anfang des Dokuments
+- **chap-test.tex**: Beispielkapitel mit kurzen Verwendungsbeispielen
+- **bib/bibliography.bib**: Auflistung aller Literaturverzeichniseinträge
 
 ### LaTeX Referenzen
 
