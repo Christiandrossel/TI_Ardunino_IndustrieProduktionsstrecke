@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
+import de.htwdd.tiserver.bluetooth.BluetoothCommunicator;
 
 public class MainActivity extends Activity {
 
@@ -21,27 +22,21 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        final Switch drillL  = findViewById(R.id.swDrillL);
-        final Switch drillR = findViewById(R.id.swDrillR);
+        final Button drillL  = findViewById(R.id.btnDrillL);
+        final Button drillR = findViewById(R.id.btnDrillR);
 
         btComm = new BluetoothCommunicator();
         checkBTState();
 
         drillL.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (drillL.isChecked())
                     btComm.setDrillFree(2);
-                else
-                    btComm.setDrillBusy(2);
             }
         });
 
         drillR.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (drillR.isChecked())
                     btComm.setDrillFree(1);
-                else
-                    btComm.setDrillBusy(1);
             }
         });
     }

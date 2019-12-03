@@ -1,23 +1,23 @@
-package de.htwdd.tiserver;
+package de.htwdd.tiserver.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import de.htwdd.tiserver.IMachineCommunicator;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class BluetoothCommunicator implements IMachineCommunicator {
 
-    private static final String TAG = "BtCommunicator";
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private static final String[] XBEE_MAC_ADRESSES = {"98:D3:41:FD:54:C3"};
+    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7"};
+    private static final String[] DRILL_MAC_ADRESSES = { "", ""};
 
     private BluetoothAdapter btAdapter;
     private List<BluetoothClient> _clients;
 
-    private boolean[] drillArray = { false, false, false, false } ;
+    private Drill[] drills = new Drill[3];
 
-    BluetoothCommunicator() {
+    public BluetoothCommunicator() {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         _clients = new ArrayList<>();
     }
@@ -25,18 +25,18 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     /**
      * @return returns true, if the Device has Bluetooth and Bluetooth is enabled
      */
-    boolean isReady() {
+    public boolean isReady() {
         return (btAdapter!=null && btAdapter.isEnabled());
     }
 
     /**
      * (Re)connect the device to all possible BluetoothClients
      */
-    void connect() {
+    public void connect() {
         if (btAdapter == null)
             return;
 
-        if(_clients.size() != XBEE_MAC_ADRESSES.length) {
+        if(_clients.size() != RODOTER_MAC_ADRESSES.length) {
             _connectToAllDevices();
         } else {
             for (BluetoothClient client : _clients) {
@@ -48,7 +48,7 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     /**
      * Disconnect the device from all BluetoothClients
      */
-    void disconnect() {
+    public void disconnect() {
         for (BluetoothClient client : _clients) {
             client.disconnect();
         }
@@ -65,22 +65,27 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     // IMachineCommunicator Implementation
 
     @Override
-    public void setDrillBusy(int drill) {
-        drillArray[drill] = false;
+    public void setDrillBusy(int drillId, Rodoter client) {
+        drills[drillId].setBusy(client);
     }
 
     @Override
-    public void setDrillFree(int drill) {
-        drillArray[drill] = true;
+    public void setDrillFree(int drillId) {
+        for (Drill drill : drills) {
+            if(drill.getId() == drillId) {
+                drill.setFree();
+                return;
+            }
+        }
     }
 
     @Override
-    public int getFreeDrill() {
-        for (int i = 0; i<drillArray.length; i++) {
-            if (drillArray[i])
+    public int getFreeDrillId() {
+        for (int i = 1; i<drills.length; i++) {
+            if (drills[i].isFree())
                 return i;
         }
-        return 3;
+        return 0;
     }
 
     //////////////////////////////////////////
@@ -91,11 +96,17 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         _clients.clear();
 
         // Connect to all Rodoter
-        for (String xbeeMacAdress : XBEE_MAC_ADRESSES) {
+        for (String xbeeMacAdress : RODOTER_MAC_ADRESSES) {
             BluetoothDevice device = btAdapter.getRemoteDevice(xbeeMacAdress);
-            BluetoothClient client = new BluetoothClient(device, this);
+            BluetoothClient client = new Rodoter(device, this);
             if (client.connect())
                 _clients.add(client);
+        }
+        for (int i = 1; i < 3; i++) {
+//            BluetoothDevice device = btAdapter.getRemoteDevice(DRILL_MAC_ADRESSES[i]);
+            drills[i] = new Drill(null, this, i);
+//            if (client.connect())
+//                _clients.add(client);
         }
         btAdapter.cancelDiscovery();
     }
