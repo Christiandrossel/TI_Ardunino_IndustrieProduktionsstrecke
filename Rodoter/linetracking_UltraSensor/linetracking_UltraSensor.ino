@@ -38,23 +38,19 @@ void setup(){
   pinMode(SensorRight, INPUT); // define right sensor
   pinMode(trigPin, OUTPUT); 
   pinMode(echoPin, INPUT);
-
 }
 
-void loop()
-{
+void loop(){
+  
   server=Serial.read();
-
   SL = digitalRead(SensorLeft);
   SM = digitalRead(SensorMiddle);
-  SR = digitalRead(SensorRight);
-  
+  SR = digitalRead(SensorRight); 
   digitalWrite(trigPin, LOW); 
   delayMicroseconds(2); 
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10); 
   digitalWrite(trigPin, LOW);
-  
   duration = pulseIn(echoPin, HIGH);
   distance = duration/58.2;
   
@@ -68,57 +64,60 @@ void loop()
   }
   switch(RodoterState){
     case GO_TO_CRANE:
-      if(breakpoint_recognized())
-        Serial.print('r');
       if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
         digitalWrite(MotorLeft2,HIGH);
         digitalWrite(MotorRight1,LOW);
         digitalWrite(MotorRight2,HIGH);
-        delay(1000);
+        Serial.print('r');
         RodoterState = GO_TO_CROSSROAD;
+        delay(1000);
       }
       break;
     case GO_TO_CROSSROAD:
+    // schicke r in case
+    // lösche r in breakpoint_recognized()
       if(breakpoint_recognized())
         Serial.print('d');
       switch(server){
         case '0':
-        digitalWrite(MotorLeft1,LOW);
-        digitalWrite(MotorLeft2,LOW);
-        digitalWrite(MotorRight1,LOW);
-        digitalWrite(MotorRight2,LOW);
-        RodoterState = GO_TO_DRILL;
-        delay(1000);
-        break;
+          digitalWrite(MotorLeft1,LOW);
+          digitalWrite(MotorLeft2,LOW);
+          digitalWrite(MotorRight1,LOW);
+          digitalWrite(MotorRight2,LOW);
+          Serial.print('r');
+          RodoterState = GO_TO_DRILL;
+          delay(1000);
+          break;
         case '1':
-        digitalWrite(MotorLeft1,LOW); 
-        digitalWrite(MotorLeft2,HIGH);
-        digitalWrite(MotorRight1,LOW);
-        digitalWrite(MotorRight2,LOW);
-        RodoterState = GO_TO_DRILL;
-        delay(1000);
-        break;
+          digitalWrite(MotorLeft1,LOW); 
+          digitalWrite(MotorLeft2,HIGH);
+          digitalWrite(MotorRight1,LOW);
+          digitalWrite(MotorRight2,LOW);
+          Serial.print('r');
+          RodoterState = GO_TO_DRILL;
+          delay(1000);
+          break;
         case '2':
-        digitalWrite(MotorLeft1,LOW);
-        digitalWrite(MotorLeft2,LOW);
-        digitalWrite(MotorRight1,LOW);
-        digitalWrite(MotorRight2,HIGH);
-        RodoterState = GO_TO_DRILL;
-        delay(1000);
-        break;
+          digitalWrite(MotorLeft1,LOW);
+          digitalWrite(MotorLeft2,LOW);
+          digitalWrite(MotorRight1,LOW);
+          digitalWrite(MotorRight2,HIGH);
+          Serial.print('r');
+          RodoterState = GO_TO_DRILL;
+          delay(1000);
+          break;
       }
       break; 
-    case GO_TO_DRILL:
-      if(breakpoint_recognized())
-        Serial.print('r');
+    case GO_TO_DRILL:       
       if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
         digitalWrite(MotorLeft2,HIGH);
         digitalWrite(MotorRight1,LOW);
         digitalWrite(MotorRight2,HIGH);
-        delay(1000);
+        Serial.print('r');
         RodoterState = GO_TO_CRANE;
+        delay(1000); 
       }
       break;
     }
