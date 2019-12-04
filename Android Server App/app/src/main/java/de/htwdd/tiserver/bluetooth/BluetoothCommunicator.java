@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BluetoothCommunicator implements IMachineCommunicator {
 
-    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7"};
+    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7", "98:D3:71:FD:4A:E2"};
     private static final String[] DRILL_MAC_ADRESSES = { "", ""};
 
     private BluetoothAdapter btAdapter;

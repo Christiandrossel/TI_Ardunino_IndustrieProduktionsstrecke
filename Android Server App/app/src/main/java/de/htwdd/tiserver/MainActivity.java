@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.Toast;
 import de.htwdd.tiserver.bluetooth.BluetoothCommunicator;
 
@@ -24,9 +23,16 @@ public class MainActivity extends Activity {
 
         final Button drillL  = findViewById(R.id.btnDrillL);
         final Button drillR = findViewById(R.id.btnDrillR);
+        final Button reconnect = findViewById(R.id.btnReconnect);
 
         btComm = new BluetoothCommunicator();
         checkBTState();
+        reconnect.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btComm.connect();
+            }
+        });
 
         drillL.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
