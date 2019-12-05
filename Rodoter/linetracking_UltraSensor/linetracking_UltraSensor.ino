@@ -53,9 +53,11 @@ void loop(){
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   distance = duration/58.2;
-  
-  if(distance > 4)
+  Serial.print("distance: ");
+  Serial.println(distance);
+  if(distance > 5){
     follow_line();
+  }
   else{
     digitalWrite(MotorLeft1,LOW);
     digitalWrite(MotorLeft2,LOW);
