@@ -1,4 +1,4 @@
-package de.htwdd.tiserver;
+package de.htwdd.tiserver.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -9,54 +9,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-class BluetoothClient {
+abstract class BluetoothClient {
     private BluetoothSocket _btSocket;
     private BluetoothDevice _btDevice;
     private OutputStream _outStream;
     private InputStream _inStream;
     private Thread _readingThread;
-    private IMachineCommunicator _machineCom;
-
-    private class AsyncRead implements Runnable {
-        InputStream _stream;
-
-        /**
-         * AsyncRead Runnable, which is the Background-Task for a BluetoothClient that handles the receiving of messages
-         * @param stream takes the Input-Stream, where new Messages are coming from (The Serial-Bluetooth InputStream)
-         */
-        AsyncRead(InputStream stream) {
-            _stream = stream;
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    byte[] buffer = new  byte[256];
-                    int bytes;
-                    bytes = _stream.read(buffer);
-                    String input = new String(buffer, 0, bytes);
-                    if(!(input.equals("") || input.equals("\r\n"))) {
-
-                        Log.i("BluetoothClient", "<== Recv data: " + input);
-
-                        sendData(_machineCom.getFreeDrill() + "");
-                    }
-                } catch (IOException e) {
-                    return;
-                }
-            }
-        }
-    }
 
     /**
      * Creates a new BluetoothClient which can communicate with the device
      * @param device the Bluetooth Device, created by the BluetoothCommunicator
-     * @param machineCommunicator the MachineCommunicator for inter-machine-communication
      */
-    BluetoothClient(BluetoothDevice device, IMachineCommunicator machineCommunicator) {
+    BluetoothClient(BluetoothDevice device) {
         _btDevice = device;
-        _machineCom = machineCommunicator;
     }
 
     /**
@@ -71,7 +36,24 @@ class BluetoothClient {
 
             _outStream = _btSocket.getOutputStream();
             _inStream = _btSocket.getInputStream();
-            _readingThread = new Thread(new AsyncRead(_inStream));
+            _readingThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        byte[] buffer = new  byte[256];
+                        int bytes;
+                        bytes = _inStream.read(buffer);
+                        String input = new String(buffer, 0, bytes);
+                        if(!(input.equals("") || input.equals("\r\n"))) {
+                            Log.i("BluetoothClient", "<== Recv data: " + input);
+
+                            receivingThread(input);
+                        }
+                    } catch (IOException e) {
+                        return;
+                    }
+                }
+            });
             _readingThread.start();
 
         } catch (IOException e) {
@@ -109,6 +91,14 @@ class BluetoothClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * AsyncRead Runnable, which is the Background-Task for a BluetoothClient that handles the receiving of messages
+     * Overwrite in Extended methods
+     * @param input the Input that was received from the BluetoothClient
+     */
+    void receivingThread(String input) {
     }
 }
 
