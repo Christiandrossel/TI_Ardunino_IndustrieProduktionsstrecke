@@ -6,10 +6,13 @@ const int greenLED = 2;     //an den Digital PMW Nummer 2
 int angle =0;               //der Winkelwert für den ServoMotor
 int sensorValue, oldValue, threshold; //treshhold = Schwellenwert
 
+char blueToothVal; //Werte sollen per Bluetooth gesendet werden
+char lastValue;   //speichert den letzten Status der LED (on/off) 
 
-void ckeckSensor();
+void checkSensor();
 void _calcThreshold();
 boolean checkChange(int val, int diff);
+int bluethoothClient();
 
 void setup() {
   
@@ -35,14 +38,14 @@ void loop() {
   Serial.print("\n");
 
   checkSensor();                            //Überprüft Sonsor veränderungen
-  
+  bluethoothClient();
   delay(50);
 
   
 }
 
 /*Überprüft anhand des sensorValue und treshhold ob Roboter davor steht oder nicht*/
-void ckeckSensor(){
+void checkSensor(){
   /*Sensor erkennt Roboter*/
   if(sensorValue < threshold && checkChange(sensorValue, 10)){
     angle=90;
@@ -91,4 +94,38 @@ boolean checkChange(int val, int diff){
   }
   return false;
 }
+
+/*Client Modul*/
+int bluethoothClient(){
+  if(Serial.available()) //wenn Daten empfangen werden...      
+{
+    blueToothVal=Serial.read();//..sollen diese ausgelesen werden
+  }
+  if (blueToothVal=='1') //wenn das Bluetooth Modul eine „1“ empfängt..
+  {
+    /**
+     * TODO
+     */
+    
+    digitalWrite(greenLED,HIGH);   //...soll die LED leuchten
+    if (lastValue!='1') //wenn der letzte empfangene Wert keine „1“ war...
+      Serial.println(F("LED is on")); //..soll auf dem Seriellen Monitor „LED is on“ angezeigt werden
+    lastValue=blueToothVal;
+    return 1;
+  }
+  else if (blueToothVal=='0') //wenn das Bluetooth Modul „0“ empfängt...
+  {
+    /**           
+     *  TODO
+     */
+    digitalWrite(greenLED,LOW);  //..soll die LED nicht leuchten
+    if (lastValue!='0')  //wenn der letzte empfangene Wert keine „0“ war...
+      Serial.println(F("LED is off")); //..soll auf dem seriellen Monitor „LED is off“ angezeigt werden 
+    lastValue=blueToothVal;
+    return 0;
+  }
+  return -1;
+}
+
+
 	
