@@ -9,8 +9,8 @@ import java.util.List;
 
 public class BluetoothCommunicator implements IMachineCommunicator {
 
-    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7", "98:D3:71:FD:4A:E2"};
-    private static final String[] DRILL_MAC_ADRESSES = { "", ""};
+    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7", "98:D3:71:FD:4A:E2", "98:D3:41:FD:50:E7", "98:D3:61:FD:6F:CA"}; // Norman, Anja, Manuel, Anja, Dominic
+    private static final String[] DRILL_MAC_ADRESSES = { "98:D3:32:F5:B6:4F", "98:D3:32:F5:B7:AD"}; // Anja, Dominic
 
     private BluetoothAdapter btAdapter;
     private List<BluetoothClient> _clients;
@@ -72,7 +72,7 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     @Override
     public void setDrillFree(int drillId) {
         for (Drill drill : drills) {
-            if(drill.getId() == drillId) {
+            if(drill != null && drill.getId() == drillId) {
                 drill.setFree();
                 return;
             }
@@ -82,7 +82,7 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     @Override
     public int getFreeDrillId() {
         for (int i = 1; i<drills.length; i++) {
-            if (drills[i].isFree())
+            if (drills[i] != null && drills[i].isFree())
                 return i;
         }
         return 0;
@@ -95,19 +95,32 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         disconnect();
         _clients.clear();
 
-        // Connect to all Rodoter
-        for (String xbeeMacAdress : RODOTER_MAC_ADRESSES) {
-            BluetoothDevice device = btAdapter.getRemoteDevice(xbeeMacAdress);
-            BluetoothClient client = new Rodoter(device, this);
-            if (client.connect())
-                _clients.add(client);
+        Thread connectingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Connect to all Rodoter
+                for (String xbeeMacAdress : RODOTER_MAC_ADRESSES) {
+                    BluetoothDevice device = btAdapter.getRemoteDevice(xbeeMacAdress);
+                    BluetoothClient client = new Rodoter(device, BluetoothCommunicator.this);
+                    if (client.connect())
+                        _clients.add(client);
+                }
+                for (int i = 1; i < 3; i++) {
+                    BluetoothDevice device = btAdapter.getRemoteDevice(DRILL_MAC_ADRESSES[i-1]);
+                    drills[i] = new Drill(device, BluetoothCommunicator.this, i);
+                    if (drills[i].connect())
+                        _clients.add(drills[i]);
+                }
+                btAdapter.cancelDiscovery();
+            }
+        });
+        connectingThread.start();
+    }
+
+    public void debugR() {
+        for (BluetoothClient client : _clients) {
+            client.sendData("r");
+
         }
-        for (int i = 1; i < 3; i++) {
-//            BluetoothDevice device = btAdapter.getRemoteDevice(DRILL_MAC_ADRESSES[i]);
-            drills[i] = new Drill(null, this, i);
-//            if (client.connect())
-//                _clients.add(client);
-        }
-        btAdapter.cancelDiscovery();
     }
 }
