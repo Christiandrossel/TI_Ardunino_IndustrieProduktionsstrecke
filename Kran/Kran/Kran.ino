@@ -6,10 +6,16 @@ const int greenLED = 2;     //an den Digital PMW Nummer 2
 int angle =0;               //der Winkelwert für den ServoMotor
 int sensorValue, oldValue, threshold; //treshhold = Schwellenwert
 
+char blueToothVal; //Werte die per Bluetooth empfangen werden
+char lastValue;   //speichert den letzten Status (on/off)
+char sendBluetoothVal; 
 
-void ckeckSensor();
+void checkSensor();
 void _calcThreshold();
 boolean checkChange(int val, int diff);
+int bluethoothClient();
+boolean openGate();
+boolean closeGate();
 
 void setup() {
   
@@ -35,29 +41,30 @@ void loop() {
   Serial.print("\n");
 
   checkSensor();                            //Überprüft Sonsor veränderungen
-  
+  bluethoothClient();
   delay(50);
 
   
 }
 
 /*Überprüft anhand des sensorValue und treshhold ob Roboter davor steht oder nicht*/
-void ckeckSensor(){
-  /*Sensor erkennt Roboter*/
+void checkSensor(){
+  /*Sensor erkennt Roboter (Kran besetzt)*/
   if(sensorValue < threshold && checkChange(sensorValue, 10)){
-    angle=90;
     digitalWrite(greenLED, LOW);
     digitalWrite(redLED, HIGH);
-    myServo.write(angle);
-    delay(5000);
+    Serial.print('1');						//Sende an Server eine 1 für Status besetzt
+	delay(5000);    //Kran wird beladen
+    openGate();   //öffne Schranke
+    delay(5000);            //halte sie offen damit Rodoter Zeit hat um weiter zu fahren
   }
-  /*Wenn kein Roboter vor Sensor ist*/
+  /*Wenn kein Roboter vor Sensor ist (Kran ist frei)*/
   else{
     if(checkChange(sensorValue, 10)){
-      angle=0;
       digitalWrite(redLED, LOW);
       digitalWrite(greenLED, HIGH);
-      myServo.write(angle);
+	  Serial.print('0');				//Sende an Server eine 0 für nicht besetzt
+      closeGate(); //Schließe Schranke
     }
   }
 }
@@ -91,4 +98,47 @@ boolean checkChange(int val, int diff){
   }
   return false;
 }
+
+/*Client Modul das Daten Empfängt und darauf reagiert*/
+int bluethoothClient(){
+  if(Serial.available()) //wenn Daten empfangen werden...      
+{
+    blueToothVal=Serial.read();//..sollen diese ausgelesen werden
+  }
+  if (blueToothVal=='1') //öffne Schranke
+  {
+    openGate();                   //öffne Schranke
+    delay(5000);
+    digitalWrite(greenLED,HIGH);   // Grüne LED soll leuchten
+    digitalWrite(redLED, LOW);
+    
+    if (lastValue!='1') //wenn der letzte empfangene Wert keine „1“ war...
+      //Serial.println(F("LED is on")); //..soll auf dem Seriellen Monitor „LED is on“ angezeigt werden
+    lastValue=blueToothVal;
+    return 1;
+  }
+  else if (blueToothVal=='0') //wenn das Bluetooth Modul „0“ empfängt...
+  {
+    digitalWrite(greenLED,LOW);  //..soll die LED nicht leuchten
+    digitalWrite(redLED, HIGH);  // rote LED soll leuchten
+    closeGate();
+    
+    if (lastValue!='0')  //wenn der letzte empfangene Wert keine „0“ war...
+      Serial.println(F("LED is off")); //..soll auf dem seriellen Monitor „LED is off“ angezeigt werden 
+    lastValue=blueToothVal;
+    return 0;
+  }
+  return -1;
+}
+
+boolean openGate(){
+  angle=91;
+  myServo.write(angle);
+}
+
+boolean closeGate(){
+  angle=0;
+  myServo.write(angle);
+}
+
 	
