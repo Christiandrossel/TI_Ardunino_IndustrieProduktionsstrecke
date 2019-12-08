@@ -2,14 +2,15 @@
 //b = busy / beschäftigt
 //f = free / frei
 
-
-char state = f; //initial state is free
-char message; //string that stores the incoming message
-
+char state = 'f'; //initial state is free
+char message = 'f'; //string that stores the incoming message
 
 void setup()
 {
   Serial.begin(9600); //set baud rate
+
+
+
 }
 
 void loop()
@@ -23,19 +24,16 @@ void loop()
     if(message='f')
     {//if state should be free
       Serial.print(message); //show the data
-      message=''; //clear the data
       state = 'f'; //set state = free
     }
-     else-if(message='b')
+     else if(message='b')
     {//if state should be busy
       Serial.print(message); //show the data
-      message=''; //clear the data
       state = 'b'; //set state busy
     }
-     else-if (message!='f'&&message!='b')
+     else if (message!='f'&&message!='b')
     {//something else...
       Serial.print(message); //show the data
-      message=''; //clear the data
     }
     if (state = 'b'){
       //do something.... (Sound, LED-Color...)
