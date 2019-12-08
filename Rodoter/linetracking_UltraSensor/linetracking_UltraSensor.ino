@@ -71,12 +71,12 @@ void loop(){
   }
   switch(RodoterState){
     case GO_TO_CRANE:
-      if(server=='R'){
+      if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
         digitalWrite(MotorLeft2,HIGH);
         digitalWrite(MotorRight1,LOW);
         digitalWrite(MotorRight2,HIGH);
-        Serial.print('R');
+        Serial.print('r');
         RodoterState = GO_TO_CROSSROAD;
         delay(1000);
       }
@@ -92,7 +92,7 @@ void loop(){
           digitalWrite(MotorLeft2,LOW);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,LOW);
-          Serial.print('R');
+          Serial.print('r');
           //RodoterState = GO_TO_DRILL;
           delay(1000);
           break;
@@ -101,7 +101,7 @@ void loop(){
           digitalWrite(MotorLeft2,HIGH);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,LOW);
-          Serial.print('R');
+          Serial.print('r');
           RodoterState = GO_TO_DRILL;
           delay(1000);
           break;
@@ -110,19 +110,19 @@ void loop(){
           digitalWrite(MotorLeft2,LOW);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,HIGH);
-          Serial.print('R');
+          Serial.print('r');
           RodoterState = GO_TO_DRILL;
           delay(1000);
           break;
       }
       break; 
     case GO_TO_DRILL:       
-      if(server=='R'){
+      if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
         digitalWrite(MotorLeft2,HIGH);
         digitalWrite(MotorRight1,LOW);
         digitalWrite(MotorRight2,HIGH);
-        Serial.print('R');
+        Serial.print('r');
         RodoterState = GO_TO_CRANE;
         delay(1000); 
       }
