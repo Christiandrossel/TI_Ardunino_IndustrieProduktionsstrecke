@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
         final Button drillL  = findViewById(R.id.btnDrillL);
         final Button drillR = findViewById(R.id.btnDrillR);
         final Button reconnect = findViewById(R.id.btnReconnect);
+        final Button ready = findViewById(R.id.btnAllReady);
 
         btComm = new BluetoothCommunicator();
         checkBTState();
@@ -31,6 +32,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 btComm.connect();
+            }
+        });
+        ready.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btComm.debugR();
             }
         });
 

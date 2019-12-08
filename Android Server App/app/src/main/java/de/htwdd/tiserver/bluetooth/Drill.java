@@ -3,7 +3,7 @@ package de.htwdd.tiserver.bluetooth;
 import android.bluetooth.BluetoothDevice;
 import de.htwdd.tiserver.IMachineCommunicator;
 
-public class Drill { // extends BluetoothClient {
+public class Drill extends BluetoothClient {
     private Rodoter _currentRodoter;
     private IMachineCommunicator _machineCom;
     private final int _drillId;
@@ -15,7 +15,7 @@ public class Drill { // extends BluetoothClient {
      * @param machineCommunicator the MachineCommunicator for inter-machine-communication
      */
     Drill(BluetoothDevice device, IMachineCommunicator machineCommunicator, int drillId) {
-//        super(device);
+        super(device);
         _machineCom = machineCommunicator;
         _drillId = drillId;
     }
@@ -34,12 +34,14 @@ public class Drill { // extends BluetoothClient {
 
     public void setBusy(Rodoter rodoter) {
         _currentRodoter = rodoter;
-        // this.sendData("b");
+         this.sendData("b");
     }
 
     public void setFree() {
-        _currentRodoter.sendData("r");
-        _currentRodoter = null;
+        if (_currentRodoter != null) {
+            _currentRodoter.sendData("r");
+            _currentRodoter = null;
+        }
     }
 
     public int getId() {
