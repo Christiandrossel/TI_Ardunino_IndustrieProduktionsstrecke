@@ -47,9 +47,14 @@ Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
 - **front-titlepage.tex**: Titelseite des Dokuments
 - **aux-acronymes.tex**: Abkürzungsverzeichnis, Auflistung aller verwendeten Abkürzungen
 - **aux-gls-settings.tex**: spezielle Einstellungen für Symbole-Glossar
-- **aux-symbols-tex**: Inhalt des Glossars Symbole, Auflistung aller Glossareinträge
+- **aux-symbols.tex**: Inhalt des Glossars Symbole, Auflistung aller Glossareinträge
 - **front-kurzfassung.tex**: inhaltliche Kurzfassung/Zusammenfassung am Anfang des Dokuments
 - **chap-test.tex**: Beispielkapitel mit kurzen Verwendungsbeispielen
+- **chap-einleitung.tex**: Einleitung und Zielstellung
+- **chap-theorie.tex**: Theorieteil (Verwandte Arbeiten)
+- **chap-konzept.tex**: Projektvorbereitung und Konzept
+- **chap-umsetzung.tex**: Umsetzung und Ergebnisdarstellung
+- **chap-bewertung.tex**: Projektbewertung und Diskussion mit Ausblick  
 - **bib/bibliography.bib**: Auflistung aller Literaturverzeichniseinträge
 
 ### LaTeX Referenzen
