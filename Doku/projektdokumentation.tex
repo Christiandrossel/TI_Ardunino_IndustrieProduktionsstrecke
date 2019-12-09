@@ -6,7 +6,8 @@
     plainfootsepline=true,
     parskip=half,
     bibliography=totoc,
-    BCOR=15mm,DIV=16
+    BCOR=15mm,DIV=16,
+    numbers=noendperiod
     ]{scrbook}
 
 % font/encoding
@@ -57,7 +58,7 @@
 \usepackage{makeidx}
 
 % appendix
-\usepackage[page,header]{appendix}
+\usepackage{appendix}
 
 % hyperrefs
 \usepackage{hyperref}
@@ -177,7 +178,12 @@
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Appendix
-    %\appendix
+   	\appendix
+    \cleardoublepage{}
+    \addappheadtotoc
+    \appendixpage
+
+    \include{src/apdx-test}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Bibliography, Publications
