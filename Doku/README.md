@@ -62,3 +62,9 @@ Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
 - Nachschlagewerk: <https://en.wikibooks.org/wiki/LaTeX>
 - Dokumentation von Paketen: <https://www.ctan.org/pkg/>
 - Frageforum: <https://tex.stackexchange.com/>
+
+### Zitation
+
+Die Zitation erfolgt nach dem APA-Stil. Dazu wird das Paket [biblatex-apa](https://www.ctan.org/pkg/biblatex-apa "biblatex-apa im ctan") für die 7. Auflage verwendet. Zum Paket existiert auch ein [Repository](https://github.com/plk/biblatex-apa "biblatex-apa auf github"). Die Paketdokumentation enthält einige Hinweise zur Zitation und verweist auf weitere hilfreiche Dokumente, welche mindestens über das Repository verfügbar sind. Die Dokumentation von [biblatex](https://www.ctan.org/pkg/biblatex "biblatex im ctan") kann ebenfalls nützlich sein. Einige Erklärungen zu den Regeln des Stils können der [offiziellen Seite](https://apastyle.apa.org/ "apa-style") und dem zugehörigen Blog entnommen werden.
+
+Oft ist es bei Suchportalen möglich, sich den Zitationseintrag für BibTeX herunterzuladen bzw. anzeigen zu lassen. Dieser sollte trotzdem nicht blind in die Bibliographieauflistung übernommen werden, sondern kurz überprüft und ggf. angepasst werden.
