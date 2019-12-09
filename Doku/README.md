@@ -54,7 +54,8 @@ Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
 - **chap-theorie.tex**: Theorieteil (Verwandte Arbeiten)
 - **chap-konzept.tex**: Projektvorbereitung und Konzept
 - **chap-umsetzung.tex**: Umsetzung und Ergebnisdarstellung
-- **chap-bewertung.tex**: Projektbewertung und Diskussion mit Ausblick  
+- **chap-bewertung.tex**: Projektbewertung und Diskussion mit Ausblick
+- **apdx-test.tex**: Beispielanhang
 - **bib/bibliography.bib**: Auflistung aller Literaturverzeichniseinträge
 
 ### LaTeX Referenzen
