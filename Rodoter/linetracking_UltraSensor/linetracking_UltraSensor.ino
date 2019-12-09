@@ -103,7 +103,7 @@ void loop(){
           digitalWrite(MotorRight2,LOW);
           Serial.print('r');
           RodoterState = GO_TO_DRILL;
-          delay(1000);
+          delay(2000);
           break;
         case '2':
           digitalWrite(MotorLeft1,LOW);
@@ -112,7 +112,7 @@ void loop(){
           digitalWrite(MotorRight2,HIGH);
           Serial.print('r');
           RodoterState = GO_TO_DRILL;
-          delay(1000);
+          delay(2000);
           break;
       }
       break; 
