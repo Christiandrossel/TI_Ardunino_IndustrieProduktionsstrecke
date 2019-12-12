@@ -1,0 +1,5 @@
+# vim temp files
+.*.sw?
+
+# archive file
+*.gz
