@@ -6,18 +6,17 @@ import de.htwdd.tiserver.IMachineCommunicator;
 public class Drill extends BluetoothClient {
     private Rodoter _currentRodoter;
     private IMachineCommunicator _machineCom;
-    private final int _drillId;
 
     /**
      * Creates a new Rodoter class which can communicate with the device
      *
-     * @param device              the Bluetooth Device, created by the BluetoothCommunicator
+     * @param macAddress the Mac for the Client
+     * @param name the Name of the Client which is returned with getName()
      * @param machineCommunicator the MachineCommunicator for inter-machine-communication
      */
-    Drill(BluetoothDevice device, IMachineCommunicator machineCommunicator, int drillId) {
-        super(device);
+    Drill(String macAddress, String name, IMachineCommunicator machineCommunicator) {
+        super(macAddress, name);
         _machineCom = machineCommunicator;
-        _drillId = drillId;
     }
 
     // @Override
@@ -44,7 +43,8 @@ public class Drill extends BluetoothClient {
         }
     }
 
-    public int getId() {
-        return _drillId;
+    @Override
+    void onConnectionChanged() {
+        _machineCom.connectionChanged();
     }
 }
