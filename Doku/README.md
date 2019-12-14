@@ -57,6 +57,7 @@ Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
 - **chap-bewertung.tex**: Projektbewertung und Diskussion mit Ausblick
 - **apdx-test.tex**: Beispielanhang
 - **bib/bibliography.bib**: Auflistung aller Literaturverzeichniseinträge
+- **arduinoLanguage.tex**: Anpassungen für Code Listing im Arduino-Stil von [trihedral](https://github.com/trihedral/ArduinoLatexListing "GitHub Projektseite")
 
 ### LaTeX Referenzen
 
