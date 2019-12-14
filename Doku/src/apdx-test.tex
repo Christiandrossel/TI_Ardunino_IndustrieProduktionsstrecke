@@ -1,3 +1,88 @@
 \chapter{Test}
+\label{ch:AppTest}
 
-Das ist ein Anhang. Toll!
+Der komplette Beispiel-Code
+\begin{lstlisting}[language=Arduino]
+int switchState = 0;
+int energyState = 10;
+bool greenOn = true;
+bool switchReady = true;
+ 
+void setup() {
+  // define input pins
+  pinMode(2, INPUT);
+
+  // define output pins
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+}
+
+void loop() {
+  // read state of switch from pin 2
+  switchState = digitalRead(2);
+
+  if (switchState == LOW){
+    // let green led burn, when enegry is max (==10)
+      if (energyState < 10){
+        digitalWrite(3, LOW);
+        digitalWrite(4, LOW);
+        digitalWrite(5, LOW);
+        energyState++;
+        delay(250);
+        greenOn = false;
+        switchReady = false;
+        }else{
+        digitalWrite(3, HIGH);
+        digitalWrite(4, LOW);
+        digitalWrite(5, LOW);
+        greenOn = true;
+        switchReady = true;
+      }
+  }else if ((switchState == HIGH) && switchReady){
+    // energy reserves uncritical
+    if (energyState >= 8){
+      digitalWrite(3, HIGH);
+      digitalWrite(4, HIGH);
+      digitalWrite(5, HIGH);
+      // let red leds blink fast
+      delay(250);
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+      delay(250);
+      energyState--;
+    // energy about to be spend  
+    }else if (energyState > 0){
+      if (greenOn){
+        digitalWrite(3, LOW);
+        greenOn = false;  
+      }else {
+        digitalWrite(3, HIGH);
+        greenOn = true;  
+      }
+      // let red leds blink fast
+      digitalWrite(4, HIGH);
+      digitalWrite(5, HIGH);
+      delay(250);
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+      delay(250);
+      energyState--;
+    // no energy -> all leds out
+    }else{
+      digitalWrite(3, LOW);
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+      greenOn = false;
+    }
+        /* original task
+        digitalWrite(4, LOW);
+        digitalWrite(5, HIGH);
+        delay(250);
+
+        digitalWrite(4, HIGH);
+        digitalWrite(5, LOW);
+        delay(250);*/
+      }
+}
+\end{lstlisting}

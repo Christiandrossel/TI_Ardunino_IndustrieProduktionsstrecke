@@ -8,7 +8,7 @@ Außerdem zitieren wir~\textcite{test16}.
 Zum Abschluss noch ganz wichtig.\footnote{Wichtigste Stelle in philosophischen Abhandlungen.}
 
 
-\begin{figure}
+\begin{figure}[p]
     \centering
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
@@ -23,13 +23,13 @@ Zum Abschluss noch ganz wichtig.\footnote{Wichtigste Stelle in philosophischen A
     \caption{Beispiel zweier Bilder nebeneinander}\label{fig:testfig}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
     \centering
     \includegraphics[scale=0.9]{img/fatal}
     \caption{Fataler Fehler}\label{fig:fatal}
 \end{figure}
 
-\begin{table}
+\begin{table}[p]
     \centering
     \caption[Testtable]%
         {Testtabelle: Zeilen und Spalten.}
@@ -47,8 +47,21 @@ Zum Abschluss noch ganz wichtig.\footnote{Wichtigste Stelle in philosophischen A
 
 \section{Beispielabschnitt}
 
-gaaaaanz viel text
-
+Hier mal ein Beispiel für ein Codelisting:
+\begin{lstlisting}[language=Arduino]
+    if (energyState >= 8){
+      digitalWrite(3, HIGH);
+      digitalWrite(4, HIGH);
+      digitalWrite(5, HIGH);
+      // let red leds blink fast
+      delay(250);
+      digitalWrite(4, LOW);
+      digitalWrite(5, LOW);
+      delay(250);
+      energyState--;
+    }
+\end{lstlisting}
+Der gesamte Beispiel-Code befindet sich in Anhang~\ref{ch:AppTest}.
 \section{Zweiter Abschnitt}
 
 bissl text
