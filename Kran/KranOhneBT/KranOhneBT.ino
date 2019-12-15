@@ -73,13 +73,14 @@ void loop() {
   einstValue = analogRead(sensorEinst);
   differenz = map(einstValue, 0, 1023, -100, 100);
   delay(5);
-  
-  Serial.print("SensorValue: ");             //Serial Ausgabe
+
+  // debug info
+  /*Serial.print("SensorValue: ");             //Serial Ausgabe
   Serial.print(sensorValue);
   Serial.print(" - ");
   Serial.print("Einst: ");             
   Serial.print(differenz);
-  Serial.print("\n");
+  Serial.print("\n");*/
   
   thresholdPlus = threshold + differenz;
   checkSensor();
