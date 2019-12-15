@@ -1,48 +1,39 @@
-//Zustände:
-//b = busy / beschäftigt
-//f = free / frei
-
-char state = 'f'; //initial state is free
-char message = 'f'; //string that stores the incoming message
+enum state {BUSY, FREE};
+state State = FREE;
+char message; //char that stores the incoming message
 
 void setup()
 {
-  Serial.begin(9600); //set baud rate
-
-
-
+ // pinMode(4,INPUT); 
+ // Serial.begin(38400); // Default communication rate of the Bluetooth module
+ Serial.begin(9600);  //set Baud rate
 }
 
-void loop()
-{
-  while(Serial.available())
-  {//while there is data available on the serial monitor
-    message=char(Serial.read());//store string from serial command
-  }
-  if(!Serial.available())
-  {
-    if(message='f')
-    {//if state should be free
-      Serial.print(message); //show the data
-      state = 'f'; //set state = free
+void loop(){
+
+ if(Serial.available() > 0){ // Checks whether data is comming from the serial port
+    message = Serial.read(); // Reads the data from the serial port
+    Serial.print(message); //sends message back, acknowledgement of receipt
+ 
+ 
+    if(message=='f') //set state to free when a f was received
+    {
+      State = FREE;
     }
-     else if(message='b')
-    {//if state should be busy
-      Serial.print(message); //show the data
-      state = 'b'; //set state busy
+    if(message=='r') //set state to busy for a while if an r was received
+    {
+      State = BUSY;
+          delay(5000); //simulate working time...
+      //delay(random(10000,20000));
+      State = FREE;
     }
-     else if (message!='f'&&message!='b')
-    {//something else...
-      Serial.print(message); //show the data
+    if (message!='f'&&message!='b'&&message!='r') //should not occur
+    {// Do something if the message doesn't match the expectations
     }
-    if (state = 'b'){
-      //do something.... (Sound, LED-Color...)
-      //wait random between 10-20sec
-      delay(random(10000,20000));
-      Serial.print('r'); //send r char to server (ready)
-      state = 'f';
-    }
-  }
+    
   delay(500); //delay
+  
+ }
+
 }
     
