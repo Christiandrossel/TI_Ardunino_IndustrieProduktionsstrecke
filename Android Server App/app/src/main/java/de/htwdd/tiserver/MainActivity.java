@@ -8,8 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import de.htwdd.tiserver.bluetooth.BluetoothClient;
 import de.htwdd.tiserver.bluetooth.BluetoothCommunicator;
+import de.htwdd.tiserver.ui.ConnectedDevicesAdapter;
+
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -23,48 +30,57 @@ public class MainActivity extends Activity {
 
         final Button drillL  = findViewById(R.id.btnDrillL);
         final Button drillR = findViewById(R.id.btnDrillR);
-        final Button reconnect = findViewById(R.id.btnReconnect);
-        final Button ready = findViewById(R.id.btnAllReady);
+        final RecyclerView list = findViewById(R.id.recyclerView);
+        final ConnectedDevicesAdapter recyclerAdapter = new ConnectedDevicesAdapter();
+
+        list.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        list.setLayoutManager(layoutManager);
+        list.setAdapter(recyclerAdapter);
+        recyclerAdapter.setItemClickedListener(new ConnectedDevicesAdapter.ListItemClickedListener() {
+            @Override
+            public void onReconnectClicked(BluetoothClient client) {
+                btComm.connect(client);
+            }
+
+            @Override
+            public void onSendRClicked(BluetoothClient client) {
+                btComm.sendR(client);
+            }
+        });
 
         btComm = new BluetoothCommunicator();
-        checkBTState();
-        reconnect.setOnClickListener(new OnClickListener() {
+        btComm.setConnectedDevicesListener(new BluetoothCommunicator.ConnectedDevicesListener() {
             @Override
-            public void onClick(View view) {
-                btComm.connect();
-            }
-        });
-        ready.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btComm.debugR();
-            }
-        });
+            public void onConnectedClientsChanged(final List<BluetoothClient> devices) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int c = 0;
+                        for (BluetoothClient client : devices) {
+                            if (client.isConnected())
+                                c++;
+                        }
 
+                        final TextView connectedDevices = findViewById(R.id.tvConnectedDevices);
+                        connectedDevices.setText("Verbundene Geräte: " + c);
+                        recyclerAdapter.updateData(devices);
+                        recyclerAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        checkBTState();
         drillL.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                     btComm.setDrillFree(2);
             }
         });
-
         drillR.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                     btComm.setDrillFree(1);
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        btComm.connect();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        btComm.disconnect();
     }
 
     private void checkBTState() {
