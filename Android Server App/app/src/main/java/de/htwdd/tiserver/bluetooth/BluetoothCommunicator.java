@@ -1,71 +1,48 @@
 package de.htwdd.tiserver.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import de.htwdd.tiserver.IMachineCommunicator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BluetoothCommunicator implements IMachineCommunicator {
 
-    /**
-     * Implement Interface in classes that have to Listen to changes in connected Devices
-     */
-    public interface ConnectedDevicesListener {
-        /**
-         * gets called when a Device is disconnected or connected
-         * @param devices List of all Devices
-         */
-        void onConnectedClientsChanged(List<BluetoothClient> devices);
-    }
+    private static final String[] RODOTER_MAC_ADRESSES = {"98:D3:41:FD:54:C3", "38:DE:AD:6E:1C:E7", "98:D3:71:FD:4A:E2", "98:D3:41:FD:50:E7", "98:D3:61:FD:6F:CA"}; // Norman, Anja, Manuel, Anja, Dominic
+    private static final String[] DRILL_MAC_ADRESSES = { "98:D3:32:F5:B6:4F", "98:D3:32:F5:B7:AD"}; // Anja, Dominic
 
-    private Map<String, String> _rodoterMap = new HashMap<String, String>();
-    private Map<String, String> _drillMap = new HashMap<String, String>();
+    private BluetoothAdapter btAdapter;
+    private List<BluetoothClient> _clients;
 
-    private BluetoothAdapter _btAdapter;
-    private ConnectedDevicesListener _connectionListener;
-    private List<BluetoothClient> _clients = new ArrayList<>();
-    private List<Drill> _drills = new ArrayList<>();
-
+    private Drill[] drills = new Drill[3];
 
     public BluetoothCommunicator() {
-        _btAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        _rodoterMap.put("Rodoter", "98:D3:41:FD:50:E7");
-        _rodoterMap.put("Flip", "98:D3:71:FD:4A:E2");
-        _rodoterMap.put("Flop", "98:D3:61:FD:6F:CA");
-        _rodoterMap.put("Dietrich", "98:D3:41:FD:54:C3");
-
-        _drillMap.put("Bohrer 1", "98:D3:32:F5:B6:4F");
-        _drillMap.put( "Bohrer 2", "98:D3:32:F5:B7:AD");
-
-
-        // create the Client-List
-        for (String name : _rodoterMap.keySet()) {
-            String mac = _rodoterMap.get(name);
-
-            BluetoothClient client = new Rodoter(mac, name, BluetoothCommunicator.this);
-            _clients.add(client);
-        }
-
-        // Create the Drills-List
-        for (String name : _drillMap.keySet()) {
-            String mac = _drillMap.get(name);
-
-            Drill drill = new Drill(mac, name, BluetoothCommunicator.this);
-            _drills.add(drill);
-            _clients.add(drill);
-        }
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        _clients = new ArrayList<>();
     }
 
     /**
-     * Try to Connect to specified Bluetooth Device
-     * @return returns true, if the device was connected
+     * @return returns true, if the Device has Bluetooth and Bluetooth is enabled
      */
-    public boolean connect(BluetoothClient client) {
-        if (client == null)
-            return false;
+    public boolean isReady() {
+        return (btAdapter!=null && btAdapter.isEnabled());
+    }
 
-        return client.connect(_btAdapter);
+    /**
+     * (Re)connect the device to all possible BluetoothClients
+     */
+    public void connect() {
+        if (btAdapter == null)
+            return;
+
+        if(_clients.size() != RODOTER_MAC_ADRESSES.length) {
+            _connectToAllDevices();
+        } else {
+            for (BluetoothClient client : _clients) {
+                client.connect();
+            }
+        }
     }
 
     /**
@@ -77,21 +54,6 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         }
     }
 
-    public void sendR(BluetoothClient client) {
-        client.sendData("r");
-    }
-
-    //////////////////////////////////////////
-    // Getter and Setter
-
-    /**
-     * @param connectedDevicesListener the one Listener that gets notification when a device is (dis-)connected
-     */
-    public void setConnectedDevicesListener(ConnectedDevicesListener connectedDevicesListener) {
-        _connectionListener = connectedDevicesListener;
-        _connectionListener.onConnectedClientsChanged(_clients);
-    }
-
     /**
      * @return returns a List with all connected BluetoothClients
      */
@@ -99,40 +61,66 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         return _clients;
     }
 
-    /**
-     * @return returns true, if the Device has Bluetooth and Bluetooth is enabled
-     */
-    public boolean isReady() {
-        return (_btAdapter !=null && _btAdapter.isEnabled());
-    }
-
     //////////////////////////////////////////
     // IMachineCommunicator Implementation
 
     @Override
     public void setDrillBusy(int drillId, Rodoter client) {
-        if (_drills.get(drillId-1) != null)
-            _drills.get(drillId-1).setBusy(client);
+        drills[drillId].setBusy(client);
     }
 
     @Override
     public void setDrillFree(int drillId) {
-        if (_drills.get(drillId-1) != null)
-            _drills.get(drillId-1).setFree();
+        for (Drill drill : drills) {
+            if(drill != null && drill.getId() == drillId) {
+                drill.setFree();
+                return;
+            }
+        }
     }
 
     @Override
     public int getFreeDrillId() {
-        for (int i = 0; i<_drills.size(); i++) {
-            if (_drills.get(i) != null && _drills.get(i).isFree())
-                return i+1;
+        for (int i = 1; i<drills.length; i++) {
+            if (drills[i] != null && drills[i].isFree())
+                return i;
         }
         return 0;
     }
 
-    @Override
-    public void connectionChanged() {
-        if (_connectionListener != null)
-        _connectionListener.onConnectedClientsChanged(_clients);
+    //////////////////////////////////////////
+    // private helper methods
+
+    private void _connectToAllDevices() {
+        disconnect();
+        _clients.clear();
+
+        Thread connectingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Connect to all Rodoter
+                for (String xbeeMacAdress : RODOTER_MAC_ADRESSES) {
+                    BluetoothDevice device = btAdapter.getRemoteDevice(xbeeMacAdress);
+                    BluetoothClient client = new Rodoter(device, BluetoothCommunicator.this);
+                    if (client.connect())
+                        _clients.add(client);
+                }
+                for (int i = 1; i < 3; i++) {
+                    BluetoothDevice device = btAdapter.getRemoteDevice(DRILL_MAC_ADRESSES[i-1]);
+                    drills[i] = new Drill(device, BluetoothCommunicator.this, i);
+                    if (drills[i].connect())
+                        _clients.add(drills[i]);
+                }
+                btAdapter.cancelDiscovery();
+            }
+        });
+        connectingThread.start();
+    }
+
+    public void debugR() {
+        for (BluetoothClient client : _clients) {
+            client.sendData("r");
+
+        }
     }
 }

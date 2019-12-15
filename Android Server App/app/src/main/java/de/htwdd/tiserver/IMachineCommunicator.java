@@ -24,9 +24,4 @@ public interface IMachineCommunicator {
      * @return returns the first free Drill
      */
     int getFreeDrillId();
-
-    /**
-     * Callback for when the Connection to the Device was Changed
-     */
-    void connectionChanged();
 }
