@@ -1,3 +1,6 @@
+#include <Servo.h>
+Servo myServo;  // create a servo object
+ 
 //rechter Motor 
 int MotorRight1=5; //rückwärts
 int MotorRight2=6; // vorwärts
@@ -8,6 +11,7 @@ int MotorLeft2=11; // vorwärts
 // Ultrasensoren in Gestalt der Rodoteraugen 
 #define echoPin 12 // Echo Pin
 #define trigPin 13 // Trigger Pin
+int const potPin = A0; // analog pin used to connect the potentiometer
 long duration, distance; // Variablen für die Distanz
 
 // Linetracking Variablen
@@ -34,6 +38,7 @@ bool activate_console_output=false;
 
 void setup(){
   Serial.begin(9600);
+  myServo.attach(9); // attaches the servo on pin 9 to the servo object
   pinMode(MotorRight1, OUTPUT); // pin  5 (PWM) 
   pinMode(MotorRight2, OUTPUT); // pin  6 (PWM) 
   pinMode(MotorLeft1, OUTPUT); // pin  10 (PWM) 
@@ -48,6 +53,8 @@ void setup(){
 void loop(){
   
   server=Serial.read();
+  
+  myServo.write(90);
   SL = digitalRead(SensorLeft);
   SM = digitalRead(SensorMiddle);
   SR = digitalRead(SensorRight); 
@@ -92,7 +99,7 @@ void loop(){
           digitalWrite(MotorLeft2,LOW);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,LOW);
-          Serial.print('r');
+          Serial.print('0');
           //RodoterState = GO_TO_DRILL;
           delay(1000);
           break;
@@ -101,18 +108,18 @@ void loop(){
           digitalWrite(MotorLeft2,HIGH);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,LOW);
-          Serial.print('r');
+          Serial.print('1');
           RodoterState = GO_TO_DRILL;
-          delay(1000);
+          delay(2000);
           break;
         case '2':
           digitalWrite(MotorLeft1,LOW);
           digitalWrite(MotorLeft2,LOW);
           digitalWrite(MotorRight1,LOW);
           digitalWrite(MotorRight2,HIGH);
-          Serial.print('r');
+          Serial.print('2');
           RodoterState = GO_TO_DRILL;
-          delay(1000);
+          delay(2000);
           break;
       }
       break; 
