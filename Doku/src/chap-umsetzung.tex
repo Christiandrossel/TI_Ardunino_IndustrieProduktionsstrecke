@@ -3,3 +3,45 @@
 Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetretener Probleme/Herausforderungen und deren Lösung. Das Vorgehen sollte so nachvollziehbar sein, dass der Leser das Projekt vom Prinzip genauso umsetzen könnte (meint aber nicht, dass hier jeder Codeschnipsel erscheinen muss). 
 
 Im letzten Abschnitt könnte als Zusammenfassung die Ergebnisdarstellung erfolgen. Sie könnte aber auch in ein eigenes Kapitel umgewandelt werden, wenn sie umfangreich wird.
+
+\section{Farbmischende Lampe}
+\subsection{Aufbau des Projekts}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img/RGB_Projekt.jpg}
+\caption{RGB-LED mit Potentiometer}
+\label{rgb_project}
+\end{center}
+\end{figure}
+
+Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
+\begin{itemize}
+\item{Steckplatine}
+\item{Arduino Uno}
+\item{9x Verbindungskabel}
+\item{Kondensator}
+\item{RGB-LED}
+\item{3x 220-OhmWiderstand}
+\end{itemize}
+
+Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
+
+\subsection{Umsetzung und Erläuterungen}
+Als Eingabekomponente habe ich mich für den Potentiometer entschieden, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten. 
+Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
+In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
+Als nächstes widmen wir uns der loop-Funktion. Als erstes lesen wir mit analogRead(pin) den Wert des Potentiometers und übergeben diesen an die Variable für den Wert des Potentiometers.
+Da wir jetzt den Wert besitzen, müssen wir nun entscheiden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Wir haben 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Da wir mehrere Farben wollen, sollten wir einen Farblauf erzeugen. Man fängt bei einer leuchtenden Grundfarbe an. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0 leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss nehmen wir die 3. Grundfarbe und machen nochmal eine Vermischung mit der ersten.
+Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen für den Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED 0 haben sollen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich im Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu den der übergebenen Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+Zum Schluss übergeben wir per analogWrite(pin,val) den Wert für die LED über den Pin. 
+\section{Alarmanlage}
+Text
+\section{Keyboard}
+Text
+\section{Digitale Sanduhr}
+Text
+\section{Windrad}
+Text
+\section{Uhr}
+Text
