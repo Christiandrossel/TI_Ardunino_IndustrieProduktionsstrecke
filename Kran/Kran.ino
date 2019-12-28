@@ -108,7 +108,7 @@ void checkSensor(){
     if(rodoter){  //Sende Server r für nicht besetzt, bis Bestätigung von Server
       if(Serial.read() == 'r'){
         rodoter = false;
-        break;
+        return;
       }
       Serial.print('r');
     }
