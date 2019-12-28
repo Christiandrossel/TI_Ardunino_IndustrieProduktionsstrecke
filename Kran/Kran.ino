@@ -8,6 +8,7 @@ const int sensorEinst = A0; //Drehwiederstand
 const int piezo = 8; //Tongeber
 const int greenLED = 3; //LED
 int lied = 1;
+bool rodoter = false; //Rodoter anwesend
 
 int threshold; //Schwellenwert für Photowiederstand
 int thresholdPlus; //Schwellenwert nach Korrektur
@@ -73,13 +74,14 @@ void loop() {
   einstValue = analogRead(sensorEinst);
   differenz = map(einstValue, 0, 1023, -100, 100);
   delay(5);
-  
-  Serial.print("SensorValue: ");             //Serial Ausgabe
+
+  // debug info
+  /*Serial.print("SensorValue: ");             //Serial Ausgabe
   Serial.print(sensorValue);
   Serial.print(" - ");
   Serial.print("Einst: ");             
   Serial.print(differenz);
-  Serial.print("\n");
+  Serial.print("\n");*/
   
   thresholdPlus = threshold + differenz;
   checkSensor();
@@ -93,7 +95,7 @@ void checkSensor(){
   if(sensorValue < thresholdPlus){
     myServo.write(1);
     digitalWrite(greenLED, HIGH);
-    Serial.print('1');            //Sende an Server eine 1 für Status besetzt
+    rodoter = true;
     tonspiel();
     delay(1000);    //Kran wird beladen
     myServo.write(91);
@@ -102,8 +104,14 @@ void checkSensor(){
   }
   /*Wenn kein Roboter vor Sensor ist (Kran ist frei)*/
   else{
-      digitalWrite(greenLED, LOW);
-      Serial.print('0');        //Sende an Server eine 0 für nicht besetzt
+    digitalWrite(greenLED, LOW);
+    if(rodoter){  //Sende Server r für nicht besetzt, bis Bestätigung von Server
+      if(Serial.read() == 'r'){
+        rodoter = false;
+        return;
+      }
+      Serial.print('r');
+    }
   }
 }
 
