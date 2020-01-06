@@ -105,4 +105,27 @@ void loop() {
 
 
 \subsubsection{Uhr}
-Text
+Grundlage für diese Projektmodifikation bildete das Projekt 11: Kristallkugel (hier quelle hin). In diesem Projekt erfolgt die Einführung in die Verwendung eines LCD und das Ansprechen mit der LiquidCrystal-Bibliothek (Bestandteil der Arduino IDE).
+Zusätzlich zum Display wird ein Kippschalter an das Board angeschlossen. Ausgelöst durch ein Kippen des Schalters wird ein Text zufällig aus einer Reihe vorprogrammierter Texte auf dem Display angezeigt.
+
+Dieses Grundprojekt wurde hin zu einer einfachen einstellbaren Uhr abgeändert. Dazu wurde der Kippschalter durch zwei Taster ausgetauscht, mit denen sich die Uhr stellen lässt (Abbildung~\ref{fig:zeit}). Außerdem wurde die Versorgungsspannung des Displays mit einem Kondensator stabilisiert.
+
+\begin{figure}[p]
+    \centering
+    \begin{subfigure}[b]{0.6\linewidth}
+        \centering
+        \includegraphics[scale=0.586]{img/Uhr_Projekt_Zeit}
+        \caption{Aufbau der Uhr mit Taster A (oben, Pin 13) und Taster B (unten, Pin 7) sowie Kondensator (unten).}\label{fig:zeit}
+    \end{subfigure}\enspace%
+    \\
+    \begin{subfigure}[b]{0.6\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{img/Uhr_Projekt_Zeiteinstellung}
+        \caption{Uhr im Zeiteinstellungsmodus. Die Stunden sind zur Einstellung ausgewählt.}\label{fig:zeiteinstell}
+    \end{subfigure}
+    \caption{Aufbau der Uhr}\label{fig:uhr}
+\end{figure}
+
+Bei Programmstart wird die Uhr auf exakt 0 Uhr initialisiert und beginnt sofort zu laufen. Durch Drücken des Tasters A kann in den Zeiteinstellungsmodus gewechselt werden  (Abbildung~\ref{fig:zeiteinstell}). Die Stunden, Minuten und Sekunden werden unabhängig voneinander eingestellt. Mithilfe des Tasters B wird die ausgewählte Zeiteinheit um eins inkrementiert. Bei Betreten des Zeiteinstellungsmodus sind initial die Stunden ausgewählt. Durch Betätigung des Tasters A kann zu den Minuten beziehungsweise Sekunden gewechselt und schließlich der Zeiteinstellungsmodus wieder verlassen werden.
+
+Für das Ablaufen der Uhrzeit wurde ein Delay verwendet. Dabei wurde berücksichtigt, dass die Ausführung des Programms ebenfalls Zeit in Anspruch nimmt. Eine Verzögerung um genau eine Sekunde würde schnell dazu führen, dass die Uhr nachgeht. Die Verzögerungszeit wird deshalb dynamisch angepasst.
