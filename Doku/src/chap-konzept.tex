@@ -69,7 +69,39 @@ Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET
 \label{Windrad_project}
 \end{center}
 \end{figure}
+\subsection{Umsetzung und Erläuterungen}
 Um die Bauteile mit Strom zu versorgen wird ein Kabel in den 5V Steckplatz des Arduino und der Steckplatine verbunden. Mit der Erdung, dem Minuspol wird ebenfalls ein Kabel von Platine zum Arduino gesteckt. Nur diesmal am Arduino in den GND Steckplatz. Anschließend werden die Bauteile auf der Steckplatine gesteckt. Von dem Potentiometer wird eine Seite an 5V und die andere mit der Erdung verbunden. Der mittlere Pin wird mit am analogen Pin A0 des Arduino angeschlossen. Zwischen Erdung, 5V Zugangsspannung und dem Potentiometer befindet sich zudem ein 100-$\mu$F-Kondensator, um auftretende Spannungsänderungen durch den Potentiometer zu glätten. Als nächstes wird Transistor so positioniert, dass der Metallanhänger vom Arduino wegschaut. Der linke Pin des Transistors wird mit dem digitalen Pin 9 am Arduino angeschlossen. Dieser Pin wird auch als Gate bezeichnet. Die Erdung des Motors wird am mittleren Pin, dem Drain des Transistors angeschlossen. Der dritte Pin des Transistors, auch Source genannt wird mit der Erdung verbunden. Die Diode wird mit der Kathode, das negative Ende an den Stromzufluss des Motors angeschlossen. Die Anode wird an die Erdung des Motors angeschlossen. Das Bauteil hat einen Streifen auf der einen Seite, dies Markiert die Seite der Kathode. Die Batterie wird mit der Spannung und der Erdung an die Steckplatine angeschlossen, So dass der Stromzufluss des Motors mit der 9V-Block-Batterie verbunden ist. Die Erdung der Batterie muss mit der Erdung des Arduinos verbunden sein.
+\\
+
+Im Programmcode werden als erstes der Motor und das Potentiometer Initialisiert. Außerdem wird eine weitere Variable benötigt die zum zwischenspeichern des Potentiometerwertes benötigt wird.
+\begin{lstlisting}[language=Arduino]
+const int motorPin = 9; //Gleichstrommotor
+const int potPin = A0; //Potentiometer
+int potValue;
+\end{lstlisting}
+
+In der setup()-Funktion wird der motorPin als Output festgelegt und der Serial Port mit 9600 bestimmt. Dieser dient dazu das die Werte später auch auf den Computer angezeigt werden können.
+\begin{lstlisting}[language=Arduino]
+void setup() {
+  pinMode(motorPin, OUTPUT);
+
+  Serial.begin(9600);
+}
+\end{lstlisting}
+
+Die loop Funktion nun den wesentlichen Programmcode. Als erstes wird mit analogRead() der Wert vom Potentiometer gelesen und auf die Variable potValue gespeichert. Da der Motor einen kleineren Wertebereich erwartet wird im nächsten Schritt der Wert durch 4 geteilt. Mit Serial.print() erfolgt die Ausgabe auf dem Bildschirm am Computer. Im letzten Schritt wird mit analogWrite() der Wert von potValue an den Motor gegeben.
+\begin{lstlisting}[language=Arduino]
+void loop() {
+  potValue = analogRead(potPin);
+  potValue /= 4;
+
+  Serial.print("potValue: ");
+  Serial.println(potValue);
+
+  analogWrite(motorPin, potValue);
+}
+\end{lstlisting}
+
 
 
 \subsubsection{Uhr}
