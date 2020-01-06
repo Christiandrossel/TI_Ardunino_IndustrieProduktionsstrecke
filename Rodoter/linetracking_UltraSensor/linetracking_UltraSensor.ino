@@ -91,8 +91,10 @@ void loop(){
     case GO_TO_CROSSROAD:
     // schicke r in case
     // lösche r in breakpoint_recognized()
-      if(breakpoint_recognized())
+      if(breakpoint_recognized()){
         Serial.print('d');
+        delay(200);
+      }
       switch(server){
         case '0':
           digitalWrite(MotorLeft1,LOW);
