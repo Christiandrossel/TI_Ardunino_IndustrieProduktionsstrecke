@@ -18,8 +18,8 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         void onConnectedClientsChanged(List<BluetoothClient> devices);
     }
 
-    private Map<String, String> _rodoterMap = new HashMap<String, String>();
-    private Map<String, String> _drillMap = new HashMap<String, String>();
+    private Map<String, String> _rodoterMap = new HashMap<>();
+    private Map<String, String> _drillMap = new HashMap<>();
 
     private BluetoothAdapter _btAdapter;
     private ConnectedDevicesListener _connectionListener;
@@ -38,6 +38,7 @@ public class BluetoothCommunicator implements IMachineCommunicator {
         _drillMap.put("Bohrer 1", "98:D3:32:F5:B6:4F");
         _drillMap.put( "Bohrer 2", "98:D3:32:F5:B7:AD");
 
+        // ToDo: MAC Kran '98:D3:32:F5:B0:2C'
 
         // create the Client-List
         for (String name : _rodoterMap.keySet()) {

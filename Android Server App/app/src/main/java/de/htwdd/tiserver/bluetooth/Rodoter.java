@@ -3,7 +3,7 @@ package de.htwdd.tiserver.bluetooth;
 import de.htwdd.tiserver.IMachineCommunicator;
 
 public class Rodoter extends BluetoothClient {
-    IMachineCommunicator _machineCom;
+    private IMachineCommunicator _machineCom;
 
     /**
      * Creates a new Rodoter class which can communicate with the device
@@ -19,19 +19,20 @@ public class Rodoter extends BluetoothClient {
 
     @Override
     void receivingThread(String input) {
-        char c = input.toCharArray()[0];
-        switch (c) {
-            case 'd':
-                sendData(_machineCom.getFreeDrillId() + "");
-                break;
-            case '1':
-                _machineCom.setDrillBusy(1, this);
-                break;
-            case '2':
-                _machineCom.setDrillBusy(2, this);
-                break;
-            case 'r':
-                break;
+        for (char c : input.toCharArray()) {
+            switch (c) {
+                case 'd':
+                    sendData(_machineCom.getFreeDrillId() + "");
+                    break;
+                case '1':
+                    _machineCom.setDrillBusy(1, this);
+                    break;
+                case '2':
+                    _machineCom.setDrillBusy(2, this);
+                    break;
+                case 'r':
+                    break;
+            }
         }
     }
 

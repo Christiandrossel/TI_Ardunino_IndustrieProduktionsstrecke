@@ -49,18 +49,19 @@ public abstract class BluetoothClient {
                 @Override
                 public void run() {
                     try {
-                        byte[] buffer = new  byte[256];
-                        int bytes;
-                        bytes = _inStream.read(buffer);
-                        String input = new String(buffer, 0, bytes);
-                        if(!(input.equals("") || input.equals("\r\n"))) {
-                            Log.i("BluetoothClient", "<== Recv data: " + input);
+                        while (true) {
+                            byte[] buffer = new byte[256];
+                            int bytes;
+                            bytes = _inStream.read(buffer);
+                            String input = new String(buffer, 0, bytes);
+                            if (!(input.equals("") || input.equals("\r\n"))) {
+                                Log.i("BluetoothClient", "<== Recv data: " + input);
 
-                            receivingThread(input);
+                                receivingThread(input);
+                            }
                         }
                     } catch (IOException e) {
                         onConnectionChanged();
-                        return;
                     }
                 }
             });
