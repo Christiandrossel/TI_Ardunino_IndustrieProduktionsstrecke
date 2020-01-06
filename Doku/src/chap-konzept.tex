@@ -7,8 +7,41 @@ Einleitender Text
 \subsection{Arduino StarterKit-Projekte}
 Kurze Erklärung worums geht
 
+
 \subsubsection{Farbmischende Lampe}
+
 Ich habe mich entschieden die RGB-LED für mein Projekt zu verwenden. Ich will, dass diese LED in verschiedenen Farbtönen aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl des Farbtones soll sehr groß sein. Ich möchte, das die LED einfach zu bedienen ist und nicht für jeden Farbton ein einzelner Schalter angelegt werden muss.
+\\
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img/RGB_Projekt.jpg}
+\caption{RGB-LED mit Potentiometer}
+\label{rgb_project}
+\end{center}
+\end{figure}
+
+Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
+\begin{itemize}
+\item{Steckplatine}
+\item{Arduino Uno}
+\item{9x Verbindungskabel}
+\item{Kondensator}
+\item{RGB-LED}
+\item{3x 220-OhmWiderstand}
+\end{itemize}
+
+Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
+
+\subsection{Umsetzung und Erläuterungen}
+Als Eingabekomponente habe ich mich für den Potentiometer entschieden, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten. 
+Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
+In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
+Als nächstes widmen wir uns der loop-Funktion. Als erstes lesen wir mit analogRead(pin) den Wert des Potentiometers und übergeben diesen an die Variable für den Wert des Potentiometers.
+Da wir jetzt den Wert besitzen, müssen wir nun entscheiden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Wir haben 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Da wir mehrere Farben wollen, sollten wir einen Farblauf erzeugen. Man fängt bei einer leuchtenden Grundfarbe an. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0 leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss nehmen wir die 3. Grundfarbe und machen nochmal eine Vermischung mit der ersten.
+Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen für den Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED 0 haben sollen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich im Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu den der übergebenen Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+Zum Schluss übergeben wir per analogWrite(pin,val) den Wert für die LED über den Pin. 
+
 
 \subsubsection{Alarmanlage}
 Text
@@ -20,7 +53,19 @@ Text
 Text
 
 \subsubsection{Windrad}
+
 Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET Transistor, 9-Volt-Block Batterie und ein 100 $\mu$F Kondensator mit Potentiometer verwendet. In dem Einstiegsprojekt aus dem Buch war es bisher nur möglich den Motor, mit einem Taster ein- und auszuschalten. Mit diesem Umbau kann der Nutzer durch drehen am Potentiometer selbst entscheiden, mit welcher Geschwindigkeit der Motor und damit das Windrad drehen soll.
+\\
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img/Windrad_Projekt.jpg}
+\caption{Windrad mit Potentiometer und Gleichstrommmotor}
+\label{Windrad_project}
+\end{center}
+\end{figure}
+Um die Bauteile mit Strom zu versorgen wird ein Kabel in den 5V Steckplatz des Arduino und der Steckplatine verbunden. Mit der Erdung, dem Minuspol wird ebenfalls ein Kabel von Platine zum Arduino gesteckt. Nur diesmal am Arduino in den GND Steckplatz. Anschließend werden die Bauteile auf der Steckplatine gesteckt. Von dem Potentiometer wird eine Seite an 5V und die andere mit der Erdung verbunden. Der mittlere Pin wird mit am analogen Pin A0 des Arduino angeschlossen. Zwischen Erdung, 5V Zugangsspannung und dem Potentiometer befindet sich zudem ein 100-$\mu$F-Kondensator, um auftretende Spannungsänderungen durch den Potentiometer zu glätten. Als nächstes wird Transistor so positioniert, dass der Metallanhänger vom Arduino wegschaut. Der linke Pin des Transistors wird mit dem digitalen Pin 9 am Arduino angeschlossen. Dieser Pin wird auch als Gate bezeichnet. Die Erdung des Motors wird am mittleren Pin, dem Drain des Transistors angeschlossen. Der dritte Pin des Transistors, auch Source genannt wird mit der Erdung verbunden. Die Diode wird mit der Kathode, das negative Ende an den Stromzufluss des Motors angeschlossen. Die Anode wird an die Erdung des Motors angeschlossen. Das Bauteil hat einen Streifen auf der einen Seite, dies Markiert die Seite der Kathode. Die Batterie wird mit der Spannung und der Erdung an die Steckplatine angeschlossen, So dass der Stromzufluss des Motors mit der 9V-Block-Batterie verbunden ist. Die Erdung der Batterie muss mit der Erdung des Arduinos verbunden sein.
+
 
 \subsubsection{Uhr}
 Text
