@@ -38,7 +38,7 @@ Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 
 Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
 
-\subsection{Umsetzung und Erläuterungen}
+\subsubsection{Umsetzung und Erläuterungen}
 Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten. 
 Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
 In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
@@ -69,7 +69,7 @@ Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET
 \label{Windrad_project}
 \end{center}
 \end{figure}
-\subsection{Umsetzung und Erläuterungen}
+\subsubsection{Umsetzung und Erläuterungen}
 Um die Bauteile mit Strom zu versorgen wird ein Kabel in den 5V Steckplatz des Arduino und der Steckplatine verbunden. Mit der Erdung, dem Minuspol wird ebenfalls ein Kabel von Platine zum Arduino gesteckt. Nur diesmal am Arduino in den GND Steckplatz. Anschließend werden die Bauteile auf der Steckplatine gesteckt. Von dem Potentiometer wird eine Seite an 5V und die andere mit der Erdung verbunden. Der mittlere Pin wird mit am analogen Pin A0 des Arduino angeschlossen. Zwischen Erdung, 5V Zugangsspannung und dem Potentiometer befindet sich zudem ein 100-$\mu$F-Kondensator, um auftretende Spannungsänderungen durch den Potentiometer zu glätten. Als nächstes wird Transistor so positioniert, dass der Metallanhänger vom Arduino wegschaut. Der linke Pin des Transistors wird mit dem digitalen Pin 9 am Arduino angeschlossen. Dieser Pin wird auch als Gate bezeichnet. Die Erdung des Motors wird am mittleren Pin, dem Drain des Transistors angeschlossen. Der dritte Pin des Transistors, auch Source genannt wird mit der Erdung verbunden. Die Diode wird mit der Kathode, das negative Ende an den Stromzufluss des Motors angeschlossen. Die Anode wird an die Erdung des Motors angeschlossen. Das Bauteil hat einen Streifen auf der einen Seite, dies Markiert die Seite der Kathode. Die Batterie wird mit der Spannung und der Erdung an die Steckplatine angeschlossen, So dass der Stromzufluss des Motors mit der 9V-Block-Batterie verbunden ist. Die Erdung der Batterie muss mit der Erdung des Arduinos verbunden sein.
 \\
 
