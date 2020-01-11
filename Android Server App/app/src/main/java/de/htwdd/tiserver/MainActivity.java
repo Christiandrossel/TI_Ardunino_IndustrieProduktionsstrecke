@@ -5,9 +5,6 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,11 +24,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-        final Button drillL  = findViewById(R.id.btnDrillL);
-        final Button drillR = findViewById(R.id.btnDrillR);
         final RecyclerView list = findViewById(R.id.recyclerView);
         final ConnectedDevicesAdapter recyclerAdapter = new ConnectedDevicesAdapter();
+        final TextView logText = findViewById(R.id.textLog);
 
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -70,17 +65,28 @@ public class MainActivity extends Activity {
                 });
             }
         });
+        btComm.registerLogger(new ILogger() {
+            @Override
+            public void writeLog(final String msg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        logText.setText(logText.getText() + "\r\n" + msg);
+                    }
+                });
+            }
+
+            @Override
+            public void writeError(final String msg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        logText.setText(logText.getText() +"\r\n###" +  msg);
+                    }
+                });
+            }
+        });
         checkBTState();
-        drillL.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                    btComm.setDrillFree(2);
-            }
-        });
-        drillR.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                    btComm.setDrillFree(1);
-            }
-        });
     }
 
     private void checkBTState() {

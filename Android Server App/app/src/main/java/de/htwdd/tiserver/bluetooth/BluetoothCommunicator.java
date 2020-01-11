@@ -1,11 +1,14 @@
 package de.htwdd.tiserver.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
+import de.htwdd.tiserver.ILogger;
 import de.htwdd.tiserver.IMachineCommunicator;
 
 import java.util.*;
 
 public class BluetoothCommunicator implements IMachineCommunicator {
+
+    private ILogger _logger;
 
     /**
      * Implement Interface in classes that have to Listen to changes in connected Devices
@@ -91,6 +94,12 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     public void setConnectedDevicesListener(ConnectedDevicesListener connectedDevicesListener) {
         _connectionListener = connectedDevicesListener;
         _connectionListener.onConnectedClientsChanged(_clients);
+    }
+
+    public void registerLogger(ILogger logger) {
+        for (BluetoothClient client : _clients) {
+            client.registerLogger(logger);
+        }
     }
 
     /**

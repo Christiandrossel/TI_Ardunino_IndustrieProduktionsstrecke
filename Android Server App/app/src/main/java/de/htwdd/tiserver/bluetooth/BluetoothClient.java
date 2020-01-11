@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
+import de.htwdd.tiserver.ILogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,29 @@ public abstract class BluetoothClient {
 
     private String _name;
     private String _mac;
+    private ILogger _logger;
+
+    private class ReceivingThread implements Runnable {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    byte[] buffer = new byte[256];
+                    int bytes;
+                    bytes = _inStream.read(buffer);
+                    String input = new String(buffer, 0, bytes);
+                    if (!(input.equals("") || input.equals("\r\n"))) {
+                        Log.i("BluetoothClient", "<== Recv data: " + input);
+                        if(_logger != null)
+                            _logger.writeLog(_name + " <=== '" + input + "'");
+                        receivingThread(input);
+                    }
+                }
+            } catch (IOException e) {
+                onConnectionChanged();
+            }
+        }
+    }
 
     /**
      * Creates a new BluetoothClient which can communicate with the device
@@ -36,40 +60,27 @@ public abstract class BluetoothClient {
      */
     boolean connect(BluetoothAdapter adapter) {
         try {
+            if(_logger != null)
+                _logger.writeLog("Trying to connect to " + _name + "...");
             adapter.startDiscovery();
             BluetoothDevice btDevice = adapter.getRemoteDevice(_mac);
             UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
             _btSocket = btDevice.createRfcommSocketToServiceRecord(uuid);
             _btSocket.connect();
-            adapter.cancelDiscovery();
-
             _outStream = _btSocket.getOutputStream();
             _inStream = _btSocket.getInputStream();
-            _readingThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        while (true) {
-                            byte[] buffer = new byte[256];
-                            int bytes;
-                            bytes = _inStream.read(buffer);
-                            String input = new String(buffer, 0, bytes);
-                            if (!(input.equals("") || input.equals("\r\n"))) {
-                                Log.i("BluetoothClient", "<== Recv data: " + input);
 
-                                receivingThread(input);
-                            }
-                        }
-                    } catch (IOException e) {
-                        onConnectionChanged();
-                    }
-                }
-            });
+            if(_logger != null)
+                _logger.writeLog("=> Connected to " + _name + "!");
+            _readingThread = new Thread(new ReceivingThread());
             _readingThread.start();
             onConnectionChanged();
+            adapter.cancelDiscovery();
 
         } catch (IOException e) {
             e.printStackTrace();
+            if(_logger != null)
+                _logger.writeLog("=> Failed to connect to " + _name + "!");
             return false;
         }
         return true;
@@ -88,6 +99,10 @@ public abstract class BluetoothClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void registerLogger(ILogger logger) {
+        _logger = logger;
     }
 
     public String getName() {
@@ -111,22 +126,30 @@ public abstract class BluetoothClient {
      * Overwrite in Extended methods
      */
     void onConnectionChanged() {
+        if (_inStream == null || _outStream == null ) {
+            _logger.writeLog(_name + " disconnected!");
+        }
     }
 
     /**
      * Sends a String message to the BluetoothClient from the Device
      * @param message the String, which should get send to the Client
      */
-    void sendData(String message) {
+    synchronized void  sendData(String message) {
         byte[] msgBuffer = message.getBytes();
 
         Log.i("BluetoothClient", "==> Send data: " + message);
 
         try {
             _outStream.write(msgBuffer);
+            if(_logger != null)
+                _logger.writeLog(_name + " ==> '" + message + "'");
         } catch (IOException e) {
             e.printStackTrace();
             onConnectionChanged();
+        } catch (Exception e) {
+            if(_logger != null)
+                _logger.writeLog("Failed to send message '" + message + "' to " + _name);
         }
     }
 }
