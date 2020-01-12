@@ -55,7 +55,9 @@ Text
 Text
 
 \subsubsection{Digitale Sanduhr}
-Text
+Grundlage dieser Modifikation ist das Projekt Nr. 8 des Arduino-Starter-Kits. Anstatt eines Kippschalters zum starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird ein weiterer Schalter zum erhöhen der Startzeit benötigt. Eine der fünf LEDs ist für die Anzeige der Sekunden zuständig und mit den anderen vier LEDs kann man von mindestens 1 Minute bis maximal 31 Minuten binär eine Zeituhr ablaufen lassen. Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.\\
+Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus. Die Startzeit kann durch betätigen des (Oberen?) Tasters (Abbildung einfügen) erhöht werden. Mit jeder Betätigung des Tasters wird binär mit den LEDs die Startzeit erhöht(evtl Abbildung). Nach Erreichen der gewünschten Startzeit kann die Sanduhr mit Betätigen des zweiten Schalters gestartet werden. Nun leuchtet die Sekunden-LED (Abbildung) im Sekundentakt auf und die angezeigte restliche Zeit des binären Timers wird minütlich um 1 erniedrigt.\\
+Da der Ablauf der Zeit in einer For-Schleife stattfindet, kann die Verzögerung durch das Ausführen des Programms in diesem Rahmen ignoriert werden. Stattdessen wird mit verschiedenen Delay Längen ein fassbarer Sekundentakt vorgegeben, die LED leuchtet etwas länger als sie dunkel ist. 
 
 \subsubsection{Windrad}
 
