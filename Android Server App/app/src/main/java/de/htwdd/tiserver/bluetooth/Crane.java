@@ -22,8 +22,7 @@ public class Crane extends BluetoothClient {
     void receivingThread(String input) {
         for (char c : input.toCharArray()) {
             if (c == 'r') {
-                if (logger != null)
-                    logger.writeLog("\t" + _currentRodoter.getName() + " freed from Crane");
+                setFree();
             }
         }
     }
@@ -34,4 +33,11 @@ public class Crane extends BluetoothClient {
             logger.writeLog("\t" + _currentRodoter.getName() + " at the Crane");
     }
 
+    public void setFree() {
+        if (logger != null && _currentRodoter != null) {
+            logger.writeLog("\t" + _currentRodoter.getName() + " freed from Crane");
+            _currentRodoter.sendR();
+            _currentRodoter = null;
+        }
+    }
 }
