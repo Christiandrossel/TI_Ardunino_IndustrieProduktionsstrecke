@@ -16,7 +16,7 @@
 \usepackage[T1]{fontenc}
 
 % lang
-\usepackage[ngerman]{babel}
+\usepackage[american,ngerman]{babel}
 
 % footnotes
 \usepackage[bottom]{footmisc}
@@ -45,11 +45,14 @@
 %\usepackage[algochapter]{algorithm2e}
 
 % quote
-\usepackage[babel,english=british]{csquotes}
+\usepackage[babel,english=american]{csquotes}
 
 % bib
 \usepackage[bibencoding=utf8,backend=biber,style=apa]{biblatex}
-\DeclareLanguageMapping{english}{english-apa}
+\DeclareLanguageMapping{american}{american-apa}
+\DefineBibliographyStrings{american}{
+    bibliography = {Literatur}
+}
 
 % gloss
 \usepackage[nonumberlist,acronym,hyperfirst=false,nopostdot,nomain]{glossaries}
@@ -189,8 +192,8 @@
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Bibliography, Publications
+    \selectlanguage{american}
     \printbibliography{}
-
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Index
     \printindex{}
