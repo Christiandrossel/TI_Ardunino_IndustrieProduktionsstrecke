@@ -65,7 +65,51 @@ Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übe
 Text
 
 \subsubsection{Keyboard}
-Text
+Hier wurde das Projekt 07 des Arduino-Starter-Kits erweitert. Das ursprüngliche Keyboard konnte auf Knopfdruck vier verschiedene Töne mithilfe eines Piezo-Elements erzeugen. Das modifizierte Projekt hat sieben Tasten und ein regelbaren Widerstand
+damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Widerstand 4 verschiedene Oktaven einstellbar.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img/Keyboard_4O.png}
+\caption{RGB-LED mit Potentiometer}
+\label{rgb_project}
+\end{center}
+\end{figure}
+
+Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
+\begin{itemize}
+\item{Steckplatine}
+\item{Arduino Uno}
+\item{Verbindungskabel}
+\item{Knöpfe}
+\item{verschiedene Widerstände}
+\item{Potentiometer}
+\item{Piezo-Element}
+\end{itemize}
+
+\subsubsection{Umsetzung und Erläuterungen}
+Das Keyboard lässt sich am besten über seine Komponenten erklären.
+Es handelt sich um eine Widerstandsmatrix, mit deren Hilfe man an einem Analogen Eingang des Arduinos auslesen kann,
+welcher Knopf vom Nutzer betätigt wurde. Dadurch ist es nicht nötig ein Eingang pro Knopf zu benutzen.
+Um die Oktaven bequem umschalten zu können wird ein Potentiometer verwendet. Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und dementsprechend ein offset erhalten mit den die Frequenzen der niedrigsten Oktave multipliziert werden.
+Das wechseln in eine höhere Oktave ist nämlich nichts weiter als das verdoppeln der Frequenzen der Töne von der ursprünglichen Oktave.
+Mithilfe der tone() Funktion werden die vom Nutzer durch drücken der Tasten gewählten Töne dann durch das Piezo-Element abgespielt.
+Die Beiden nachfolgenden Abbildungen zeigen den Sourcecode und bieten nähere Erklärungen.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=6cm]{img/KC01.png}
+		\caption{Seite 1}\label{stehend}
+	\end{subfigure}\enspace%
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=6cm]{img/KC02.jpg}
+		\caption{Seite 2}\label{laufend}
+	\end{subfigure}
+	\caption{Sourcecode}\label{Zeituhr}
+\end{figure}
 
 \subsubsection{Digitale Sanduhr}
 Grundlage dieser Modifikation ist das Projekt Nr. 8 des Arduino-Starter-Kits. Anstatt eines Kippschalters zum starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird ein weiterer Schalter zum erhöhen der Startzeit benötigt. Eine der fünf LEDs ist für die Anzeige der Sekunden zuständig und mit den anderen vier LEDs kann man von mindestens 1 Minute bis maximal 31 Minuten binär eine Zeituhr ablaufen lassen. Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.\\
@@ -136,10 +180,10 @@ void loop() {
 
 
 \subsubsection{Uhr}
-Grundlage für diese Projektmodifikation bildete das Projekt 11: Kristallkugel (hier quelle hin). In diesem Projekt erfolgt die Einführung in die Verwendung eines LCD und das Ansprechen mit der LiquidCrystal-Bibliothek (Bestandteil der Arduino IDE).
+Grundlage für diese Projektmodifikation bildete das Projekt 11: Kristallkugel \autocite{arduino}. In diesem Projekt erfolgt die Einführung in die Verwendung eines LCD und das Ansprechen mit der LiquidCrystal-Bibliothek (Bestandteil der Arduino IDE).
 Zusätzlich zum Display wird ein Kippschalter an das Board angeschlossen. Ausgelöst durch ein Kippen des Schalters wird ein Text zufällig aus einer Reihe vorprogrammierter Texte auf dem Display angezeigt.
 
-Dieses Grundprojekt wurde hin zu einer einfachen einstellbaren Uhr abgeändert. Dazu wurde der Kippschalter durch zwei Taster ausgetauscht, mit denen sich die Uhr stellen lässt (Abbildung~\ref{fig:zeit}). Außerdem wurde die Versorgungsspannung des Displays mit einem Kondensator stabilisiert.
+Dieses Grundprojekt wurde hin zu einer einfachen einstellbaren Uhr abgeändert. Dazu wurde der Kippschalter gegen zwei Taster ausgetauscht, mit denen sich die Uhr stellen lässt (Abbildung~\ref{fig:zeit}). Außerdem wurde die Versorgungsspannung des Displays mit einem Kondensator stabilisiert.
 
 \begin{figure}[p]
     \centering
