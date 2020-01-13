@@ -19,7 +19,7 @@ public abstract class BluetoothClient {
 
     private String _name;
     private String _mac;
-    private ILogger _logger;
+    ILogger logger;
 
     private class ReceivingThread implements Runnable {
         @Override
@@ -32,8 +32,8 @@ public abstract class BluetoothClient {
                     String input = new String(buffer, 0, bytes);
                     if (!(input.equals("") || input.equals("\r\n"))) {
                         Log.i("BluetoothClient", "<== Recv data: " + input);
-                        if(_logger != null)
-                            _logger.writeLog(_name + " <=== '" + input + "'");
+                        if(logger != null)
+                            logger.writeLog(_name + " <=== '" + input + "'");
                         receivingThread(input);
                     }
                 }
@@ -60,8 +60,8 @@ public abstract class BluetoothClient {
      */
     boolean connect(BluetoothAdapter adapter) {
         try {
-            if(_logger != null)
-                _logger.writeLog("Trying to connect to " + _name + "...");
+            if(logger != null)
+                logger.writeLog("Trying to connect to " + _name + "...");
             adapter.startDiscovery();
             BluetoothDevice btDevice = adapter.getRemoteDevice(_mac);
             UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -70,8 +70,8 @@ public abstract class BluetoothClient {
             _outStream = _btSocket.getOutputStream();
             _inStream = _btSocket.getInputStream();
 
-            if(_logger != null)
-                _logger.writeLog("=> Connected to " + _name + "!");
+            if(logger != null)
+                logger.writeLog("=> Connected to " + _name + "!");
             _readingThread = new Thread(new ReceivingThread());
             _readingThread.start();
             onConnectionChanged();
@@ -79,8 +79,8 @@ public abstract class BluetoothClient {
 
         } catch (IOException e) {
             e.printStackTrace();
-            if(_logger != null)
-                _logger.writeLog("=> Failed to connect to " + _name + "!");
+            if(logger != null)
+                logger.writeLog("=> Failed to connect to " + _name + "!");
             return false;
         }
         return true;
@@ -102,7 +102,7 @@ public abstract class BluetoothClient {
     }
 
     public void registerLogger(ILogger logger) {
-        _logger = logger;
+        this.logger = logger;
     }
 
     public String getName() {
@@ -127,7 +127,7 @@ public abstract class BluetoothClient {
      */
     void onConnectionChanged() {
         if (_inStream == null || _outStream == null ) {
-            _logger.writeLog(_name + " disconnected!");
+            logger.writeLog(_name + " disconnected!");
         }
     }
 
@@ -135,21 +135,21 @@ public abstract class BluetoothClient {
      * Sends a String message to the BluetoothClient from the Device
      * @param message the String, which should get send to the Client
      */
-    synchronized void  sendData(String message) {
+    synchronized void sendData(String message) {
         byte[] msgBuffer = message.getBytes();
 
         Log.i("BluetoothClient", "==> Send data: " + message);
 
         try {
             _outStream.write(msgBuffer);
-            if(_logger != null)
-                _logger.writeLog(_name + " ==> '" + message + "'");
+            if(logger != null)
+                logger.writeLog(_name + " ==> '" + message + "'");
         } catch (IOException e) {
             e.printStackTrace();
             onConnectionChanged();
         } catch (Exception e) {
-            if(_logger != null)
-                _logger.writeLog("Failed to send message '" + message + "' to " + _name);
+            if(logger != null)
+                logger.writeLog("Failed to send message '" + message + "' to " + _name);
         }
     }
 }

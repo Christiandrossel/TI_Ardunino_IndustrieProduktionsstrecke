@@ -10,7 +10,7 @@ public interface IMachineCommunicator {
     /**
      * Sets the specified Drill in Busy state
      * @param drillId the Drill ID (1-2)
-     * @param client
+     * @param client The Rodoter that uses the specified Drill
      */
     void setDrillBusy(int drillId, Rodoter client);
 
@@ -29,4 +29,9 @@ public interface IMachineCommunicator {
      * Callback for when the Connection to the Device was Changed
      */
     void connectionChanged();
+
+    /**
+     * Sets the Crane Busy with the specified Rodoter
+     */
+    void setCraneBusy(Rodoter rodoter);
 }

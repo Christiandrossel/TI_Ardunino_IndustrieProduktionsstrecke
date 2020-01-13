@@ -78,6 +78,10 @@ void loop(){
   }
   switch(RodoterState){
     case GO_TO_CRANE:
+      if(breakpoint_recognized()){
+        Serial.print('c');
+        delay(200);
+      }
       if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
         digitalWrite(MotorLeft2,HIGH);

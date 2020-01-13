@@ -1,6 +1,5 @@
 package de.htwdd.tiserver.bluetooth;
 
-import android.bluetooth.BluetoothDevice;
 import de.htwdd.tiserver.IMachineCommunicator;
 
 public class Drill extends BluetoothClient {
@@ -21,9 +20,10 @@ public class Drill extends BluetoothClient {
 
     // @Override
     void receivingThread(String input) {
-        char c = input.charAt(0);
-        if (c == 'r') {
-            this.setFree();
+        for (char c : input.toCharArray()) {
+            if (c == 'r') {
+                this.setFree();
+            }
         }
     }
 
@@ -33,14 +33,16 @@ public class Drill extends BluetoothClient {
 
     public void setBusy(Rodoter rodoter) {
         _currentRodoter = rodoter;
-         this.sendData("b");
+        this.sendData("b");
+        if (logger != null)
+            logger.writeLog("\t" + _currentRodoter.getName() + " at" + this.getName());
     }
 
     public void setFree() {
-        if (_currentRodoter != null) {
-            _currentRodoter.sendData("r");
-            _currentRodoter = null;
-        }
+        _currentRodoter.sendData("r");
+        if (logger != null)
+            logger.writeLog("\t" + _currentRodoter.getName() + " freed from " + this.getName());
+        _currentRodoter = null;
     }
 
     @Override

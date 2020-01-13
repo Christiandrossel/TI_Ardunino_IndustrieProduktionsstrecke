@@ -32,6 +32,8 @@ public class Rodoter extends BluetoothClient {
                     break;
                 case 'r':
                     break;
+                case 'c':
+                    _machineCom.setCraneBusy(this);
             }
         }
     }

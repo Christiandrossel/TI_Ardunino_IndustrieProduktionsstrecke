@@ -1,6 +1,7 @@
 package de.htwdd.tiserver.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
+import android.os.AsyncTask;
 import de.htwdd.tiserver.ILogger;
 import de.htwdd.tiserver.IMachineCommunicator;
 
@@ -28,6 +29,7 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     private ConnectedDevicesListener _connectionListener;
     private List<BluetoothClient> _clients = new ArrayList<>();
     private List<Drill> _drills = new ArrayList<>();
+    private Crane _crane;
 
 
     public BluetoothCommunicator() {
@@ -40,8 +42,6 @@ public class BluetoothCommunicator implements IMachineCommunicator {
 
         _drillMap.put("Bohrer 1", "98:D3:32:F5:B6:4F");
         _drillMap.put( "Bohrer 2", "98:D3:32:F5:B7:AD");
-
-        // ToDo: MAC Kran '98:D3:32:F5:B0:2C'
 
         // create the Client-List
         for (String name : _rodoterMap.keySet()) {
@@ -59,17 +59,24 @@ public class BluetoothCommunicator implements IMachineCommunicator {
             _drills.add(drill);
             _clients.add(drill);
         }
+
+        _crane = new Crane("98:D3:32:F5:B0:2C", "Kran", this);
+        _clients.add(_crane);
     }
 
     /**
      * Try to Connect to specified Bluetooth Device
-     * @return returns true, if the device was connected
      */
-    public boolean connect(BluetoothClient client) {
+    public void connect(final BluetoothClient client) {
         if (client == null)
-            return false;
+            return;
 
-        return client.connect(_btAdapter);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                client.connect(_btAdapter);
+            }
+        });
     }
 
     /**
@@ -144,5 +151,10 @@ public class BluetoothCommunicator implements IMachineCommunicator {
     public void connectionChanged() {
         if (_connectionListener != null)
         _connectionListener.onConnectedClientsChanged(_clients);
+    }
+
+    @Override
+    public void setCraneBusy(Rodoter rodoter) {
+        _crane.setBusy(rodoter);
     }
 }
