@@ -80,7 +80,7 @@ void loop(){
     case GO_TO_CRANE:
       if(breakpoint_recognized()){
         Serial.print('c');
-        delay(200);
+        delay(1000);
       }
       if(server=='r'){
         digitalWrite(MotorLeft1,LOW);
@@ -97,7 +97,7 @@ void loop(){
     // lösche r in breakpoint_recognized()
       if(breakpoint_recognized()){
         Serial.print('d');
-        delay(200);
+        delay(1000);
       }
       switch(server){
         case '0':
@@ -107,7 +107,7 @@ void loop(){
           digitalWrite(MotorRight2,LOW);
           Serial.print('0');
           //RodoterState = GO_TO_DRILL;
-          delay(1000);
+          delay(700);
           break;
         case '1':
           digitalWrite(MotorLeft1,LOW); 
