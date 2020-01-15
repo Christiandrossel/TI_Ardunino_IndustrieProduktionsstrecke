@@ -49,7 +49,31 @@ Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übe
 
 
 \subsubsection{Alarmanlage}
-Text
+Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterkit genommen. Ursprünglich sollte sich die Frequenz des abgespielten Tons ändern je nachdem wie viel Licht der Lichtsensor aufnimmt. Dies wurde so abgeändert, dass nach einer kurzen Initialisierungsphase der Lichtsensor auf zu nahe Objekte reagiert und dann eine Polizeisirene abspielt und abwechselnd eine blaue und rote LED anschaltet.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[height=6cm]{img/alarm-off.jpg}
+		\caption{Aufbau des Arduinos}
+	\end{subfigure}\enspace%
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[height=6cm]{img/alarm-on.jpg}
+		\caption{Alarm ist an}
+	\end{subfigure}
+\end{figure}
+
+\subsubsection{Umsetzung und Erläuterung}
+Neben dem normalen Aufbau des Projekts wurden noch 2 farbige LEDs an den Arduino angeschlossen.
+Damit der Arduino die Annäherung an den Sensor erkennen kann brauch der Lichtsensor einen Schwellwert, ab wann die Alarmanlage an geht. Dies wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster in der der Benutzer 1x den Sensor abdecken muss. Es wird der maximal und der minimal Wert des Sensors genommen  und der Schwellwert daraus berechnet. Während diesen 5 Sekunde blinkt die rote LED um dem Nutzer zu signalisieren, dass sich der Arduino noch inítialisiert.
+Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst: 
+\begin{itemize}
+\item Das Piezzo-Element wird mit einer wechselnden Frequenz angesteuert, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren
+\item Die LEDs werden mit Hilfe des Durchlauf-Counters alle 100ms gewechselt
+\end{itemize}
+Sollte der Schwellwert nicht erreicht werden, bleiben die LEDs sowie das Piezzo-Element ausgeschaltet.
 
 \subsubsection{Keyboard}
 Hier wurde das Projekt 07 des Arduino-Starter-Kits erweitert. Das ursprüngliche Keyboard konnte auf Knopfdruck vier verschiedene Töne mithilfe eines Piezo-Elements erzeugen. Das modifizierte Projekt hat sieben Tasten und ein regelbaren Widerstand
