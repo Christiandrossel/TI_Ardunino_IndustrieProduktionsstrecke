@@ -4,3 +4,21 @@ Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetrete
 
 Im letzten Abschnitt könnte als Zusammenfassung die Ergebnisdarstellung erfolgen. Sie könnte aber auch in ein eigenes Kapitel umgewandelt werden, wenn sie umfangreich wird.
 
+
+
+\section{Probleme}
+Während der Umsetzung des Projekts traten leider ein paar Probleme auf. Diese konnten wir allerdings alle lösen.
+\subsection{Kommunikation}
+Ein großes Problem bei der Umsetzung war, dass die Bluetooth Module der Turtle Roboter (HC-06) nur als sog. Slaves agieren können und damit sich nicht untereinander verbinden können. Dieses Problem wurde durch eine Android-App gelöst.
+Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sollte beispielsweise ein Turtle Roboter an einem Bohrer stehen und dieser fertig sein, so sendet der Bohrer der App, dadss er fertig ist. Die App leitet das dann an den Bohrer weiter, damit der Roboter weiß, dass er wieder los kann.
+Dazu kommt allerdings ein gewisser Overhead, da der Roboter der App mitteilen muss, an welcher Station er sich gerade befindet, damit die App weiß an wen sie die Informationen schicken muss.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{img/Ablaufdiagram-App.png}
+\caption{Kommunikation der Server-App mit den einzelnen Geräten}
+\end{center}
+\end{figure}
+
+\subsection{Auffahrunfälle}
+Während die Roboter auf der vorgesehenen schwarzen Linie fahren kann es passieren, dass sie auf den Roboter vor ihnen warten müssen. Eigentlich sind für Entfernungsmessung und Kollisionsvermeidung Ultraschall-Sensoren an der Vorderseite der Roboter angebracht. Diese registrieren jedoch andere Roboter erst zu spät oder gar nicht, da die Kabel im oberen Bereich des Roboters nicht präzise erkannt werden können. 
+Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt wurde und an dessen Rückseite montiert wurde.
