@@ -58,9 +58,6 @@
 % gloss
 \usepackage[nonumberlist,acronym,hyperfirst=false,nopostdot,nomain]{glossaries}
 
-% index
-\usepackage{makeidx}
-
 % appendix
 \usepackage{appendix}
 
@@ -76,14 +73,8 @@
 
 % defines
 \input{src/aux-defines}
-% glossary
-\input{src/aux-glssettings}
-\input{src/aux-acronyms}
-\input{src/aux-symbols}
 % listings
 \input{src/arduinoLanguage.tex}
-% index
-\makeindex
 
 \title{\myDefDocType\\\myDefTitle}
 \author{\myDefAuthor}
@@ -106,6 +97,9 @@
 
 % bibliography resources
 \addbibresource[label=bib]{bib/bibliography.bib}
+
+% no real use, just so no-one needs to change configuration
+\makeglossaries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % document
@@ -142,34 +136,12 @@
     \include{src/front-kurzfassung}
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % ToC, ToF, ToT
+    % ToC
     \cleardoublepage{}
     \phantomsection{}
     \pdfbookmark[1]{Table of Contents}{bm:toc}
     \setcounter{tocdepth}{2}
     \tableofcontents
-
-    \cleardoublepage{}
-    \phantomsection{}
-    \pdfbookmark[1]{List of Figures}{bm:lof}
-    \listoffigures
-
-    \cleardoublepage{}
-    \phantomsection{}
-    \pdfbookmark[1]{List of Tables}{bm:lot}
-    \listoftables
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Acronyms, Symbols
-    \cleardoublepage{}
-    \phantomsection{}
-    \pdfbookmark[1]{Acronyms}{bm:glsacr}
-    \printglossary[type=\acronymtype]
-
-    \cleardoublepage{}
-    \phantomsection{}
-    \pdfbookmark[1]{Symbols}{bm:glssymb}
-    \printglossary[type=symbols,style=symbol]
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Content
@@ -199,8 +171,6 @@
     \selectlanguage{american}
     \printbibliography{}
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Index
-    \printindex{}
 
 \end{document}
 
