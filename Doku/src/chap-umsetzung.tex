@@ -1,24 +1,38 @@
 \chapter{Umsetzung}
+Hier wird die Umsetzung der einzelnen Bestandteile des Projektes beschrieben. Probleme auf die das Team gestoßen ist und deren Lösung werden hier ebenfalls erläutert.
+%Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetretener Probleme/Herausforderungen und deren Lösung. Das Vorgehen sollte so nachvollziehbar sein, dass der Leser das Projekt vom Prinzip genauso umsetzen könnte (meint aber nicht, dass hier jeder Codeschnipsel erscheinen muss). 
+%Im letzten Abschnitt könnte als Zusammenfassung die Ergebnisdarstellung erfolgen. Sie könnte aber auch in ein eigenes Kapitel umgewandelt werden, wenn sie umfangreich wird.
 
-Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetretener Probleme/Herausforderungen und deren Lösung. Das Vorgehen sollte so nachvollziehbar sein, dass der Leser das Projekt vom Prinzip genauso umsetzen könnte (meint aber nicht, dass hier jeder Codeschnipsel erscheinen muss). 
+\section{Roboter}
+Der Roboter ist ein Keystudio Smart Small Turtle Robot, welcher auf einer vorgegebenen Strecke fährt und an bestimmten Stationen halten soll.
+\subsubsection{Linie folgen}
+Die Hauptpriorität des Roboters liegt darauf, auf einer schwarzen Linie entlang zu fahren um den Kurs an den Stationen vorbei zu absolvieren. Dafür werden die 3 Infrarot Sensoren auf der Unterseite des Roboters genutzt, um fest zu stellen, wo auf der Linie sich der Roboter befindet.\\
+Sollte er an einer Seite die Farbe Weiß fest stellen, so justiert er seine Fahrtrichtung um in dem schwarzen Bereich zu bleiben. Wenn alle 3 Sensoren Weiß feststellen, so ist der Roboter über einen 'Breakpoint' gefahren, eine weiße Fläche auf der Schwarzen Strecke an welcher der Roboter mit den Stationen kommuniziert um seine weiteren Schritte in Erfahrung zu bringen.
 
-Im letzten Abschnitt könnte als Zusammenfassung die Ergebnisdarstellung erfolgen. Sie könnte aber auch in ein eigenes Kapitel umgewandelt werden, wenn sie umfangreich wird.
+\subsubsection{Auffahrunfälle vermeiden}
+Während die Roboter auf der vorgesehenen schwarzen Linie fahren kann es passieren, dass sie auf den Roboter vor ihnen warten müssen. Um Auffahrunfälle zu vermeiden, sind Ultraschall-Sensoren an der Vorderseite der Roboter angebracht. Diese registrieren jedoch andere Roboter erst zu spät oder gar nicht, da die Kabel im oberen Bereich des Roboters nicht präzise erkannt werden können. \\
+Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt und an dessen Rückseite montiert wurde. Dadurch haben die Roboter dahinter ein klar erkennbares Hindernis auf der richtigen Höhe.
 
+\section{Bohrer}
+In dem Projekt wurden 2 Bohrer eingebaut, welche aus den Arduino-Uno Starterkits zusammen gebaut wurden. Die meisten Bestandteile der Bohrer sind aus dem Starterkit, bis auf das Bluetooth Modul (HC-05), welches nachträglich zur Kommunikation mit den Robotern bestellt wurde.
+\subsubsection{Roboter erkennen}
+Nachdem der Bohrer von dem Roboter eine Nachricht bekommen hat, dass dieser zu ihm fährt, bereitet sich der Bohrer auf die Ankunft des Roboters vor und bestätigt keine Anfragen von weiteren Robotern. Durch einen einstellbaren Lichtsensor kann der ankommende Roboter erkannt werden und die Arbeit des Bohrers beginnt. 
 
+\subsubsection{Arbeiten}
+Die Arbeit des Bohrers wird im Rahmen des Projekts als Fortschrittsbalken auf einem LCD symbolisiert. Der Fortschritt startet sobald der Roboter vor den Bohrer gefahren ist (siehe 'Roboter erkennen'). Nachdem der Fortschrittsbalken voll ist ist die Arbeit abgeschlossen und der Bohrer senden dem vor ihm stehenden Roboter, dass der Roboter weiter fahren kann.
 
-\section{Probleme}
-Während der Umsetzung des Projekts traten leider ein paar Probleme auf. Diese konnten wir allerdings alle lösen.
-\subsection{Kommunikation}
-Ein großes Problem bei der Umsetzung war, dass die Bluetooth Module der Turtle Roboter (HC-06) nur als sog. Slaves agieren können und damit sich nicht untereinander verbinden können. Dieses Problem wurde durch eine Android-App gelöst.
-Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sollte beispielsweise ein Turtle Roboter an einem Bohrer stehen und dieser fertig sein, so sendet der Bohrer der App, dadss er fertig ist. Die App leitet das dann an den Bohrer weiter, damit der Roboter weiß, dass er wieder los kann.
+\section{Kran}
+Der Kran besteht wie der Bohrer aus dem Starterkit und einem zusätzlichen Bluetooth Modul. Ebenfalls erkennt er Roboter die vor fahren wie ein Bohrer mit Hilfe des Lichtsensors.
+\subsubsection{Arbeiten}
+Im Gegensatz zu den Bohrern spielt der Kran bei der Arbeit ein Musikstück ab. Dies wird über ein Piezzo-Element realisiert und startet sobald ein Roboter vor den Kran fährt. Ist das Lied zu Ende, sendet der Kran dem vor ihm stehenden Roboter ein Signal zum weiter fahren über das Bluetooth Modul.
+
+\section{Kommunikation}
+Ein großes Problem bei der Umsetzung war, dass die Bluetooth Module der Turtle Roboter (HC-06) nur als sog. Slaves agieren können und damit sich nicht untereinander verbinden können. Dieses Problem wurde durch eine Android-App gelöst.\\
+Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sollte beispielsweise ein Turtle Roboter an einem Bohrer stehen und dieser fertig sein, so sendet der Bohrer der App, dass er fertig ist. Die App leitet das dann an den Bohrer weiter, damit der Roboter weiß, dass er wieder los kann.\\
 Dazu kommt allerdings ein gewisser Overhead, da der Roboter der App mitteilen muss, an welcher Station er sich gerade befindet, damit die App weiß an wen sie die Informationen schicken muss.
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.7\textwidth]{img/Ablaufdiagram-App.png}
+\includegraphics[width=\textwidth]{img/Ablaufdiagram-App.png}
 \caption{Kommunikation der Server-App mit den einzelnen Geräten}
 \end{center}
 \end{figure}
-
-\subsection{Auffahrunfälle}
-Während die Roboter auf der vorgesehenen schwarzen Linie fahren kann es passieren, dass sie auf den Roboter vor ihnen warten müssen. Eigentlich sind für Entfernungsmessung und Kollisionsvermeidung Ultraschall-Sensoren an der Vorderseite der Roboter angebracht. Diese registrieren jedoch andere Roboter erst zu spät oder gar nicht, da die Kabel im oberen Bereich des Roboters nicht präzise erkannt werden können. 
-Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt wurde und an dessen Rückseite montiert wurde.
