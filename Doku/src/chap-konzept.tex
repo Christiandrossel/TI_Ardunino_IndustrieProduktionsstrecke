@@ -44,8 +44,8 @@ vermittelt. Nachfolgend sind einige abgeänderte Starterkit-Projekte näher erl�
 
 \subsubsection{Farbmischende Lampe}
 
-Für dieses Projekt wird die RGB-LED verwendet.\todo[author=anja]{Projekt bennenen, inklusive nummer und quelle} Der Nutzer\todo[author=anja]{weg mit dem nutzer!} möchte, dass diese LED in verschiedenen Farbtönen aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl des Farbtones \todo[author=anja]{Auswahl an Farbtönen?} soll sehr groß sein. Die LED soll einfach zu bedienen sein. Ss soll nicht für jeden Farbton ein einzelner Schalter angelegt werden.
-\\
+Die farbmischende Lampe baut auf den Projekten 4 und 5 des Arduino-Projektbuches auf. Für dieses Projekt wird die RGB-LED verwendet. Der Nutzer möchte, dass diese LED in verschiedenen Farben aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl der Farbe soll sehr groß sein. Die LED soll einfach zu bedienen sein. Es soll nicht für jede Farbe ein einzelner Schalter angelegt werden.
+
 
 \begin{figure}[h]
 \begin{center}
@@ -55,7 +55,7 @@ Für dieses Projekt wird die RGB-LED verwendet.\todo[author=anja]{Projekt bennen
 \end{center}
 \end{figure}
 
-Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
+Für den Nachbau des Projekts werden folgende Komponenten benötigt:
 \begin{itemize}
 \item{Steckplatine}
 \item{Arduino Uno}
@@ -64,20 +64,23 @@ Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 \item{RGB-LED}
 \item{3x 220-OhmWiderstand}
 \end{itemize}
-\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
-Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
 
+Abbildung \ref{rgb_project} zeigt die Verschaltung der Komponenten.
+ 
 \subsubsection{Umsetzung und Erläuterungen}
-Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man\todo[author=anja]{Koalas auf dem Gewissen} mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es\todo[author=anja]{was?} auch auszuschalten. 
-Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
+Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten.
+ 
+Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da den Pins der LED Werte übergeben werden müssen und vom Potentiometer Werte eingelesen werden, müssen Int-Variablen für diese Werte angelegt werden.
 In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
-Als nächstes kommt die loop-Funktion. Als erstes wird mit analogRead(pin) der Wert des Potentiometers gelesen und übergeben diesen an die Variable für den Wert des Potentiometers.
-Nun muss entscheiden werden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Farben zur Verfügung stehen, sollten wir einen Farblauf erzeugen. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
-Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen mit dem Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich ins Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu dem der übergebene Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+
+Als nächstes kommt die Loop-Funktion. Als erstes wird mit analogRead(pin) der Wert des Potentiometers gelesen und übergeben diesen an die Variable für den Wert des Potentiometers.
+
+Nun muss entschieden werden, wie mit dem Wert weiter gearbeitet wird. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Farben zur Verfügung stehen, wird eine Farblauf erzeugt. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
+
+In der Umsetzung werden die Werte des Potentiometers innerhalb eines bestimmten Zahlenbereiches mittels einer if-Anweisung überprüft. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich ins Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine bestehende Funktion in der Arduino-Basisbibliothek. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu dem der übergebene Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+
 Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übergeben.
-\todo[author=anja,inline]{mir ist jetzt nicht klar, was das ausgangsprojekt war und worin deine modifikation besteht}
-\todo[author=anja,inline]{du beschreibst ziemlich viel den quellcode. das ist eher uninteressant (basiscode kommt ja auch mit der ide). das grundlegende prinzip und ein oder zwei ausgewählte aspekte aus dem quellcode, die für die umsetzung irgendwie wichtig waren, reichen aus.}
-\todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
+
 
 \subsubsection{Alarmanlage}
 Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterkit genommen.\todo[author=anja]{quelle} Ursprünglich sollte sich die Frequenz des abgespielten Tons ändern, je nachdem wie viel Licht der Lichtsensor aufnimmt. Dies wurde so abgeändert, dass nach einer kurzen Initialisierungsphase der Lichtsensor auf zu nahe Objekte reagiert und dann eine Polizeisirene abspielt sowie abwechselnd eine blaue und rote LED anschaltet.
@@ -99,13 +102,8 @@ Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterki
 
 \subsubsection{Umsetzung und Erläuterung}
 Neben dem normalen Aufbau des Projekts wurden noch zwei farbige LEDs an den Arduino angeschlossen.
-Damit der Arduino die Annäherung an den Sensor erkennen kann, benötigt der Lichtsensor einen Schwellwert, bei dessen Unterschreiten die Alarmanlage ausgelöst wird. Dies wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster in der der Benutzer einmal den Sensor abdecken muss.\todo[author=anja]{lies nochmal :-)} Es wird der maximal- und der minimal Wert\todo[author=anja]{Maximalwert oder maximal gemessene Wert, bei minimal dito} des Sensors genommen und der Schwellwert daraus berechnet. Während diesen 5 Sekunden blinkt die rote LED, um dem Nutzer zu signalisieren, dass sich der Arduino noch initialisiert.
-Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst: 
-\begin{itemize}
-\item Das Piezzo-Element wird mit einer wechselnden Frequenz angesteuert, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren
-\item Die LEDs werden mit Hilfe des Durchlauf-Counters alle 100ms gewechselt
-\end{itemize}
-\todo[author=anja,inline]{Würd ich normal in den Text schreiben. Haben sonst auch keine Anstriche für sowas}
+Damit der Arduino die Annäherung an den Sensor erkennen kann, benötigt der Lichtsensor einen Schwellwert, bei dessen Unterschreiten die Alarmanlage ausgelöst wird. Dieser Schwellwert wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster ermittelt, in welchem der Benutzer einmal den Sensor abdecken muss. Es wird der Maximal- und der Minimalwert des Sensors genommen und der Schwellwert daraus berechnet. Während diesen 5 Sekunden blinkt die rote LED, um dem Nutzer zu signalisieren, dass sich der Arduino noch initialisiert.\\
+Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst. Das bedeutet, dass das Piezzo-Element mit einer wechselnden Frequenz angesteuert wird, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren. Außerdem werden die eingeschalteten LEDs mit Hilfe des Durchlauf-Counters alle 100ms gewechselt.
 Sollte der Schwellwert nicht unterschritten werden, bleiben die LEDs sowie das Piezzo-Element ausgeschaltet.
 
 \subsubsection{Keyboard}
@@ -115,52 +113,30 @@ damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Wid
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img/Keyboard_4O.png}
-\caption{RGB-LED mit Potentiometer}
-\label{rgb_project}
+\caption{Aufbau des Keyboards}
+\label{kb_aufbau}
 \end{center}
 \end{figure}
-\todo[author=anja,inline]{was macht das bild in dem abschnitt?}
-
-Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
-\begin{itemize}
-\item{Steckplatine}
-\item{Arduino Uno}
-\item{Verbindungskabel}
-\item{Knöpfe}
-\item{verschiedene Widerstände}
-\item{Potentiometer}
-\item{Piezo-Element}
-\end{itemize}
-\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
 
 \subsubsection{Umsetzung und Erläuterungen}
-Das Keyboard lässt sich am Besten über seine Komponenten erklären.
-Es handelt sich um eine Widerstandsmatrix, mit deren Hilfe man\todo[author=anja]{den Meerespiegel erhöhen kann.} an einem analogen Eingang des Arduinos auslesen kann,
+Der Aufbau des Keyboards lässt sich aus der Abbildung \ref{kb_aufbau} entnehmen.
+Das Keyboard lässt sich am besten über seine Komponenten erklären.
+Es handelt sich um eine Widerstandsmatrix, durch die an einen analogen Eingang des Arduinos ausgelesen werden kann,
 welcher Knopf vom Nutzer betätigt wurde. Dadurch ist es nicht nötig einen Eingang pro Knopf zu benutzen.
-Um die Oktaven bequem\todo[author=anja]{bequem klingt bissl unpassend, vlt lieber ne variante mit einfach oder leicht} umschalten zu können, wird ein Potentiometer verwendet. Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und dementsprechend ein Offset erhalten mit dem die Frequenzen der niedrigsten Oktave multipliziert werden.
+Um die Oktaven umschalten zu können, wird ein Potentiometer verwendet.
+Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und 
+dementsprechend ein Offset erhalten mit dem die Frequenzen der niedrigsten Oktave multipliziert werden.
 Das Wechseln in eine höhere Oktave ist nämlich nichts weiter als das Verdoppeln der Frequenzen der Töne von der ursprünglichen Oktave.
+Das tiefste "C" das das Keyboard Abspielen kann hat eine Frequenz von 131Hz. Je nach ausgewählter Oktave wird dies mit 1, 2, 4 oder 8 multipliziert um einen höheren "C"-Ton zu erhalten.
 Mithilfe der tone()-Funktion werden die vom Nutzer durch Drücken der Tasten gewählten Töne dann durch das Piezo-Element abgespielt.
-Die Beiden nachfolgenden Abbildungen\todo[author=anja]{APA verbietet das. immer direkte referenz} zeigen den Sourcecode und bieten nähere Erklärungen.
 
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[b]{0.48\linewidth}
-		\centering
-		\includegraphics[width=6cm]{img/KC01.png}
-		\caption{Seite 1}\label{stehend}
-	\end{subfigure}\enspace%
-	\begin{subfigure}[b]{0.48\linewidth}
-		\centering
-		\includegraphics[width=6cm]{img/KC02.jpg}
-		\caption{Seite 2}\label{laufend}
-	\end{subfigure}
-	\caption{Sourcecode}\label{Zeituhr}
-\end{figure}
-\todo[author=anja,inline]{anhang oder ausschnitte(copy-paste-fehler korrigieren) oder lass es von mir aus weg}
+
+
+
 \subsubsection{Digitale Sanduhr}
-Grundlage dieser Modifikation ist das Projekt Nummer 8 des Arduino-Starter-Kits\todo[author=anja]{quelle}. Anstatt eines Kippschalters zum Starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird ein weiterer Schalter zum Erhöhen der Startzeit benötigt. Eine der fünf LEDs ist für die Anzeige der Sekunden zuständig und mit den anderen vier LEDs kann man von mindestens 1 Minute bis maximal 31 Minuten binär eine Zeituhr ablaufen lassen.\todo[author=anja,inline]{Wie da jetzt welche LEDs vorher waren und wie die jetzt sind, versteh ich nich so ganz. vlt klein wenig ausführlicher/deutlicher, wie das im original war und was du jetzt anders gemacht hast.} Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.
+Grundlage dieser Modifikation ist das Projekt Nummer 8 \autocite{arduino}. Anstatt eines Kippschalters zum Starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird zusätzlich zum vorhandenen Startschalter ein zweiter Schalter zum Erhöhen der Startzeit benötigt. Von den sechs LEDs des Ausgangsprojektes wird eine LED für die Anzeige der Sekunden verwendet und mit den restlichen fünf LEDs kann von mindestens 1 Minute bis maximal 31 Minuten in binärer Ansicht die Zeit heruntergezählt werden.\todo[author=anja,inline]{versteh ich nich so ganz.}\todo[author=timon,inline]{Ich hoffe jetzt ist es etwas besser verständlich.} Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.
 
-Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus. Die Startzeit kann durch Betätigen des oberen Tasters (siehe Abbildung~\ref{Zeituhr}) erhöht werden. Mit jeder Betätigung des Tasters wird binär mit\todo[author=anja]{Ich bin dumm. Ich raffs nich} den LEDs die Startzeit erhöht (siehe Abbildung~\ref{stehend}). Nach Erreichen der gewünschten Startzeit kann die Sanduhr mit Betätigen des zweiten Schalters gestartet werden. Nun leuchtet die grüne Sekunden-LED (siehe Abbildung~\ref{laufend}) im Sekundentakt auf und die angezeigte restliche Zeit des binären Timers wird minütlich um 1 erniedrigt\todo[author=anja]{Sie soll ausgepeitscht werden, diese dreckige Restzeit!!! Vlt einfach verringert? Ich hab hart gelacht ;-)}.\\
+Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus. Die Startzeit kann durch Betätigen des oberen Tasters (siehe Abbildung~\ref{Zeituhr}) erhöht werden. Mit jeder Betätigung des Tasters wird binär mit\todo[author=anja]{Ich bin dumm. Ich raffs nich} den LEDs die Startzeit erhöht (siehe Abbildung~\ref{stehend}). Nach Erreichen der gewünschten Startzeit kann die Sanduhr mit Betätigen des zweiten Schalters gestartet werden. Nun leuchtet die grüne Sekunden-LED (siehe Abbildung~\ref{laufend}) im Sekundentakt auf und die angezeigte restliche Zeit des binären Timers wird minütlich um 1 verringert.\\
 
 \begin{figure}[h]
 	\centering

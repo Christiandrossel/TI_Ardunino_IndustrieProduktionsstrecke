@@ -3,22 +3,31 @@
 
 \section{Zielerfüllung}
 
-Die Zielstellung war die Veranschaulichung und Modularisierung eines Agenten-Systems in einer autonomen Fabrik mit Hilfe der Arduino- Plattform. Für diese Aufgabe wurde eine Liste erstellt, die sich aus Muss-, Soll, und Kann-Kriterien zusammensetzt. Damit das Projekt als erfüllt bewertet werden kann, sollten mindestens die Muss-Kriterien erfüllt sein.
+Die Zielstellung war die Veranschaulichung und Modularisierung eines Agenten-Systems in einer autonomen Fabrik mit Hilfe der Arduino- Plattform. Für diese Aufgabe wurde eine Liste erstellt, die sich aus Muss-, Soll, und Kann-Kriterien zusammensetzt. Damit das Projekt als erfüllt bewertet werden kann, sollten mindestens die Muss-Kriterien umgesetzt werden.
 
-Es sind alle Muss- und Soll-Kriterien erfüllt. Es wurden keine Kann-Kriterien umgesetzt. Damit ist das Projekt erfolgreich abgeschlossen und wurde etwas verfeinert.
+Es sind alle Muss-Kriterien erfüllt. Der Roboter ist in der Lage sich per line tracking über die Teststrecke zu bewegen. Die Näherungssensoren verhindern Kollisionen. Es wurde eine App entwickelt, die als Server mit den Agenten kommuniziert. Beim Antreffen der Kreuzung bleibt der Roboter vorerst stehen.
 
-hier noch ein paar beispiele.
+Es sind alle Soll-Kriterien erfüllt. Für die Kreuzung wurde eine Breakpoint verwendet. Die Bohrer besitzen eine Fortschrittsanzeige und der Kran spielt eine Melodie als Aktion. Die Roboter fahren auf Grund des Abstandsensors und einem Schild an der Rückseite des Roboters nicht aufeinander.
+
+Es wurden keine Kann-Kriterien umgesetzt. Das Agentensystem arbeiten ohne Werkstück. Der Kran ist nicht in der Lage den Roboter zu ent- und beladen. Weder Kran noch Bohrer führen eine Bewegung aus. Wenn einer der Agenten während ihrer Verwendung ausfallen sollte, setzt das System keine Maßnahmen in Kraft, um dieses Problem zu beheben.
+
+Damit ist das Projekt erfolgreich abgeschlossen und wurde etwas verfeinert.
 
 \section{Probleme und Abweichungen}
 
-Es gibt keine Abweichung zum Konzept. In der Umsetzung wurde geplant, dass der Kran nicht mit dem Server kommuniziert. jedoch wird nun ein Bluetooth-Modul für den Kran verwendet, welcher mit dem Server kommuniziert. Die Kommunikation ist so nicht nur einheitlicher, sondern auch einfacher in das Agentensystem zu implementieren.
+Es gibt keine Abweichung zum Konzept. In der Umsetzung wurde geplant, dass der Kran nicht mit dem Server kommuniziert. Jedoch wird nun ein Bluetooth-Modul für den Kran verwendet, welcher mit dem Server kommuniziert. Die Kommunikation ist so nicht nur einheitlicher, sondern auch einfacher in das Agentensystem zu implementieren.
+\todo[author=anja,inline]{das wurde im konzept nicht vorgesehen. im konzept haben wir sogar vergessen, dass der rodoter ja irgendwie signaliste bekommen muss, dass er wieder losfahren soll. du kannst es an sich als problem drin lassen. würde nur nicht sagen, dass es in der umsetzung geplant wurde, sondern eher, dass es sich jetzt so als günstiger erwiesen hat. das prob mit dem HC-Modul, was du erst reinschreiben wolltest, könntest du erwähnen (steht auch in der umsetzung). für nochn paar ideen zu problemen/abweichungen hilfts vlt konzept und umsetzung durchzulesen und die besprechungs/aufgabenaufzeichnungen von christian und vlt noch unsere präsentationen. da steht jedenfalls einiges drin, was wir mal an ideen hatten}
 
-\section{kritische Anmerkungen zum Projekt}
+\section{Kritische Anmerkungen zum Projekt}\todo[author=anja]{würd ich persönlich mit der secion drüber zusammenführen}
 
-Zur Veranschaulichung und Modularisierung eines Agenten-Systems ist die Arduino-Plattform gut geeignet. Die Komponenten können durch zusammenstecken einfach mit einander verbunden werden. Auch die Anleitungen im Buch sind gut erklärt. Die Arduino-Software ist einfach zu installieren und wenig kompliziert. 
+Zur Veranschaulichung und Modularisierung eines Agenten-Systems ist die Arduino-Plattform gut geeignet. Die Komponenten können durch Zusammenstecken einfach miteinander verbunden werden. Auch die Anleitungen im Buch sind gut erklärt. Die Arduino-Software ist einfach zu installieren und wenig kompliziert.
 
-Ein Nachteil beim Arbeiten mit der Arduino-Plattform ist, dass sich die zusammengesteckten Komponenten wieder leicht trennen. Dadurch müssen die Roboter oft überprüft werden, was einiges an Zeit kostet. Leider sind auch die Löcher auf den Plattformen für den Roboter falsch gestanzt. Damit der Kran und die Bohrer einen Roboter erkennen können, wurde einen Photowiderstand eingesetzt. Der Photowiderstand muss jedoch je nach Umgebungslicht angepasst werden. Das erweist sich als sehr problematisch, wenn die Agenten in sehr dunkler Umgebung oder in einem Umfeld mit sich ständig ändernden Lichtverhältnissen arbeiten müssen. 
+Ein Nachteil beim Arbeiten mit der Arduino-Plattform ist, dass sich die zusammengesteckten Komponenten wieder leicht trennen. Dadurch müssen die Roboter oft überprüft werden, was einiges an Zeit kostet. Leider sind auch die Löcher auf den Plattformen für den Roboter falsch gestanzt. Damit der Kran und die Bohrer einen Roboter erkennen können, wurde einen Photowiderstand eingesetzt. Der Photowiderstand muss jedoch je nach Umgebungslicht angepasst werden. Das erweist sich als sehr problematisch, wenn die Agenten in sehr dunkler Umgebung oder in einem Umfeld mit sich ständig ändernden Lichtverhältnissen arbeiten müssen. Die Erstellung der Teststrecke mittels Schere, Papier und Leim ist nicht nur aufwendig und hält nicht lange, sondern verlangt auch exakte Arbeit. Bei den letzten Probefahrten wurden die nicht immer geraden, schwarzen Linien zum Verhängnis. Der Roboter fuhr nur etwas zu weit über den Breakpoint und konnte den Anschluss an der Linie nicht mehr finden.
 
 \section{Erweiterung des Projektes}
 
-Als eine mögliche Erweiterung des Projektes eignet sich die Kommunikation zwischen den einzelnen Agenten. Statt einen gemeinsamen Server zur Kommunikation zu nutzen, sollen die Agenten untereinander kommunizieren können. Die Benutzung des Photowiderstandes zur Erkennung eines Roboters erwies sich in schwierigen Lichtverhältnissen als ungünstige Lösung. Ein Ziel kann sein, eine Alternative für den Photowiderstand zu finden.   
+Als eine mögliche Erweiterung des Projektes eignet sich die Kommunikation zwischen den einzelnen Agenten. Statt einen gemeinsamen Server zur Kommunikation zu nutzen, sollen die Agenten untereinander kommunizieren können.
+
+Die Benutzung des Photowiderstandes zur Erkennung eines Roboters erwies sich in schwierigen Lichtverhältnissen als ungünstige Lösung. Ein Ziel kann sein, eine Alternative für den Photowiderstand zu finden.
+
+Da die Kann-Kriterien wurden nicht erfüllt. Dessen Umsetzung kann als nächstes Ziel in Bearbeitung genommen werden.
