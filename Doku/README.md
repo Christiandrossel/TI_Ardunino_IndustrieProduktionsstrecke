@@ -8,6 +8,8 @@ Es können natürlich auch andere Editoren genutzt werden wie [Texmaker](https:/
 
 ### Einrichtung
 
+**UPDATE:** Glossareinträge (ebenso das Stichwortverzeichnis) werden nicht mehr unterstützt, weil sie nicht benötigt werden. Die Befehle können also aus der Befehlsabfolge entfernt werden. Aktuell ist glossaries noch eingebunden und wird ausgeführt, da eine unangepasste Befehlsabfolge sonst zu Fehlern führt und nicht davon ausgegangen wird, das diese Änderung schnell vorgenommen wird. Falls die Befehlsabfolge angepasst wird, sollten alle glossaries-Befehle aus der **projektdokumentation.tex** entfernt werden.
+
 Es wird das Paket [glossaries](https://www.ctan.org/pkg/glossaries "glossaries Paketinfo") verwendet. Dafür wird Perl benötigt. Perl sollte schon bei der Git Bash mitinstalliert worden sein. Wenn es nicht anderweitig bereits installiert ist, muss es ansonsten installiert werden.
 Es kann erforderlich sein, Perl der PATH-Variable hinzuzufügen (Angabe unter welchem Pfad perl.exe liegt). Wenn Perl mit der Git Bash mitkam, sollte der Pfad etwa so aussehen "C:\Program Files\Git\usr\bin". Im Falle des Texmakers, kann über `Optionen > Texmaker konfigurieren > Befehle > Zur PATH Variable hinzufügen` der Pfad ergänzt werden.
 
@@ -46,8 +48,6 @@ Die inhaltliche Bearbeitung erfolgt in den jeweiligen untergeordneten Dateien:
 - **aux-defines.tex**: Definition von Variablen, If-Statments und eigenen Befehlen
 - **front-titlepage.tex**: Titelseite des Dokuments
 - **aux-acronymes.tex**: Abkürzungsverzeichnis, Auflistung aller verwendeten Abkürzungen
-- **aux-gls-settings.tex**: spezielle Einstellungen für Symbole-Glossar
-- **aux-symbols.tex**: Inhalt des Glossars Symbole, Auflistung aller Glossareinträge
 - **front-kurzfassung.tex**: inhaltliche Kurzfassung/Zusammenfassung am Anfang des Dokuments
 - **chap-test.tex**: Beispielkapitel mit kurzen Verwendungsbeispielen
 - **chap-einleitung.tex**: Einleitung und Zielstellung
