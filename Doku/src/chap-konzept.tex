@@ -102,48 +102,26 @@ damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Wid
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img/Keyboard_4O.png}
-\caption{RGB-LED mit Potentiometer}
-\label{rgb_project}
+\caption{Aufbau des Keyboards}
+\label{kb_aufbau}
 \end{center}
 \end{figure}
-\todo[author=anja,inline]{was macht das bild in dem abschnitt?}
-
-Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
-\begin{itemize}
-\item{Steckplatine}
-\item{Arduino Uno}
-\item{Verbindungskabel}
-\item{Knöpfe}
-\item{verschiedene Widerstände}
-\item{Potentiometer}
-\item{Piezo-Element}
-\end{itemize}
-\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
 
 \subsubsection{Umsetzung und Erläuterungen}
-Das Keyboard lässt sich am Besten über seine Komponenten erklären.
-Es handelt sich um eine Widerstandsmatrix, mit deren Hilfe man\todo[author=anja]{den Meerespiegel erhöhen kann.} an einem analogen Eingang des Arduinos auslesen kann,
+Der Aufbau des Keyboards lässt sich aus der Abbildung \ref{kb_aufbau} entnehmen.
+Das Keyboard lässt sich am besten über seine Komponenten erklären.
+Es handelt sich um eine Widerstandsmatrix, durch die an einen analogen Eingang des Arduinos ausgelesen werden kann,
 welcher Knopf vom Nutzer betätigt wurde. Dadurch ist es nicht nötig einen Eingang pro Knopf zu benutzen.
-Um die Oktaven bequem\todo[author=anja]{bequem klingt bissl unpassend, vlt lieber ne variante mit einfach oder leicht} umschalten zu können, wird ein Potentiometer verwendet. Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und dementsprechend ein Offset erhalten mit dem die Frequenzen der niedrigsten Oktave multipliziert werden.
+Um die Oktaven umschalten zu können, wird ein Potentiometer verwendet.
+Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und 
+dementsprechend ein Offset erhalten mit dem die Frequenzen der niedrigsten Oktave multipliziert werden.
 Das Wechseln in eine höhere Oktave ist nämlich nichts weiter als das Verdoppeln der Frequenzen der Töne von der ursprünglichen Oktave.
+Das tiefste "C" das das Keyboard Abspielen kann hat eine Frequenz von 131Hz. Je nach ausgewählter Oktave wird dies mit 1, 2, 4 oder 8 multipliziert um einen höheren "C"-Ton zu erhalten.
 Mithilfe der tone()-Funktion werden die vom Nutzer durch Drücken der Tasten gewählten Töne dann durch das Piezo-Element abgespielt.
-Die Beiden nachfolgenden Abbildungen\todo[author=anja]{APA verbietet das. immer direkte referenz} zeigen den Sourcecode und bieten nähere Erklärungen.
 
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[b]{0.48\linewidth}
-		\centering
-		\includegraphics[width=6cm]{img/KC01.png}
-		\caption{Seite 1}\label{stehend}
-	\end{subfigure}\enspace%
-	\begin{subfigure}[b]{0.48\linewidth}
-		\centering
-		\includegraphics[width=6cm]{img/KC02.jpg}
-		\caption{Seite 2}\label{laufend}
-	\end{subfigure}
-	\caption{Sourcecode}\label{Zeituhr}
-\end{figure}
-\todo[author=anja,inline]{anhang oder ausschnitte(copy-paste-fehler korrigieren) oder lass es von mir aus weg}
+
+
+
 \subsubsection{Digitale Sanduhr}
 Grundlage dieser Modifikation ist das Projekt Nummer 8 \autocite{arduino}. Anstatt eines Kippschalters zum Starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird zusätzlich zum vorhandenen Startschalter ein zweiter Schalter zum Erhöhen der Startzeit benötigt. Von den sechs LEDs des Ausgangsprojektes wird eine LED für die Anzeige der Sekunden verwendet und mit den restlichen fünf LEDs kann von mindestens 1 Minute bis maximal 31 Minuten in binärer Ansicht die Zeit heruntergezählt werden.\todo[author=anja,inline]{versteh ich nich so ganz.}\todo[author=timon,inline]{Ich hoffe jetzt ist es etwas besser verständlich.} Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.
 
