@@ -1,20 +1,23 @@
 \chapter{Konzept}
 
 %Vorbereitungen zum Projekt wie die StarterKit-Projekte (welche bearbeitet, Probleme, Auswahl an Modifikationen) oder die Verwendung von Notepad++ als externen Editor. Vorstellung des Konzepts und der Überlegungen dazu. Achtung: nicht vermischen mit der konkreten Umsetzung.
+\todo[author=anja]{Anpassungen nach Rückmeldung}
 
 \section{Vorbereitung}
-%TODO einiges evtl. einkürzen da es sich mit der Umsetzung schneidet. 
-Um ein Projekt in dieser Größe zu erstellen wurde ein Konzept erarbeitet. Diese Vorüberlegungen dienten dazu, um Schwerpunkte zu erkennen und zu analysieren. Als Basis standen mehrere „Turtle-Robot“ Bausätze zur Verfügung, welches ein Arduino als Basis beinhaltet. Außerdem wurden „Arduino-Starter-Kit“ verwendet, die eine Reihe an Bauteilen mitbringen. Die Roboter waren unter anderem mit Tracking Sensoren ausgestattet und so konstruiert, dass sie selbständig auf einen vorgegebenen Weg entlangfahren konnten. Außerdem besitzen sie Ultraschallsensoren, um auf einer bestimmten Distanz vor sich ein Objekt wahrzunehmen.  
-Die Grundidee ist es also die Roboter in einen Produktionszyklus Stationen anfahren zu lassen und einen geschlossenen Produktionskreislauf zu erstellen. Die Stationen sollen dabei Maschinen darstellen, welche Bauteile bearbeiten und den Roboter be- bzw. entladen. Diese Stationen sollen dabei aus Arduino und weiteren notwendigen Bauteilen bestehen. Die Grundidee wurde Schritt für Schritt detaillierter definiert, sodass sich in diesem Projekt drei Roboter auf einer Strecke hintereinander bewegen können und von einem Kran mit Bauteilen beladen werden. Anschließend sollen die Roboter selbständig zu einer der zwei Maschinen (Bohrer) fahren, damit die Bauteile bearbeitet werden können. Zum Schluss sollen die Roboter die Bauteile wieder zum Kran transportieren. Diese zwei Bohrer sollen sich Parallel nebeneinander befinden. Daraus ergibt sich die Herausforderung einer Kreuzung vor den Bohrer und einer zusammenführenden Kreuzung nach den zwei Maschinen.
+%TODO einiges evtl. einkürzen da es sich mit der Umsetzung schneidet.
+\todo[author=anja, inline]{Ich hätte jetzt unter Vorbereitung erstmal nur das Annähern an und ausprobieren der Technik mit der gearbeitet werden soll (arduino starterkitprojekte + modifikationen + notepad++) um davon ausgehend auch ideen fürs konzept und die umsetzung entwickeln zu können, verstanden. daher hätte ich jetzt hier einen eher kurzen einleitungsteil erwartet und erst nach den ganzen modifiaktionsbeispielen und dem notepad++ abschnitt eine section in ders um die entwicklung des konzepts und die festgelegten anforderungen geht.}
+Um ein Projekt in dieser Größe zu erstellen, wurde ein Konzept erarbeitet. Diese Vorüberlegungen dienten dazu, Schwerpunkte zu erkennen und zu analysieren. Als Basis standen mehrere „Turtle-Robot“-Bausätze zur Verfügung, welches ein Arduino als Basis beinhaltet. Außerdem wurden „Arduino-Starter-Kit“ verwendet, die eine Reihe an Bauteilen mitbringen. Die Roboter waren unter anderem mit Tracking Sensoren ausgestattet und so konstruiert, dass sie selbständig auf einen vorgegebenen Weg entlangfahren konnten. Außerdem besitzen sie Ultraschallsensoren, um auf einer bestimmten Distanz vor sich ein Objekt wahrzunehmen. \todo[author=anja,inline]{Plötzlicher Wechsel von Vergangenheit zu Gegenwart. würde eher gegenwart nehmen}  
+Die Grundidee ist es also die Roboter in einem Produktionszyklus Stationen anfahren zu lassen und einen geschlossenen Produktionskreislauf zu erstellen. Die Stationen sollen dabei Maschinen darstellen, welche Bauteile bearbeiten und den Roboter be- bzw. entladen. Diese Stationen sollen dabei aus Arduinos und weiteren notwendigen Bauteilen bestehen. Die Grundidee wurde Schritt für Schritt detaillierter definiert, sodass sich in diesem Projekt drei Roboter auf einer Strecke hintereinander bewegen können und von einem Kran mit Bauteilen beladen werden. Anschließend sollen die Roboter selbständig zu einer der zwei Maschinen (Bohrer) fahren, damit die Bauteile bearbeitet werden können. Zum Schluss sollen die Roboter die Bauteile wieder zum Kran transportieren. Diese zwei Bohrer sollen sich Parallel nebeneinander befinden. Daraus ergibt sich die Herausforderung einer Kreuzung vor den Bohrer und einer zusammenführenden Kreuzung nach den zwei Maschinen.
 %Bild Produktionsstrecke Roboter/ Maschinen
  
-Des Weiteren ergibt sich eine weitere Herausforderung, das selbständige stehenbleiben und losfahren an den Maschinen, der Roboter. Um sich diese Herausforderung und deren möglichen Lösungen heranzuführen, wurde ein Paper Prototyp entwickelt. Damit konnten Szenarien visuell dargestellt werden und weitere Schwerpunkte festgestellt werden. Für die Erkennung, dass ein Roboter an einer Station steht, wurden Lösungsmöglichkeiten wie Fotowiderstände, Schranken und Breakpoints gefunden. Durch Fotowiderstände an den Stationen könnte das Licht gemessen werden. Bei Veränderungen des Lichts kann daraus geschlussfolgert werden, dass sich ein Roboter an der Station befindet. Die Schranke soll als Hindernisobjekt dienen und mit einem Servomotor realisiert werden können, welches der Roboter wahrnehmen kann und stehen bleibt. Der Breakpoint ist eine Unterbrechung der Schwarzen Linie auf dem sich die Roboter bewegen. Der Roboter könnte dies erkennen und bleibt stehen. Die Stationen sollen zudem ein Signal für den Betrachter zurückgeben. Dadurch kann für den Betrachter erkenntnis- gewonnen werden ob Maschine Roboter erkennt. Die Überlegung ist hier dabei mit LED’s, Piezo oder eine Fortschrittsanzeige mit einem LCD Bildschirm.
-Durch die Parallele Aufteilung der zwei Maschinen hat der Roboter die Wahl an der Kreuzung in eine bestimmte Richtung zu fahren. Dazu soll eine Kommunikation zwischen der Maschine und dem Roboter über eine Android App mittels Bluetooth realisiert werden. Damit die Roboter nach der Bohr-Station wieder zum Kran fahren, soll die Kreuzung nach dieser Station durch einen Flachen Winkel zu einer Linie zusammenführen. Außerdem besteht die Möglichkeit das die Roboter zusammenstoßen können. Da sie mit einem Ultraschallsensor ausgestattet sind, besteht hier der Lösungsansatz einer Verkleidung im hinteren Bereich des Roboters. Damit könnte sichergestellt werden, dass sie sich als Hindernisse wahrnehmen und stehen bleiben.
+Des Weiteren ergibt sich eine weitere Herausforderung, das selbständige stehenbleiben und losfahren an den Maschinen, der Roboter \todo[author=anja]{vermutlich meinst du: \ldots der Roboter an den Maschinen.}. Um sich diese Herausforderung und deren möglichen Lösungen heranzuführen,\todo[author=anja]{Das Verb passt nicht. kann sein, dass du zwei verben brauchst.} wurde ein Paper Prototyp entwickelt. Damit konnten Szenarien visuell dargestellt werden und weitere Schwerpunkte festgestellt werden. Für die Erkennung, dass ein Roboter an einer Station steht, wurden Lösungsmöglichkeiten wie Fotowiderstände, Schranken und Breakpoints gefunden. Durch Fotowiderstände an den Stationen könnte das Licht gemessen werden. Bei Veränderungen des Lichts kann daraus geschlussfolgert werden, dass sich ein Roboter an der Station befindet. Die Schranke soll als Hindernisobjekt dienen und mit einem Servomotor realisiert werden können, welches der Roboter wahrnehmen kann und stehen bleibt. Der Breakpoint ist eine Unterbrechung der Schwarzen Linie auf dem sich die Roboter bewegen. Der Roboter könnte dies erkennen und bleibt stehen. Die Stationen sollen zudem ein Signal für den Betrachter zurückgeben. Dadurch kann für den Betrachter erkenntnis- gewonnen werden ob Maschine Roboter erkennt.\todo[author=anja]{Nochmal durchlesen :-)} Die Überlegung ist hier dabei mit LED’s, Piezo oder eine Fortschrittsanzeige mit einem LCD Bildschirm.\todo[author=anja]{was zu tun? da fehlt ein verb}
+Durch die parallele Aufteilung der zwei Maschinen hat der Roboter die Wahl an der Kreuzung in eine bestimmte Richtung zu fahren. Dazu soll eine Kommunikation zwischen der Maschine und dem Roboter über eine Android App mittels Bluetooth realisiert werden. Damit die Roboter nach der Bohr-Station wieder zum Kran fahren, soll die Kreuzung nach dieser Station durch einen Flachen Winkel zu einer Linie zusammenführen. Außerdem besteht die Möglichkeit das die Roboter zusammenstoßen können. Da sie mit einem Ultraschallsensor ausgestattet sind, besteht hier der Lösungsansatz einer Verkleidung im hinteren Bereich des Roboters. Damit könnte sichergestellt werden, dass sie sich als Hindernisse wahrnehmen und stehen bleiben.
 Um diese Ideen weiter zu konkretisieren wurden zu jedem Modul, also zu der Maschine, dem Kran und den Robotern Zustandsdiagramme erstellt.
 Durch die weiteren Visualisierungen wurden mehrere Szenarien durchgespielt, die mehrere Lösungen und Ausbaustufen mit sich brachten. Aufgrund dessen wurde ein Aufgabenkatalog angefertigt, der die Kriterien dieses Projekt in Muss-, Soll- und Kann-Kriterien untergliedert.
-Für die Einarbeitung des Projektes mit Arduino wurde "Das Arduino-Starter-Kit" verwendet. Dieses beinhaltet neben dem Arduino und der Steckplatine, weitere Bauteile und ein Projektbuch. Nachdem die Einarbeitung durch das Buch gelungen ist, wurden einige Projekte so abgeändert, dass sie das Verständnis der Bauteile, des Schaltungsaufbau und der Programmierung näherbringen. Einige dieser, für das Projekt relevante abgeänderten Starterkit-Projekte sind in dem nachfolgenden Kapitel aufgeführt und näher beschrieben. Des Weiteren wird in Kapitel XY auf die Einstellung von Notepad ++ eingegangen.
+Für die Einarbeitung des Projektes mit Arduino wurde "Das Arduino-Starter-Kit"\todo[author=anja]{muss nicht alles in anführungszeichen und wenn, dann bitte \textbackslash{}enquote\{\} verwenden} verwendet. Dieses beinhaltet neben dem Arduino und der Steckplatine, weitere Bauteile und ein Projektbuch. Nachdem die Einarbeitung durch das Buch gelungen ist, wurden einige Projekte so abgeändert, dass sie das Verständnis der Bauteile, des Schaltungsaufbau und der Programmierung näherbringen. Einige dieser, für das Projekt relevante abgeänderten Starterkit-Projekte sind in dem nachfolgenden Kapitel aufgeführt und näher beschrieben. Des Weiteren wird in Kapitel XY\todo[author=anja]{Konkrete Verweise auf andere Kapitel/Abschnitte sind oft eher unüblich vlt einfach mit anschließend sätze verbinden?} auf die Einstellung von Notepad ++ eingegangen.
+\todo[author=anja,inline]{der letzte teil geht schon eher in die richtung, die ich mir unter der überschrift vorbereitung vorgestellt hatte}
 
-
+\todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
 
 %Für die Einarbeitung des Projektes mit Arduino wurde "Das Arduino-Starter-Kit" verwendet. Dieses beinhaltet neben dem Arduino und der Steckplatine, weitere Bauteile und ein Projektbuch. Nachdem die Einarbeitung durch das Buch gelungen ist, wurden einige Projekte so abgeändert das sie das Verständnis der Bauteile und Programmierung näher bringen. Einige dieser für das Projekt relevante abgeänderten Starterkit-Projekte sind hier Aufgeführt und näher beschrieben.
 
@@ -22,13 +25,13 @@ Für die Einarbeitung des Projektes mit Arduino wurde "Das Arduino-Starter-Kit" 
 \subsection{Arduino StarterKit-Projekte}
 %(Kurze Erklärung worums geht <<--Dieser Satz kommt dann noch weg ;) )
 
-Das Starterkit bringt eine geführte Einleitung in die Welt des Arduinos. Durch den Aufbau von Schaltungen mit den entsprechenden Bauteilen und dem anschließenden Programmieren, wird das Verständnis übermittelt.
-Hier sind einige abgeänderte Starterkit-Projekte näher Erläutert, die Bauteile oder Programmiercode beinhalten, welches für die Umsetzung des  Projektes beigetragen haben. Dazu wird als erstes auf die Vorbetrachtung eingegangen. Als nächstes auf den Aufbau und anschließend auf die Umsetzung des einzelnen Starterkit-Projekt.
+Das Starterkit bringt eine geführte Einleitung in die Welt des Arduinos.\todo[author=anja]{hier irgendwo projektbuch erwähnen und quelle dazu} Durch den Aufbau von Schaltungen mit den entsprechenden Bauteilen und dem anschließenden Programmieren, wird das Verständnis übermittelt.
+Hier sind einige abgeänderte Starterkit-Projekte näher erläutert, die Bauteile oder Programmiercode beinhalten, welches für die Umsetzung des  Projektes beigetragen haben. Dazu wird als erstes auf die Vorbetrachtung eingegangen. Als nächstes auf den Aufbau und anschließend auf die Umsetzung des einzelnen Starterkit-Projekt.
 
 
 \subsubsection{Farbmischende Lampe}
 
-Für dieses Projekt wird die RGB-LED verwendet. Der Nutzer möchte, dass diese LED in verschiedenen Farbtönen aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl des Farbtones soll sehr groß sein. Die LED soll einfach zu bedienen sein. Ss soll nicht für jeden Farbton ein einzelner Schalter angelegt werden.
+Für dieses Projekt wird die RGB-LED verwendet.\todo[author=anja]{Projekt bennenen, inklusive nummer und quelle} Der Nutzer\todo[author=anja]{weg mit dem nutzer!} möchte, dass diese LED in verschiedenen Farbtönen aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl des Farbtones \todo[author=anja]{Auswahl an Farbtönen?} soll sehr groß sein. Die LED soll einfach zu bedienen sein. Ss soll nicht für jeden Farbton ein einzelner Schalter angelegt werden.
 \\
 
 \begin{figure}[h]
@@ -48,21 +51,23 @@ Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 \item{RGB-LED}
 \item{3x 220-OhmWiderstand}
 \end{itemize}
-
+\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
 Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
 
 \subsubsection{Umsetzung und Erläuterungen}
-Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten. 
+Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man\todo[author=anja]{Koalas auf dem Gewissen} mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es\todo[author=anja]{was?} auch auszuschalten. 
 Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
 In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
 Als nächstes kommt die loop-Funktion. Als erstes wird mit analogRead(pin) der Wert des Potentiometers gelesen und übergeben diesen an die Variable für den Wert des Potentiometers.
-Nun muss entscheiden werden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Fabren zur Verfügung stehen, sollten wir einen Farblauf erzeugen. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
-Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen mit dem Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich im Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu den der übergebenen Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
-Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übergeben. 
-
+Nun muss entscheiden werden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Farben zur Verfügung stehen, sollten wir einen Farblauf erzeugen. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
+Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen mit dem Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich ins Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu dem der übergebene Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übergeben.
+\todo[author=anja,inline]{mir ist jetzt nicht klar, was das ausgangsprojekt war und worin deine modifikation besteht}
+\todo[author=anja,inline]{du beschreibst ziemlich viel den quellcode. das ist eher uninteressant (basiscode kommt ja auch mit der ide). das grundlegende prinzip und ein oder zwei ausgewählte aspekte aus dem quellcode, die für die umsetzung irgendwie wichtig waren, reichen aus.}
+\todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
 
 \subsubsection{Alarmanlage}
-Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterkit genommen. Ursprünglich sollte sich die Frequenz des abgespielten Tons ändern je nachdem wie viel Licht der Lichtsensor aufnimmt. Dies wurde so abgeändert, dass nach einer kurzen Initialisierungsphase der Lichtsensor auf zu nahe Objekte reagiert und dann eine Polizeisirene abspielt und abwechselnd eine blaue und rote LED anschaltet.
+Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterkit genommen.\todo[author=anja]{quelle} Ursprünglich sollte sich die Frequenz des abgespielten Tons ändern, je nachdem wie viel Licht der Lichtsensor aufnimmt. Dies wurde so abgeändert, dass nach einer kurzen Initialisierungsphase der Lichtsensor auf zu nahe Objekte reagiert und dann eine Polizeisirene abspielt sowie abwechselnd eine blaue und rote LED anschaltet.
 
 \begin{figure}[h]
 	\centering
@@ -80,18 +85,19 @@ Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterki
 \end{figure}
 
 \subsubsection{Umsetzung und Erläuterung}
-Neben dem normalen Aufbau des Projekts wurden noch 2 farbige LEDs an den Arduino angeschlossen.
-Damit der Arduino die Annäherung an den Sensor erkennen kann brauch der Lichtsensor einen Schwellwert, ab wann die Alarmanlage an geht. Dies wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster in der der Benutzer 1x den Sensor abdecken muss. Es wird der maximal und der minimal Wert des Sensors genommen  und der Schwellwert daraus berechnet. Während diesen 5 Sekunde blinkt die rote LED um dem Nutzer zu signalisieren, dass sich der Arduino noch inítialisiert.
+Neben dem normalen Aufbau des Projekts wurden noch zwei farbige LEDs an den Arduino angeschlossen.
+Damit der Arduino die Annäherung an den Sensor erkennen kann, benötigt der Lichtsensor einen Schwellwert, bei dessen Unterschreiten die Alarmanlage ausgelöst wird. Dies wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster in der der Benutzer einmal den Sensor abdecken muss.\todo[author=anja]{lies nochmal :-)} Es wird der maximal- und der minimal Wert\todo[author=anja]{Maximalwert oder maximal gemessene Wert, bei minimal dito} des Sensors genommen und der Schwellwert daraus berechnet. Während diesen 5 Sekunden blinkt die rote LED, um dem Nutzer zu signalisieren, dass sich der Arduino noch initialisiert.
 Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst: 
 \begin{itemize}
 \item Das Piezzo-Element wird mit einer wechselnden Frequenz angesteuert, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren
 \item Die LEDs werden mit Hilfe des Durchlauf-Counters alle 100ms gewechselt
 \end{itemize}
-Sollte der Schwellwert nicht erreicht werden, bleiben die LEDs sowie das Piezzo-Element ausgeschaltet.
+\todo[author=anja,inline]{Würd ich normal in den Text schreiben. Haben sonst auch keine Anstriche für sowas}
+Sollte der Schwellwert nicht unterschritten werden, bleiben die LEDs sowie das Piezzo-Element ausgeschaltet.
 
 \subsubsection{Keyboard}
-Hier wurde das Projekt 07 des Arduino-Starter-Kits erweitert. Das ursprüngliche Keyboard konnte auf Knopfdruck vier verschiedene Töne mithilfe eines Piezo-Elements erzeugen. Das modifizierte Projekt hat sieben Tasten und ein regelbaren Widerstand
-damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Widerstand 4 verschiedene Oktaven einstellbar.
+Hier wurde das Projekt 7 des Arduino-Starter-Kits erweitert.\todo[author=anja]{quelle} Das ursprüngliche Keyboard kann auf Knopfdruck vier verschiedene Töne mithilfe eines Piezo-Elements erzeugen. Das modifizierte Projekt hat sieben Tasten und ein regelbaren Widerstand
+damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Widerstand vier verschiedene Oktaven einstellbar.
 
 \begin{figure}[h]
 \begin{center}
@@ -100,6 +106,7 @@ damit der Nutzer mehr Töne spielen kann. Es sind zudem über den regelbaren Wid
 \label{rgb_project}
 \end{center}
 \end{figure}
+\todo[author=anja,inline]{was macht das bild in dem abschnitt?}
 
 Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 \begin{itemize}
@@ -111,15 +118,16 @@ Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 \item{Potentiometer}
 \item{Piezo-Element}
 \end{itemize}
+\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
 
 \subsubsection{Umsetzung und Erläuterungen}
-Das Keyboard lässt sich am besten über seine Komponenten erklären.
-Es handelt sich um eine Widerstandsmatrix, mit deren Hilfe man an einem Analogen Eingang des Arduinos auslesen kann,
-welcher Knopf vom Nutzer betätigt wurde. Dadurch ist es nicht nötig ein Eingang pro Knopf zu benutzen.
-Um die Oktaven bequem umschalten zu können wird ein Potentiometer verwendet. Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und dementsprechend ein offset erhalten mit den die Frequenzen der niedrigsten Oktave multipliziert werden.
-Das wechseln in eine höhere Oktave ist nämlich nichts weiter als das verdoppeln der Frequenzen der Töne von der ursprünglichen Oktave.
-Mithilfe der tone() Funktion werden die vom Nutzer durch drücken der Tasten gewählten Töne dann durch das Piezo-Element abgespielt.
-Die Beiden nachfolgenden Abbildungen zeigen den Sourcecode und bieten nähere Erklärungen.
+Das Keyboard lässt sich am Besten über seine Komponenten erklären.
+Es handelt sich um eine Widerstandsmatrix, mit deren Hilfe man\todo[author=anja]{den Meerespiegel erhöhen kann.} an einem analogen Eingang des Arduinos auslesen kann,
+welcher Knopf vom Nutzer betätigt wurde. Dadurch ist es nicht nötig einen Eingang pro Knopf zu benutzen.
+Um die Oktaven bequem\todo[author=anja]{bequem klingt bissl unpassend, vlt lieber ne variante mit einfach oder leicht} umschalten zu können, wird ein Potentiometer verwendet. Die möglichen Stellungen des Potentiometers (0-1023) werden in vier Bereiche aufgeteilt und dementsprechend ein Offset erhalten mit dem die Frequenzen der niedrigsten Oktave multipliziert werden.
+Das Wechseln in eine höhere Oktave ist nämlich nichts weiter als das Verdoppeln der Frequenzen der Töne von der ursprünglichen Oktave.
+Mithilfe der tone()-Funktion werden die vom Nutzer durch Drücken der Tasten gewählten Töne dann durch das Piezo-Element abgespielt.
+Die Beiden nachfolgenden Abbildungen\todo[author=anja]{APA verbietet das. immer direkte referenz} zeigen den Sourcecode und bieten nähere Erklärungen.
 
 \begin{figure}[h]
 	\centering
@@ -135,10 +143,11 @@ Die Beiden nachfolgenden Abbildungen zeigen den Sourcecode und bieten nähere Er
 	\end{subfigure}
 	\caption{Sourcecode}\label{Zeituhr}
 \end{figure}
-
+\todo[author=anja,inline]{anhang oder ausschnitte(copy-paste-fehler korrigieren) oder lass es von mir aus weg}
 \subsubsection{Digitale Sanduhr}
-Grundlage dieser Modifikation ist das Projekt Nr. 8 des Arduino-Starter-Kits. Anstatt eines Kippschalters zum starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird ein weiterer Schalter zum erhöhen der Startzeit benötigt. Eine der fünf LEDs ist für die Anzeige der Sekunden zuständig und mit den anderen vier LEDs kann man von mindestens 1 Minute bis maximal 31 Minuten binär eine Zeituhr ablaufen lassen. Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.\\
-Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus. Die Startzeit kann durch betätigen des oberen Tasters (siehe Abbildung \ref{Zeituhr}) erhöht werden. Mit jeder Betätigung des Tasters wird binär mit den LEDs die Startzeit erhöht (siehe Abbildung \ref{stehend}). Nach Erreichen der gewünschten Startzeit kann die Sanduhr mit Betätigen des zweiten Schalters gestartet werden. Nun leuchtet die grüne Sekunden-LED (siehe Abbildung \ref{laufend}) im Sekundentakt auf und die angezeigte restliche Zeit des binären Timers wird minütlich um 1 erniedrigt.\\
+Grundlage dieser Modifikation ist das Projekt Nummer 8 des Arduino-Starter-Kits\todo[author=anja]{quelle}. Anstatt eines Kippschalters zum Starten, wird ein einfacher Schalter verwendet. Da dieses Projekt die Zeit herunter zählt, wird ein weiterer Schalter zum Erhöhen der Startzeit benötigt. Eine der fünf LEDs ist für die Anzeige der Sekunden zuständig und mit den anderen vier LEDs kann man von mindestens 1 Minute bis maximal 31 Minuten binär eine Zeituhr ablaufen lassen.\todo[author=anja,inline]{Wie da jetzt welche LEDs vorher waren und wie die jetzt sind, versteh ich nich so ganz. vlt klein wenig ausführlicher/deutlicher, wie das im original war und was du jetzt anders gemacht hast.} Sobald die Zeit abgelaufen ist, gibt es ein Lichtsignal und die Zeituhr kann bei Bedarf neu gestartet werden.
+
+Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus. Die Startzeit kann durch Betätigen des oberen Tasters (siehe Abbildung~\ref{Zeituhr}) erhöht werden. Mit jeder Betätigung des Tasters wird binär mit\todo[author=anja]{Ich bin dumm. Ich raffs nich} den LEDs die Startzeit erhöht (siehe Abbildung~\ref{stehend}). Nach Erreichen der gewünschten Startzeit kann die Sanduhr mit Betätigen des zweiten Schalters gestartet werden. Nun leuchtet die grüne Sekunden-LED (siehe Abbildung~\ref{laufend}) im Sekundentakt auf und die angezeigte restliche Zeit des binären Timers wird minütlich um 1 erniedrigt\todo[author=anja]{Sie soll ausgepeitscht werden, diese dreckige Restzeit!!! Vlt einfach verringert? Ich hab hart gelacht ;-)}.\\
 
 \begin{figure}[h]
 	\centering
@@ -155,32 +164,32 @@ Nach Starten des Arduinos befindet sich die Digitale Sanduhr im Zeitauswahlmodus
 	\caption{Aufbau der Zeituhr}\label{Zeituhr}
 \end{figure}
 
-Da der Ablauf der Zeit in einer For-Schleife stattfindet, kann die Verzögerung durch das Ausführen des Programms in diesem Rahmen ignoriert werden. Stattdessen wird mit verschiedenen Delay Längen ein erkennbarer Sekundentakt vorgegeben, die LED leuchtet etwas länger grün. 
+Da der Ablauf der Zeit in einer For-Schleife stattfindet, kann die Verzögerung durch das Ausführen des Programms in diesem Rahmen ignoriert werden. Stattdessen wird mit verschiedenen Delay-Längen ein erkennbarer Sekundentakt vorgegeben, die LED leuchtet etwas länger grün. 
 
 \subsubsection{Windrad}
 
-Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET Transistor, 9-Volt-Block Batterie und ein 100 $\mu$F Kondensator mit Potentiometer verwendet. In dem Einstiegsprojekt aus dem Buch war es bisher nur möglich den Motor, mit einem Taster ein- und auszuschalten. Mit diesem Umbau kann der Nutzer durch drehen am Potentiometer selbst entscheiden, mit welcher Geschwindigkeit der Motor und damit das Windrad drehen soll.
+Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET Transistor, 9-Volt-Block Batterie und ein 100 $\mu$F Kondensator mit Potentiometer verwendet.\todo[author=anja,inline]{am besten nicht ganz so genau, aber mit projektbeschreibung vermischen (windrad wird über gleichstrommoter angetrieben, der über taster ein- und ausgeschaltet werden kann oder so)} In dem Einstiegsprojekt aus dem Buch\todo[author=anja]{projektnummer und quellenangabe (dann kann auch buch weg)} war es bisher nur möglich den Motor, mit einem Taster ein- und auszuschalten. Mit diesem Umbau kann der Nutzer durch Drehen am Potentiometer selbst entscheiden, mit welcher Geschwindigkeit der Motor und damit das Windrad drehen soll.
 \\
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img/Windrad_Projekt.jpg}
-\caption{Windrad mit Potentiometer und Gleichstrommmotor}
+\caption{Windrad mit Potentiometer und Gleichstrommotor}
 \label{Windrad_project}
 \end{center}
 \end{figure}
 \subsubsection{Umsetzung und Erläuterungen}
-Um die Bauteile mit Strom zu versorgen wird ein Kabel in den 5V Steckplatz des Arduino und der Steckplatine verbunden. Mit der Erdung, dem Minuspol wird ebenfalls ein Kabel von Platine zum Arduino gesteckt. Nur diesmal am Arduino in den GND Steckplatz. Anschließend werden die Bauteile auf der Steckplatine gesteckt. Von dem Potentiometer wird eine Seite an 5V und die andere mit der Erdung verbunden. Der mittlere Pin wird mit am analogen Pin A0 des Arduino angeschlossen. Zwischen Erdung, 5V Zugangsspannung und dem Potentiometer befindet sich zudem ein 100-$\mu$F-Kondensator, um auftretende Spannungsänderungen durch den Potentiometer zu glätten. Als nächstes wird Transistor so positioniert, dass der Metallanhänger vom Arduino wegschaut. Der linke Pin des Transistors wird mit dem digitalen Pin 9 am Arduino angeschlossen. Dieser Pin wird auch als Gate bezeichnet. Die Erdung des Motors wird am mittleren Pin, dem Drain des Transistors angeschlossen. Der dritte Pin des Transistors, auch Source genannt wird mit der Erdung verbunden. Die Diode wird mit der Kathode, das negative Ende an den Stromzufluss des Motors angeschlossen. Die Anode wird an die Erdung des Motors angeschlossen. Das Bauteil hat einen Streifen auf der einen Seite, dies Markiert die Seite der Kathode. Die Batterie wird mit der Spannung und der Erdung an die Steckplatine angeschlossen, So dass der Stromzufluss des Motors mit der 9V-Block-Batterie verbunden ist. Die Erdung der Batterie muss mit der Erdung des Arduinos verbunden sein.
-\\
+Um die Bauteile mit Strom zu versorgen wird ein Kabel in den 5V Steckplatz des Arduino und der Steckplatine verbunden. Mit der Erdung, dem Minuspol wird ebenfalls ein Kabel von Platine zum Arduino gesteckt. Nur diesmal am Arduino in den GND Steckplatz. Anschließend werden die Bauteile auf der Steckplatine gesteckt. Von dem Potentiometer wird eine Seite an 5V und die andere mit der Erdung verbunden. Der mittlere Pin wird mit am analogen Pin A0 des Arduino angeschlossen. Zwischen Erdung, 5V Zugangsspannung und dem Potentiometer befindet sich zudem ein 100-$\mu$F-Kondensator, um auftretende Spannungsänderungen durch den Potentiometer zu glätten. Als nächstes wird Transistor so positioniert, dass der Metallanhänger vom Arduino wegschaut. Der linke Pin des Transistors wird mit dem digitalen Pin 9 am Arduino angeschlossen. Dieser Pin wird auch als Gate bezeichnet. Die Erdung des Motors wird am mittleren Pin, dem Drain des Transistors angeschlossen. Der dritte Pin des Transistors, auch Source genannt wird mit der Erdung verbunden. Die Diode wird mit der Kathode, das negative Ende an den Stromzufluss des Motors angeschlossen. Die Anode wird an die Erdung des Motors angeschlossen. Das Bauteil hat einen Streifen auf der einen Seite, dies Markiert die Seite der Kathode. Die Batterie wird mit der Spannung und der Erdung an die Steckplatine angeschlossen, so dass der Stromzufluss des Motors mit der 9V-Block-Batterie verbunden ist. Die Erdung der Batterie muss mit der Erdung des Arduinos verbunden sein.
+\todo[author=anja,inline]{hat niemand so genau beschrieben. weg damit. (sonst müssen wir das auch machen :o)}
 
-Im Programmcode werden als erstes der Motor und das Potentiometer Initialisiert. Außerdem wird eine weitere Variable benötigt die zum zwischenspeichern des Potentiometerwertes benötigt wird.
+Im Programmcode werden als erstes der Motor und das Potentiometer initialisiert. Außerdem wird eine weitere Variable benötigt die zum Zwischenspeichern des Potentiometerwerts benötigt wird.
 \begin{lstlisting}[language=Arduino]
 const int motorPin = 9; //Gleichstrommotor
 const int potPin = A0; //Potentiometer
 int potValue;
 \end{lstlisting}
 
-In der setup()-Funktion wird der motorPin als Output festgelegt und der Serial Port mit 9600 bestimmt. Dieser dient dazu das die Werte später auch auf den Computer angezeigt werden können.
+In der setup()-Funktion wird der motorPin als Output festgelegt und der Serial Port mit 9600 bestimmt. Dieser dient dazu, dass die Werte später auch auf den Computer angezeigt werden können.
 \begin{lstlisting}[language=Arduino]
 void setup() {
   pinMode(motorPin, OUTPUT);
@@ -189,7 +198,7 @@ void setup() {
 }
 \end{lstlisting}
 
-Die loop Funktion nun den wesentlichen Programmcode. Als erstes wird mit analogRead() der Wert vom Potentiometer gelesen und auf die Variable potValue gespeichert. Da der Motor einen kleineren Wertebereich erwartet wird im nächsten Schritt der Wert durch 4 geteilt. Mit Serial.print() erfolgt die Ausgabe auf dem Bildschirm am Computer. Im letzten Schritt wird mit analogWrite() der Wert von potValue an den Motor gegeben.
+Die loop-Funktion enthält nun den wesentlichen Programmcode. Als erstes wird mit analogRead() der Wert vom Potentiometer gelesen und auf die Variable potValue gespeichert. Da der Motor einen kleineren Wertebereich erwartet, wird im nächsten Schritt der Wert durch 4 geteilt. Mit Serial.print() erfolgt die Ausgabe auf dem Bildschirm am Computer. Im letzten Schritt wird mit analogWrite() der Wert von potValue an den Motor gegeben.
 \begin{lstlisting}[language=Arduino]
 void loop() {
   potValue = analogRead(potPin);
@@ -201,11 +210,11 @@ void loop() {
   analogWrite(motorPin, potValue);
 }
 \end{lstlisting}
-
+\todo[author=anja,inline]{Würde auch sagen, dass du den Programmcode nicht so genau brauchst. Lieber das allgemeine funktionsprinzip beschreiben und auf ausgewählte (mehr oder weniger) besonderheiten im code eingehen, z.b. dass der serial port zur ausgabe genutzt wurde(die jetzt für was nützlich war?) und/oder der wertebereich des motors}
 
 
 \subsubsection{Uhr}
-Grundlage für diese Projektmodifikation bildete das Projekt 11: Kristallkugel \autocite{arduino}. In diesem Projekt erfolgt die Einführung in die Verwendung eines LCD und das Ansprechen mit der LiquidCrystal-Bibliothek (Bestandteil der Arduino IDE).
+Grundlage für diese Projektmodifikation bildete das Projekt 11 \autocite{arduino}. In diesem Projekt erfolgt die Einführung in die Verwendung eines LCD und das Ansprechen mit der LiquidCrystal-Bibliothek (Bestandteil der Arduino IDE).
 Zusätzlich zum Display wird ein Kippschalter an das Board angeschlossen. Ausgelöst durch ein Kippen des Schalters wird ein Text zufällig aus einer Reihe vorprogrammierter Texte auf dem Display angezeigt.
 
 Dieses Grundprojekt wurde hin zu einer einfachen einstellbaren Uhr abgeändert. Dazu wurde der Kippschalter gegen zwei Taster ausgetauscht, mit denen sich die Uhr stellen lässt (Abbildung~\ref{fig:zeit}). Außerdem wurde die Versorgungsspannung des Displays mit einem Kondensator stabilisiert.
@@ -230,8 +239,9 @@ Bei Programmstart wird die Uhr auf exakt 0 Uhr initialisiert und beginnt sofort 
 
 Für das Ablaufen der Uhrzeit wurde ein Delay verwendet. Dabei wurde berücksichtigt, dass die Ausführung des Programms ebenfalls Zeit in Anspruch nimmt. Eine Verzögerung um genau eine Sekunde würde schnell dazu führen, dass die Uhr nachgeht. Die Verzögerungszeit wird deshalb dynamisch angepasst.
 
-\subsubsection {Notepad++ für Arduino verwenden}
-Für das Projekt wurde Notepad++ als DIE für Arduino verwendet. Die Vorteile für die Verwendung sind einerseits das Syntax-highlighting und Auto-Completion. Außerdem ist es möglich den Code zu Kompilieren und Programmausgaben über Konsolenausgabe anzeigen zu lassen.
-Für die Einrichtung muss zuvor Notepad++ installiert sein. Auf der Seite https://notepad-plus-plus.org/ kann die neuste Version heruntergeladen werden.  Für die Verwendung als IDE sind einige Treiber und Sourcen notwendig, deshalb muss die Arduino IDE bezogen werden. Dies kann auf der Herstellerseite Arduino.org heruntergeladen werden. Nachdem beides bezogen und entpackt ist kann Notepad++ eingerichtet werden. Zu aller erst wird dazu ein Plugin für die Unterstützung der Arduino Bibliotheken benötigt. Diese Plugins können unter https://sourceforge.net/projects/narduinoplugin/ geladen und entpackt werden. In dem heruntergeladenen Paket befindet sich ein Ordner APIs, dieser wird nach „.\textbackslash{}Notepad++\textbackslash{}plugins“ kopiert. Anschließend wird die Sprache unter „Sprache\textbackslash{}Benutzerdefinierte Sprache“ im Notepad++ Editor eingestellt. Im geöffneten Dialog wird dazu die Schaltfläche „Importieren“ gewählt und im nachfolgenden Dialogfenster das Verzeichnis ausgewählt, indem sich das entpackte Plugin befindet. Dort wird nun die Datei „Arduino\_Language\_0.2.0.xml“ gewählt und mit „Öffnen“ bestätigt. Nach erfolgreichem Import sollte sich ein Dialog öffnen und dies bestätigen. Die Datei wird nun im Drop-Down Menü unter „Benutzer Sprache:“ aufgelistet und muss ausgewählt werden. Anschließen wird diese unter einen beliebigen, aber eindeutigen Namen abgespeichert. Dazu wird auf die Schaltfläche „Speichern als“ geklickt. Beim Laden eines Sketches sollte nun die Syntax des Quellcodes gehighlightet werden.
-Um den Quellcode zu Komplexieren und ein Upload durchzuführen ist der Plugin „NppExec“ notwendig. Dieser wird direkt im „PluginManager“ unter „Erweiterungen\textbackslash{}Plugin-Verwaltung…“ Ausgewählt. Nachdem dies angewählt wurde, öffnet sich ein Dialog, in der kann in der Liste das Plugin „NppExec“ ausgewählt werden. Mit Bestätigen der Schaltfläche „Installieren“ wird dieses Plugin heruntergeladen und installiert. Um ein Skript auszuführen wird die Taste F6 gedrückt oder im Menü unter „Erweiterungen\textbackslash{}NppExec\textbackslash{}Execute“ ausgewählt. Dazu sollte sich ein Fenster öffen in dem einige Anpassungen gemacht werden können. Unter anderem sollte hier der Pfad zu der Arduino IDE angepasst werden. Da beim Kompilieren kein Fenster angezeigt wird, ist es sinnvoll sich diese in der Konsolenausgabe anzeigen zu lassen. Dazu muss über das Menü „Erweiterungen\textbackslash{}NppExec\textbackslash{}Show Console“ angewählt werden. Die Konsole sollte sich nun im unteren Bereich ersichtlich sein.
+\subsection{Notepad++ für Arduino verwenden}
+Für das Projekt wurde Notepad++ als IDE für Arduino verwendet. Die Vorteile für die Verwendung sind einerseits das Syntax-Highlighting und Auto-Completion. Außerdem ist es möglich den Code zu Kompilieren und Programmausgaben über die Konsolenausgabe anzeigen zu lassen.
+Für die Einrichtung muss zuvor Notepad++ installiert sein. Auf der Seite https://notepad-plus-plus.org/ kann die neueste Version heruntergeladen werden. \todo[author=anja,inline]{bei zitation ganzer webseiten, sieht apa vor, dass man die seite erwähnt und den link in klammern dahinter angibt (kein bibliographieintrag erforderlich) also  satz weg und in satz davor: \ldots zuvor Notepad++ installiert sein (https://\ldots). auch bei den anderen links so machen}Für die Verwendung als IDE sind einige Treiber und Sourcen notwendig, deshalb muss die Arduino IDE bezogen werden. Dies kann auf der Herstellerseite Arduino.org heruntergeladen werden. Nachdem beides bezogen und entpackt ist kann Notepad++ eingerichtet werden. Zu aller erst wird dazu ein Plugin für die Unterstützung der Arduino Bibliotheken benötigt. Diese Plugins können unter https://sourceforge.net/projects/narduinoplugin/ geladen und entpackt werden. In dem heruntergeladenen Paket befindet sich ein Ordner APIs, dieser wird nach „.\textbackslash{}Notepad++\textbackslash{}plugins“ kopiert. Anschließend wird die Sprache unter „Sprache\textbackslash{}Benutzerdefinierte Sprache“ im Notepad++ Editor eingestellt. Im geöffneten Dialog wird dazu die Schaltfläche „Importieren“ gewählt und im nachfolgenden Dialogfenster das Verzeichnis ausgewählt, indem sich das entpackte Plugin befindet. Dort wird nun die Datei „Arduino\_Language\_0.2.0.xml“ gewählt und mit „Öffnen“ bestätigt. Nach erfolgreichem Import sollte sich ein Dialog öffnen und dies bestätigen. Die Datei wird nun im Drop-Down Menü unter „Benutzer Sprache:“ aufgelistet und muss ausgewählt werden. Anschließen wird diese unter einem beliebigen, aber eindeutigen Namen abgespeichert. Dazu wird auf die Schaltfläche „Speichern als“ geklickt. Beim Laden eines Sketches sollte nun die Syntax des Quellcodes hervorgehoben werden.
+Um den Quellcode zu Kompilieren und ein Upload durchführen zu können, ist das Plugin „NppExec“ notwendig. Dieses wird direkt im „PluginManager“ unter „Erweiterungen\textbackslash{}Plugin-Verwaltung…“ ausgewählt. Nachdem dies angewählt wurde, öffnet sich ein Dialog, in dem in der Liste das Plugin „NppExec“ ausgewählt werden kann. Mit Bestätigen der Schaltfläche „Installieren“ wird dieses Plugin heruntergeladen und installiert. Um ein Skript\todo[author=anja]{Wo kommt das skript jetzt her?} auszuführen, wird die Taste F6 gedrückt oder im Menü unter „Erweiterungen\textbackslash{}NppExec\textbackslash{}Execute“ ausgewählt. Dazu sollte sich ein Fenster öffen in dem einige Anpassungen gemacht werden können. Unter anderem sollte hier der Pfad zur Arduino IDE angepasst werden. Da beim Kompilieren kein Fenster angezeigt wird, ist es sinnvoll sich diese\todo[author=anja]{Was für Zeug?} in der Konsolenausgabe anzeigen zu lassen. Dazu muss über das Menü „Erweiterungen\textbackslash{}NppExec\textbackslash{}Show Console“ angewählt werden. Die Konsole sollte sich nun im unteren Bereich ersichtlich\todo[author=anja]{befinden? zu sehen sein(ohne sich)?} sein.
 
+\todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
