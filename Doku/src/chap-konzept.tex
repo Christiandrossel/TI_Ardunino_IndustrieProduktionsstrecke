@@ -86,13 +86,8 @@ Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterki
 
 \subsubsection{Umsetzung und Erläuterung}
 Neben dem normalen Aufbau des Projekts wurden noch zwei farbige LEDs an den Arduino angeschlossen.
-Damit der Arduino die Annäherung an den Sensor erkennen kann, benötigt der Lichtsensor einen Schwellwert, bei dessen Unterschreiten die Alarmanlage ausgelöst wird. Dies wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster in der der Benutzer einmal den Sensor abdecken muss.\todo[author=anja]{lies nochmal :-)} Es wird der maximal- und der minimal Wert\todo[author=anja]{Maximalwert oder maximal gemessene Wert, bei minimal dito} des Sensors genommen und der Schwellwert daraus berechnet. Während diesen 5 Sekunden blinkt die rote LED, um dem Nutzer zu signalisieren, dass sich der Arduino noch initialisiert.
-Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst: 
-\begin{itemize}
-\item Das Piezzo-Element wird mit einer wechselnden Frequenz angesteuert, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren
-\item Die LEDs werden mit Hilfe des Durchlauf-Counters alle 100ms gewechselt
-\end{itemize}
-\todo[author=anja,inline]{Würd ich normal in den Text schreiben. Haben sonst auch keine Anstriche für sowas}
+Damit der Arduino die Annäherung an den Sensor erkennen kann, benötigt der Lichtsensor einen Schwellwert, bei dessen Unterschreiten die Alarmanlage ausgelöst wird. Dieser Schwellwert wird in der setup()-Funktion nach der Initialisierung der Sensoren in einem 5 Sekunden langen Zeitfenster ermittelt, in welchem der Benutzer einmal den Sensor abdecken muss. Es wird der Maximal- und der Minimalwert des Sensors genommen und der Schwellwert daraus berechnet. Während diesen 5 Sekunden blinkt die rote LED, um dem Nutzer zu signalisieren, dass sich der Arduino noch initialisiert.\\
+Im Loop wird der Sensorwert jedes mal abgefragt. Sollte der erhaltene Wert den Schwellwert unterschreiten - also zu wenig Licht ankommen - so wird die Alarmanlage ausgelöst. Das bedeutet, dass das Piezzo-Element mit einer wechselnden Frequenz angesteuert wird, welche durch einen Durchlauf-Counter alle 200ms die Frequenz wechselt um eine Sirene zu Simulieren. Außerdem werden die eingeschalteten LEDs mit Hilfe des Durchlauf-Counters alle 100ms gewechselt.
 Sollte der Schwellwert nicht unterschritten werden, bleiben die LEDs sowie das Piezzo-Element ausgeschaltet.
 
 \subsubsection{Keyboard}
