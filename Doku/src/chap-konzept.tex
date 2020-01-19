@@ -31,8 +31,8 @@ Hier sind einige abgeänderte Starterkit-Projekte näher erläutert, die Bauteil
 
 \subsubsection{Farbmischende Lampe}
 
-Für dieses Projekt wird die RGB-LED verwendet.\todo[author=anja]{Projekt bennenen, inklusive nummer und quelle} Der Nutzer\todo[author=anja]{weg mit dem nutzer!} möchte, dass diese LED in verschiedenen Farbtönen aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl des Farbtones \todo[author=anja]{Auswahl an Farbtönen?} soll sehr groß sein. Die LED soll einfach zu bedienen sein. Ss soll nicht für jeden Farbton ein einzelner Schalter angelegt werden.
-\\
+Die farbmischende Lampe baut auf den Projekten 4 und 5 des Arduino-Projektbuches auf. Für dieses Projekt wird die RGB-LED verwendet. Der Nutzer möchte, dass diese LED in verschiedenen Farben aufleuchtet. Außerdem soll der Benutzer entscheiden können, welche Farbe gerade aufleuchten soll. Genauso soll er das Licht auch einfach wieder ausschalten können. Die Auswahl der Farbe soll sehr groß sein. Die LED soll einfach zu bedienen sein. Es soll nicht für jede Farbe ein einzelner Schalter angelegt werden.
+
 
 \begin{figure}[h]
 \begin{center}
@@ -42,7 +42,7 @@ Für dieses Projekt wird die RGB-LED verwendet.\todo[author=anja]{Projekt bennen
 \end{center}
 \end{figure}
 
-Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
+Für den Nachbau des Projekts werden folgende Komponenten benötigt:
 \begin{itemize}
 \item{Steckplatine}
 \item{Arduino Uno}
@@ -51,20 +51,23 @@ Für den Nachbau des Projekts werden folgende Komponenten gebraucht:
 \item{RGB-LED}
 \item{3x 220-OhmWiderstand}
 \end{itemize}
-\todo[author=anja,inline]{weg damit. ist nicht vollständig und grundaufbau dem bild entnehmbar}
-Wie diese Komponenten miteinander versteckt werden siehe Abbildung \ref{rgb_project}.
 
+Abbildung \ref{rgb_project} zeigt die Verschaltung der Komponenten.
+ 
 \subsubsection{Umsetzung und Erläuterungen}
-Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man\todo[author=anja]{Koalas auf dem Gewissen} mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es\todo[author=anja]{was?} auch auszuschalten. 
-Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da man den Pins der LED Werte übergeben muss und vom Potentiometer Werte einliest, braucht man auch Int-Variablen für diese Werte.
+Als Eingabekomponente wird der Potentiometer empfohlen, da er sich durch drehen einfach bedienen lässt. Außerdem hat man mit diesem Schalter die Möglichkeit eine Vielzahl an unterschiedlichen Farben zu erzeugen und es auch auszuschalten.
+ 
+Im Quellcode müssen erst einmal Int-Variablen für die Pins der LED und des Potentiometers angelegt werden. Da den Pins der LED Werte übergeben werden müssen und vom Potentiometer Werte eingelesen werden, müssen Int-Variablen für diese Werte angelegt werden.
 In der Setup-Funktion werden die Pins der LED mittels pinMode(pin,OUTPUT) als Ausgänge festgelegt.
-Als nächstes kommt die loop-Funktion. Als erstes wird mit analogRead(pin) der Wert des Potentiometers gelesen und übergeben diesen an die Variable für den Wert des Potentiometers.
-Nun muss entscheiden werden, was damit gemacht werden soll. Dazu kurz ein paar Überlegungen. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Farben zur Verfügung stehen, sollten wir einen Farblauf erzeugen. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
-Soviel zum Prinzip. Für die Umsetzung eignen sich if-Bedingungen mit dem Wert des Potentiometers innerhalb eines bestimmten Zahlenbereiches. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich ins Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine fertige Funktion. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu dem der übergebene Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+
+Als nächstes kommt die Loop-Funktion. Als erstes wird mit analogRead(pin) der Wert des Potentiometers gelesen und übergeben diesen an die Variable für den Wert des Potentiometers.
+
+Nun muss entschieden werden, wie mit dem Wert weiter gearbeitet wird. Der Potentiometer gibt Werte von 0-1023 zurück. Ein LED-Pin kann Werte von 0-255 verarbeiten. Es existieren 3 Pins mit den 3 additiven Farben. Man könnte also anhand des Rückgabewertes des Potentiometers entscheiden, wann welche Farbe leuchtet oder die LEDs aus sind. Damit mehrere Farben zur Verfügung stehen, wird eine Farblauf erzeugt. Angefangen wird bei einer leuchtenden Grundfarbe. Beim Weiterdrehen wird der Wert einer weiteren Grundfarbe von 0 an erhöht, bis dieser den Maximalwert erreicht hat. Danach nimmt der Wert der ersten Grundfarbe wieder ab, wenn weiter gedreht wird. Ist der Wert auf 0, leuchtet die neue Grundfarbe alleine. Dieser Vorgang wird mit der 3. Grundfarbe wiederholt. Zum Schluss wird die 3. Grundfarbe verwendet und nochmal mit der ersten vermischt.
+
+In der Umsetzung werden die Werte des Potentiometers innerhalb eines bestimmten Zahlenbereiches mittels einer if-Anweisung überprüft. Dieser Zahlenbereich ist der Quotient aus der Differenz des Maximalwerts des Potentiometers und einer kleinen Zahl, durch die Anzahl an Farbwechseln zwischen den Grundfarben. Die kleine Zahl ist für den Bereich, in den alle Werte der LED auf 0 stehen, damit die Lampe aus bleibt. Für einen gleichmäßigen Verlauf der Farben von Minimalwert bis Maximalwert muss der Zahlenbereich ins Verhältnis zum Wertebereich der LED gesetzt werden. Der Potentiometerwert wird mit dem Verhältnis multipliziert. Für diese Berechnung gibt es aber schon eine bestehende Funktion in der Arduino-Basisbibliothek. Die map(PotVal, von, bis, von, bis) braucht den Wert, der angepasst wird, sowie die beiden Zahlenbereiche. Dabei ist drauf zu achten, das zuerst der Bereich eingetragen wird, zu dem der übergebene Wert gehört. Der Rückgabewert ist dann in unserem Fall der gewünschte Farbwert für die LED.
+
 Zum Schluss wird per analogWrite(pin,val) der Wert für die LED mit dem Pin übergeben.
-\todo[author=anja,inline]{mir ist jetzt nicht klar, was das ausgangsprojekt war und worin deine modifikation besteht}
-\todo[author=anja,inline]{du beschreibst ziemlich viel den quellcode. das ist eher uninteressant (basiscode kommt ja auch mit der ide). das grundlegende prinzip und ein oder zwei ausgewählte aspekte aus dem quellcode, die für die umsetzung irgendwie wichtig waren, reichen aus.}
-\todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
+
 
 \subsubsection{Alarmanlage}
 Als Grundlage für die Alarmanlage wurde das Projekt 6 aus dem Arduino Starterkit genommen.\todo[author=anja]{quelle} Ursprünglich sollte sich die Frequenz des abgespielten Tons ändern, je nachdem wie viel Licht der Lichtsensor aufnimmt. Dies wurde so abgeändert, dass nach einer kurzen Initialisierungsphase der Lichtsensor auf zu nahe Objekte reagiert und dann eine Polizeisirene abspielt sowie abwechselnd eine blaue und rote LED anschaltet.
