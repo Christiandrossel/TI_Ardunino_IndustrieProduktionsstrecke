@@ -3,7 +3,7 @@ Umgesetzt wurde eine modulare Produktionsstrecke mit 3 fahrenden Robotern, welch
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{img/Produktionsstrecke.jpg}
-\caption{Die komplette Produktionsstrecke beim Test}
+\caption{Die Produktionsstrecke beim Integrationstest}
 \end{center}
 \end{figure}
 %Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetretener Probleme/Herausforderungen und deren Lösung. Das Vorgehen sollte so nachvollziehbar sein, dass der Leser das Projekt vom Prinzip genauso umsetzen könnte (meint aber nicht, dass hier jeder Codeschnipsel erscheinen muss). 
@@ -40,16 +40,16 @@ Ein großes Problem bei der Umsetzung war, dass die Bluetooth-Module der Turtle-
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.25\textwidth]{img/App-Screenshot.jpg}
-\caption{Screenshot der App, nachdem sie sich mit einem Bohrer verbunden hat}
+\caption{Screenshot der App, nachdem sie sich mit einem Bohrer verbunden hat}\label{screen_app}
 \end{center}
 \end{figure}
 
-Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sie zeigt an welche Einheiten verbunden sind und welche was zuletzt gesendet hat über ein Textlog. Sollte beispielsweise ein Turtle-Roboter an einem Bohrer stehen und dieser seine Arbeit beendet haben, so sendet der Bohrer eine Nachricht an die App. Die App leitet diese Information an den Roboter weiter, damit dieser seine Fahrt fortsetzen kann (Siehe Abbildung). Dabei sind die Mtteilungen so weit wie möglich in der größe reduziert. Es wird ein 'r' als "ready" von dem Bohrer oder Kran an den Roboter gesendet und der Roboter erhält bei der Abfrage welcher Bohrer frei sei eine 0 für 'Kein Bohrer ist frei' oder eine 1/2 für den entsprechenden Bohrer.
+Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sie zeigt an welche Einheiten verbunden sind und welche was zuletzt gesendet hat über ein Textlog (Zu sehen am Screenshot in der Abbildung \ref{screen_app}). Sollte beispielsweise ein Turtle-Roboter an einem Bohrer stehen und dieser seine Arbeit beendet haben, so sendet der Bohrer eine Nachricht an die App. Die App leitet diese Information an den Roboter weiter, damit dieser seine Fahrt fortsetzen kann (Siehe Abbildung). Dabei sind die Mtteilungen so weit wie möglich in der größe reduziert. Es wird ein 'r' als "ready" von dem Bohrer oder Kran an den Roboter gesendet und der Roboter erhält bei der Abfrage welcher Bohrer frei sei eine 0 für 'Kein Bohrer ist frei' oder eine 1/2 für den entsprechenden Bohrer.
 
-Dazu kommt allerdings ein gewisser Overhead, da der Roboter der App mitteilen muss, an welcher Station er sich gerade befindet, damit die App, weiß an wen sie die Informationen schicken muss.
+Dazu kommt allerdings ein gewisser Overhead, da der Roboter der App mitteilen muss, an welcher Station er sich gerade befindet, damit die App, weiß an wen sie die Informationen schicken muss. Die Kommunikation ist an den Stationen Bohrer und Kran in der unten stehenden Abbildung \ref{ablauf_app} gezeigt.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{img/Ablaufdiagram-App.png}
-\caption{Kommunikation der Server-App mit den einzelnen Geräten}
+\caption{Kommunikation der Server-App mit den einzelnen Geräten} \label{ablauf_app}
 \end{center}
 \end{figure}
