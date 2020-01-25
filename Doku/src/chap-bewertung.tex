@@ -13,20 +13,15 @@ Es wurden keine Kann-Kriterien umgesetzt. Das Agentensystem arbeiten ohne Werkst
 
 Damit ist das Projekt erfolgreich abgeschlossen und wurde etwas verfeinert.
 
-\section{Probleme und Abweichungen}
-
-Es gibt keine Abweichung zum Konzept. In der Umsetzung wurde geplant, dass der Kran nicht mit dem Server kommuniziert. Jedoch wird nun ein Bluetooth-Modul für den Kran verwendet, welcher mit dem Server kommuniziert. Die Kommunikation ist so nicht nur einheitlicher, sondern auch einfacher in das Agentensystem zu implementieren.
-\todo[author=anja,inline]{das wurde im konzept nicht vorgesehen. im konzept haben wir sogar vergessen, dass der rodoter ja irgendwie signaliste bekommen muss, dass er wieder losfahren soll. du kannst es an sich als problem drin lassen. würde nur nicht sagen, dass es in der umsetzung geplant wurde, sondern eher, dass es sich jetzt so als günstiger erwiesen hat. das prob mit dem HC-Modul, was du erst reinschreiben wolltest, könntest du erwähnen (steht auch in der umsetzung). für nochn paar ideen zu problemen/abweichungen hilfts vlt konzept und umsetzung durchzulesen und die besprechungs/aufgabenaufzeichnungen von christian und vlt noch unsere präsentationen. da steht jedenfalls einiges drin, was wir mal an ideen hatten}
-
 \section{Kritische Anmerkungen zum Projekt}\todo[author=anja]{würd ich persönlich mit der secion drüber zusammenführen}
 
 Zur Veranschaulichung und Modularisierung eines Agenten-Systems ist die Arduino-Plattform gut geeignet. Die Komponenten können durch Zusammenstecken einfach miteinander verbunden werden. Auch die Anleitungen im Buch sind gut erklärt. Die Arduino-Software ist einfach zu installieren und wenig kompliziert.
 
-Ein Nachteil beim Arbeiten mit der Arduino-Plattform ist, dass sich die zusammengesteckten Komponenten wieder leicht trennen. Dadurch müssen die Roboter oft überprüft werden, was einiges an Zeit kostet. Leider sind auch die Löcher auf den Plattformen für den Roboter falsch gestanzt. Damit der Kran und die Bohrer einen Roboter erkennen können, wurde einen Photowiderstand eingesetzt. Der Photowiderstand muss jedoch je nach Umgebungslicht angepasst werden. Das erweist sich als sehr problematisch, wenn die Agenten in sehr dunkler Umgebung oder in einem Umfeld mit sich ständig ändernden Lichtverhältnissen arbeiten müssen. Die Erstellung der Teststrecke mittels Schere, Papier und Leim ist nicht nur aufwendig und hält nicht lange, sondern verlangt auch exakte Arbeit. Bei den letzten Probefahrten wurden die nicht immer geraden, schwarzen Linien zum Verhängnis. Der Roboter fuhr nur etwas zu weit über den Breakpoint und konnte den Anschluss an der Linie nicht mehr finden.
+Ein Nachteil beim Arbeiten mit der Arduino-Plattform ist, dass sich die zusammengesteckten Komponenten wieder leicht trennen. Dadurch müssen die Roboter oft überprüft werden, was einiges an Zeit kostet. Leider sind auch die Löcher auf den Plattformen für den Roboter falsch gestanzt. Damit der Kran und die Bohrer einen Roboter erkennen können, wurde einen Photowiderstand eingesetzt. Der Photowiderstand muss jedoch je nach Umgebungslicht angepasst werden. Das erweist sich als sehr problematisch, wenn die Agenten in sehr dunkler Umgebung oder in einem Umfeld mit sich ständig ändernden Lichtverhältnissen arbeiten müssen. Die Erstellung der Teststrecke mittels Schere, Papier und Leim ist nicht nur aufwendig und hält nicht lange, sondern verlangt auch exakte Arbeit. Bei den letzten Probefahrten wurden die nicht immer geraden, schwarzen Linien zum Verhängnis. Der Roboter fuhr nur etwas zu weit über den Breakpoint und konnte den Anschluss an der Linie nicht mehr finden.\todo[author=timon]{ evtl: und konnte im Anschluss nicht mehr auf die Linie zurück finden.}
 
 \section{Erweiterung des Projektes}
 
-Als eine mögliche Erweiterung des Projektes eignet sich die Kommunikation zwischen den einzelnen Agenten. Statt einen gemeinsamen Server zur Kommunikation zu nutzen, sollen die Agenten untereinander kommunizieren können.
+Als eine mögliche Erweiterung des Projektes eignet sich die Kommunikation zwischen den einzelnen Agenten. Statt einen gemeinsamen Server zur Kommunikation zu nutzen, sollen die Agenten untereinander kommunizieren können. So würden die Agenten selbstständiger handeln.
 
 Die Benutzung des Photowiderstandes zur Erkennung eines Roboters erwies sich in schwierigen Lichtverhältnissen als ungünstige Lösung. Ein Ziel kann sein, eine Alternative für den Photowiderstand zu finden.
 
