@@ -1,39 +1,48 @@
 \chapter{Konzept}
 
-%Vorbereitungen zum Projekt wie die StarterKit-Projekte (welche bearbeitet, Probleme, Auswahl an Modifikationen) oder die Verwendung von Notepad++ als externen Editor. Vorstellung des Konzepts und der Überlegungen dazu. Achtung: nicht vermischen mit der konkreten Umsetzung.
-\todo[author=anja]{Anpassungen nach Rückmeldung}
-
 \section{Vorbereitung}
-%TODO einiges evtl. einkürzen da es sich mit der Umsetzung schneidet.
-\todo[author=anja, inline]{Ich hätte jetzt unter Vorbereitung erstmal nur das Annähern an und ausprobieren der Technik mit der gearbeitet werden soll (arduino starterkitprojekte + modifikationen + notepad++) um davon ausgehend auch ideen fürs konzept und die umsetzung entwickeln zu können, verstanden. daher hätte ich jetzt hier einen eher kurzen einleitungsteil erwartet und erst nach den ganzen modifiaktionsbeispielen und dem notepad++ abschnitt eine section in ders um die entwicklung des konzepts und die festgelegten anforderungen geht.}
-Um ein Projekt in dieser Größe zu erstellen wurde ein Konzept erarbeitet. Diese Vorüberlegungen dienten dazu, Schwerpunkte zu erkennen und zu analysieren. Als Grundlage standen mehrere „Turtle-Robot“ Bausätze zur Verfügung, welche ein Arduino als Basis beinhalten. Außerdem wurden „Arduino-Starter-Kit“ verwendet, die eine Reihe an Bauteilen mitbringen.
-Die Roboter sind  unter anderem mit Tracking-Sensoren ausgestattet und so konstruiert, dass
-sie selbständig auf einem vorgegebenen Weg entlangfahren konnten. Zudem besitzen sie Ultraschallsensoren, um auf einer bestimmten Distanz vor sich ein Objekt wahr nehmen zu können. 
+
+Um ein Projekt in dieser Größe zu erstellen wurde ein Konzept erarbeitet. Diese Vorüberlegungen dienten dazu, Schwerpunkte zu erkennen und zu analysieren. Um sich dem Themenbereich zu nähern wurde für die Einarbeitung des Projektes mit Arduino das Arduino-Starter-Kit verwendet. Dieses beinhaltet neben dem Arduino und der Steckplatine, weitere Bauteile, wie LED’s in hellweiß, rot, grün, gelb, blau, Potentiometer, Drucktaster, LCD-Anzeige, Photowiederstände, Servo- und Gleichstrommotor, eine Piezo-Kapsel und einem Projektbuch %TODO Quelle Projektbuch angeben
+. Nachdem die Einarbeitung durch das Buch gelungen war, wurden einige Projekte so abgeändert, dass sie das Verständnis der Bauteile, des Schaltungsaufbau und der Programmierung näherbringen. Einige dieser, für das Projekt relevante abgeänderten Starterkit-Projekte, sind in den nachfolgenden Unterkapiteln aufgeführt und näher beschrieben. Des Weiteren wird einem Unterkapitel auf die Einstellung von Notepad ++ eingegangen.
+
+
+\section{Grundidee}
+
+Als Grundlage standen mehrere Turtle-Robot Bausätze zur Verfügung, welche ein Arduino als Basis beinhalten. Außerdem
+standen die Arduinos und die Bauteile von dem Arduino-Starter-Kit mit zur Verwendung bereit. Die Roboter
+sind unter anderem mit Tracking-Sensoren ausgestattet und so konstruiert, dass sie selbständig
+auf einem vorgegebenen Weg entlangfahren konnten. Zudem besitzen sie Ultraschallsensoren,
+um auf einer bestimmten Distanz vor sich ein Objekt wahr nehmen zu können.
 
 
 Die Grundidee ist es die Roboter in einem Produktionszyklus Stationen anfahren zu lassen und einen geschlossenen Produktionskreislauf zu erstellen.  Die Stationen sollen dabei Maschinen darstellen, welche Bauteile bearbeiten und den Roboter be- bzw. entladen. Diese Stationen sollen ebenso aus Arduino und weiteren notwendigen Bauteilen  bestehen. Die Grundidee wurde Schritt für Schritt detaillierter definiert, sodass sich in diesem Projekt drei Roboter auf einer Strecke hintereinander bewegen können und von einem Kran mit Bauteilen beladen werden. Anschließend sollen die Roboter selbstständig zu einer der zwei Maschinen (Bohrer) fahren, damit die Bauteile bearbeitet werden können. Zum Schluss sollen die Roboter die Bauteile wieder zum
 Kran transportieren. Dabei sollen sich die zwei Bohrer parallel nebeneinander befinden. 
 %Bild Produktionsstrecke Roboter/ Maschinen
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.5]{image/Konzept_Teststrecke.JPG}
+		\caption{Konzept der Produktionsstrecke}
+		\label{Grundidee}
+	\end{center}
+\end{figure}
+
 Daraus ergeben sich zwei Herausforderungen: Einer Kreuzung vor und einer nach den Bohrern.
 Eine weitere Herausforderung, für die Roboter ist das selbstständige Stehenbleiben und Losfahren an den Maschinen. Um sich dieser Problematik zu stellen und geeignete Lösungsansätze zu finden, wurde auf die Methode Paper Prototyping zurückgegriffen. Hiermit konnten Szenarien visuell dargestellt werden und weitere Schwerpunkte festgestellt werden. Für die Erkennung, dass ein
 Roboter an einer Station steht, wurden mehrere, sich ergänzende, Lösungsmöglichkeiten wie Fotowiderstände, Schranken und Breakpoints herausgearbeitet. Mittels Fotowiderstände könnte das Licht an den Stationen gemessen werden. Bei Veränderungen des Lichts kann daraus geschlussfolgert werden, dass sich ein Roboter an der Station befindet. Die Schranke soll als Hindernisobjekt dienen und mit einem Servomotor realisiert werden. Der Roboter nimmt dies wahr und bleibt stehen.   
 Der Breakpoint ist wiederum eine Unterbrechung der Schwarzen Linie, auf dem sich die Roboter bewegen. Der Roboter könnte dies erkennen und bleibt stehen .  Zudem sollen die Stationen ein visuelles oder akustisches Signal für den Betrachter zurückgeben.  Durch die parallele Aufteilung der zwei Maschinen hat der Roboter die Wahl, an der Kreuzung in eine bestimmte Richtung zu fahren. Dazu soll eine Kommunikation zwischen der Maschine und dem Roboter über eine Android App mittels Bluetooth realisiert werden. Damit die Roboter nach der Bohr-Station wieder zum Kran fahren können, soll die Kreuzung nach dieser Station durch einen flachen Winkel zu einer Linie zusammenführen. Ebenso besteht die Möglichkeit, dass die Roboter zusammenstoßen könnten. Da sie mit einem Ultraschallsensor ausgestattet sind, besteht hier der Lösungsansatz einer Verkleidung im hinteren Bereich des Roboters. Somit könnte sichergestellt werden, dass sie sich als Hindernisse
 wahrnehmen und stehen bleiben.
 
-
-Um diese Ideen weiter zu konkretisieren,  wurden zu jedem Modul, also zu der Maschine, dem Kran und den Robotern, Zustandsdiagramme erstellt. Mithilfe weiterer Visualisierungen wurden verschiedene Szenarien durchgespielt, die mehrere Lösungen und Ausbaustufen mit sich brachten. Aufgrund dessen wurde ein Aufgabenkatalog angefertigt, der die Kriterien dieses Projekt in Muss-, Soll- und Kann-Kriterien untergliedert. Für die Einarbeitung
-des Projektes mit Arduino wurde "Das Arduino-Starter-Kit" verwendet. Dieses beinhaltet
-neben dem Arduino und der Steckplatine,  weitere Bauteile und ein Projektbuch. Nachdem die
-Einarbeitung durch das Buch gelungen war, wurden einige Projekte so abgeändert, dass sie das Verständnis der Bauteile, des Schaltungsaufbau und der Programmierung näherbringen. Einige dieser, für das Projekt relevante abgeänderten Starterkit-Projekte, sind in den nachfolgenden Unterkapiteln aufgeführt und näher beschrieben. Des Weiteren wird einem Unterkapitel  auf die Einstellung von Notepad ++ eingegangen.
-
-\todo[author=anja]{muss nicht alles in anführungszeichen und wenn, dann bitte \textbackslash{}enquote\{\} verwenden} 
-\todo[author=anja,inline]{der letzte teil geht schon eher in die richtung, die ich mir unter der überschrift vorbereitung vorgestellt hatte}
-%Für die Einarbeitung des Projektes mit Arduino wurde "Das Arduino-Starter-Kit" verwendet. Dieses beinhaltet neben dem Arduino und der Steckplatine, weitere Bauteile und ein Projektbuch. Nachdem die Einarbeitung durch das Buch gelungen ist, wurden einige Projekte so abgeändert das sie das Verständnis der Bauteile und Programmierung näher bringen. Einige dieser für das Projekt relevante abgeänderten Starterkit-Projekte sind hier Aufgeführt und näher beschrieben.
+\section{Feinkonzept}
+Um diese Ideen weiter zu konkretisieren, wurden zu jedem Modul, also zu der Maschine, dem
+Kran und den Robotern, Zustandsdiagramme erstellt. Mithilfe weiterer Visualisierungen wurden verschiedene Szenarien durchgespielt, die mehrere Lösungen und Ausbaustufen mit sich
+brachten. Aufgrund dessen wurde ein Aufgabenkatalog angefertigt, der die Kriterien dieses
+Projekt in Muss-, Soll- und Kann-Kriterien untergliedert
 
 
-\subsection{Arduino StarterKit-Projekte}
+\section{Arduino StarterKit-Projekte}
 %(Kurze Erklärung worums geht  )
-\todo[author=anja]{hier irgendwo projektbuch erwähnen und quelle dazu}
+
 
 Das Starterkit bringt eine geführte Einleitung in die Welt des Arduinos. Das Verständnis wird, dank des Aufbaus von
 Schaltungen mit den entsprechenden Bauteilen und dem anschließenden Programmieren,
@@ -157,7 +166,7 @@ Da der Ablauf der Zeit in einer For-Schleife stattfindet, kann die Verzögerung 
 
 \subsubsection{Windrad}
 
-Für das Projekt Windrad werden neben einem Gleichstrommotor, eine Diode, MOSFET Transistor, 9-Volt-Block Batterie und ein 100 $\mu$F Kondensator mit Potentiometer verwendet.\todo[author=anja,inline]{am besten nicht ganz so genau, aber mit projektbeschreibung vermischen (windrad wird über gleichstrommoter angetrieben, der über taster ein- und ausgeschaltet werden kann oder so)} In dem Einstiegsprojekt aus dem Buch\todo[author=anja]{projektnummer und quellenangabe (dann kann auch buch weg)} war es bisher nur möglich den Motor, mit einem Taster ein- und auszuschalten. Mit diesem Umbau kann der Nutzer durch Drehen am Potentiometer selbst entscheiden, mit welcher Geschwindigkeit der Motor und damit das Windrad drehen soll.
+ Als Grundlage wurde das Projekt 09 \autocite{arduino} verwendet. Bisher war es nur möglich den Motor, mit einem Taster ein- und auszuschalten. Mit diesem Umbau kann der Nutzer durch Drehen am Potentiometer selbst entscheiden, mit welcher Geschwindigkeit der Motor und damit das Windrad drehen soll.
 \\
 
 \begin{figure}[h]
@@ -229,6 +238,7 @@ Bei Programmstart wird die Uhr auf exakt 0 Uhr initialisiert und beginnt sofort 
 Für das Ablaufen der Uhrzeit wurde ein Delay verwendet. Dabei wurde berücksichtigt, dass die Ausführung des Programms ebenfalls Zeit in Anspruch nimmt. Eine Verzögerung um genau eine Sekunde würde schnell dazu führen, dass die Uhr nachgeht. Die Verzögerungszeit wird deshalb dynamisch angepasst.
 
 \subsection{Notepad++ für Arduino verwenden}
+
 Für das Projekt wurde Notepad++ als IDE für Arduino verwendet. Die Vorteile für die Verwendung sind einerseits das Syntax-Highlighting und Auto-Completion. Außerdem ist es möglich den Code zu Kompilieren und Programmausgaben über die Konsolenausgabe anzeigen zu lassen.
 Für die Einrichtung muss zuvor Notepad++ installiert sein. Auf der Seite https://notepad-plus-plus.org/ kann die neueste Version heruntergeladen werden. \todo[author=anja,inline]{bei zitation ganzer webseiten, sieht apa vor, dass man die seite erwähnt und den link in klammern dahinter angibt (kein bibliographieintrag erforderlich) also  satz weg und in satz davor: \ldots zuvor Notepad++ installiert sein (https://\ldots). auch bei den anderen links so machen}Für die Verwendung als IDE sind einige Treiber und Sourcen notwendig, deshalb muss die Arduino IDE bezogen werden. Dies kann auf der Herstellerseite Arduino.org heruntergeladen werden. Nachdem beides bezogen und entpackt ist kann Notepad++ eingerichtet werden. Zu aller erst wird dazu ein Plugin für die Unterstützung der Arduino Bibliotheken benötigt. Diese Plugins können unter https://sourceforge.net/projects/narduinoplugin/ geladen und entpackt werden. In dem heruntergeladenen Paket befindet sich ein Ordner APIs, dieser wird nach „.\textbackslash{}Notepad++\textbackslash{}plugins“ kopiert. Anschließend wird die Sprache unter „Sprache\textbackslash{}Benutzerdefinierte Sprache“ im Notepad++ Editor eingestellt. Im geöffneten Dialog wird dazu die Schaltfläche „Importieren“ gewählt und im nachfolgenden Dialogfenster das Verzeichnis ausgewählt, indem sich das entpackte Plugin befindet. Dort wird nun die Datei „Arduino\_Language\_0.2.0.xml“ gewählt und mit „Öffnen“ bestätigt. Nach erfolgreichem Import sollte sich ein Dialog öffnen und dies bestätigen. Die Datei wird nun im Drop-Down Menü unter „Benutzer Sprache:“ aufgelistet und muss ausgewählt werden. Anschließen wird diese unter einem beliebigen, aber eindeutigen Namen abgespeichert. Dazu wird auf die Schaltfläche „Speichern als“ geklickt. Beim Laden eines Sketches sollte nun die Syntax des Quellcodes hervorgehoben werden.
 Um den Quellcode zu Kompilieren und ein Upload durchführen zu können, ist das Plugin „NppExec“ notwendig. Dieses wird direkt im „PluginManager“ unter „Erweiterungen\textbackslash{}Plugin-Verwaltung…“ ausgewählt. Nachdem dies angewählt wurde, öffnet sich ein Dialog, in dem in der Liste das Plugin „NppExec“ ausgewählt werden kann. Mit Bestätigen der Schaltfläche „Installieren“ wird dieses Plugin heruntergeladen und installiert. Um ein Skript\todo[author=anja]{Wo kommt das skript jetzt her?} auszuführen, wird die Taste F6 gedrückt oder im Menü unter „Erweiterungen\textbackslash{}NppExec\textbackslash{}Execute“ ausgewählt. Dazu sollte sich ein Fenster öffen in dem einige Anpassungen gemacht werden können. Unter anderem sollte hier der Pfad zur Arduino IDE angepasst werden. Da beim Kompilieren kein Fenster angezeigt wird, ist es sinnvoll sich diese\todo[author=anja]{Was für Zeug?} in der Konsolenausgabe anzeigen zu lassen. Dazu muss über das Menü „Erweiterungen\textbackslash{}NppExec\textbackslash{}Show Console“ angewählt werden. Die Konsole sollte sich nun im unteren Bereich ersichtlich\todo[author=anja]{befinden? zu sehen sein(ohne sich)?} sein.
