@@ -6,41 +6,7 @@ Um ein Projekt in dieser Größe zu erstellen wurde ein Konzept erarbeitet. Dies
 . Nachdem die Einarbeitung durch das Buch gelungen war, wurden einige Projekte so abgeändert, dass sie das Verständnis der Bauteile, des Schaltungsaufbau und der Programmierung näherbringen. Einige dieser, für das Projekt relevante abgeänderten Starterkit-Projekte, sind in den nachfolgenden Unterkapiteln aufgeführt und näher beschrieben. Des Weiteren wird einem Unterkapitel auf die Einstellung von Notepad ++ eingegangen.
 
 
-\section{Grundidee}
-
-Als Grundlage standen mehrere Turtle-Robot Bausätze zur Verfügung, welche ein Arduino als Basis beinhalten. Außerdem
-standen die Arduinos und die Bauteile von dem Arduino-Starter-Kit mit zur Verwendung bereit. Die Roboter
-sind unter anderem mit Tracking-Sensoren ausgestattet und so konstruiert, dass sie selbständig
-auf einem vorgegebenen Weg entlangfahren konnten. Zudem besitzen sie Ultraschallsensoren,
-um auf einer bestimmten Distanz vor sich ein Objekt wahr nehmen zu können.
-
-
-Die Grundidee ist es die Roboter in einem Produktionszyklus Stationen anfahren zu lassen und einen geschlossenen Produktionskreislauf zu erstellen.  Die Stationen sollen dabei Maschinen darstellen, welche Bauteile bearbeiten und den Roboter be- bzw. entladen. Diese Stationen sollen ebenso aus Arduino und weiteren notwendigen Bauteilen  bestehen. Die Grundidee wurde Schritt für Schritt detaillierter definiert, sodass sich in diesem Projekt drei Roboter auf einer Strecke hintereinander bewegen können und von einem Kran mit Bauteilen beladen werden. Anschließend sollen die Roboter selbstständig zu einer der zwei Maschinen (Bohrer) fahren, damit die Bauteile bearbeitet werden können. Zum Schluss sollen die Roboter die Bauteile wieder zum
-Kran transportieren. Dabei sollen sich die zwei Bohrer parallel nebeneinander befinden. 
-%Bild Produktionsstrecke Roboter/ Maschinen
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[scale=0.5]{image/Konzept_Teststrecke.JPG}
-		\caption{Konzept der Produktionsstrecke}
-		\label{Grundidee}
-	\end{center}
-\end{figure}
-
-Daraus ergeben sich zwei Herausforderungen: Einer Kreuzung vor und einer nach den Bohrern.
-Eine weitere Herausforderung, für die Roboter ist das selbstständige Stehenbleiben und Losfahren an den Maschinen. Um sich dieser Problematik zu stellen und geeignete Lösungsansätze zu finden, wurde auf die Methode Paper Prototyping zurückgegriffen. Hiermit konnten Szenarien visuell dargestellt werden und weitere Schwerpunkte festgestellt werden. Für die Erkennung, dass ein
-Roboter an einer Station steht, wurden mehrere, sich ergänzende, Lösungsmöglichkeiten wie Fotowiderstände, Schranken und Breakpoints herausgearbeitet. Mittels Fotowiderstände könnte das Licht an den Stationen gemessen werden. Bei Veränderungen des Lichts kann daraus geschlussfolgert werden, dass sich ein Roboter an der Station befindet. Die Schranke soll als Hindernisobjekt dienen und mit einem Servomotor realisiert werden. Der Roboter nimmt dies wahr und bleibt stehen.   
-Der Breakpoint ist wiederum eine Unterbrechung der Schwarzen Linie, auf dem sich die Roboter bewegen. Der Roboter könnte dies erkennen und bleibt stehen .  Zudem sollen die Stationen ein visuelles oder akustisches Signal für den Betrachter zurückgeben.  Durch die parallele Aufteilung der zwei Maschinen hat der Roboter die Wahl, an der Kreuzung in eine bestimmte Richtung zu fahren. Dazu soll eine Kommunikation zwischen der Maschine und dem Roboter über eine Android App mittels Bluetooth realisiert werden. Damit die Roboter nach der Bohr-Station wieder zum Kran fahren können, soll die Kreuzung nach dieser Station durch einen flachen Winkel zu einer Linie zusammenführen. Ebenso besteht die Möglichkeit, dass die Roboter zusammenstoßen könnten. Da sie mit einem Ultraschallsensor ausgestattet sind, besteht hier der Lösungsansatz einer Verkleidung im hinteren Bereich des Roboters. Somit könnte sichergestellt werden, dass sie sich als Hindernisse
-wahrnehmen und stehen bleiben.
-
-\section{Feinkonzept}
-Um diese Ideen weiter zu konkretisieren, wurden zu jedem Modul, also zu der Maschine, dem
-Kran und den Robotern, Zustandsdiagramme erstellt. Mithilfe weiterer Visualisierungen wurden verschiedene Szenarien durchgespielt, die mehrere Lösungen und Ausbaustufen mit sich
-brachten. Aufgrund dessen wurde ein Aufgabenkatalog angefertigt, der die Kriterien dieses
-Projekt in Muss-, Soll- und Kann-Kriterien untergliedert
-
-
-\section{Arduino StarterKit-Projekte}
+\subsection{Arduino StarterKit-Projekte}
 %(Kurze Erklärung worums geht  )
 
 
@@ -244,3 +210,37 @@ Für die Einrichtung muss zuvor Notepad++ installiert sein. Auf der Seite https:
 Um den Quellcode zu Kompilieren und ein Upload durchführen zu können, ist das Plugin „NppExec“ notwendig. Dieses wird direkt im „PluginManager“ unter „Erweiterungen\textbackslash{}Plugin-Verwaltung…“ ausgewählt. Nachdem dies angewählt wurde, öffnet sich ein Dialog, in dem in der Liste das Plugin „NppExec“ ausgewählt werden kann. Mit Bestätigen der Schaltfläche „Installieren“ wird dieses Plugin heruntergeladen und installiert. Um ein Skript\todo[author=anja]{Wo kommt das skript jetzt her?} auszuführen, wird die Taste F6 gedrückt oder im Menü unter „Erweiterungen\textbackslash{}NppExec\textbackslash{}Execute“ ausgewählt. Dazu sollte sich ein Fenster öffen in dem einige Anpassungen gemacht werden können. Unter anderem sollte hier der Pfad zur Arduino IDE angepasst werden. Da beim Kompilieren kein Fenster angezeigt wird, ist es sinnvoll sich diese\todo[author=anja]{Was für Zeug?} in der Konsolenausgabe anzeigen zu lassen. Dazu muss über das Menü „Erweiterungen\textbackslash{}NppExec\textbackslash{}Show Console“ angewählt werden. Die Konsole sollte sich nun im unteren Bereich ersichtlich\todo[author=anja]{befinden? zu sehen sein(ohne sich)?} sein.
 
 \todo[author=anja,inline]{ein paar absätze (zwei mal enter drücken) wären ganz schön}
+
+
+\section{Grundidee}
+
+Als Grundlage standen mehrere Turtle-Robot Bausätze zur Verfügung, welche ein Arduino als Basis beinhalten. Außerdem
+standen die Arduinos und die Bauteile von dem Arduino-Starter-Kit mit zur Verwendung bereit. Die Roboter
+sind unter anderem mit Tracking-Sensoren ausgestattet und so konstruiert, dass sie selbständig
+auf einem vorgegebenen Weg entlangfahren konnten. Zudem besitzen sie Ultraschallsensoren,
+um auf einer bestimmten Distanz vor sich ein Objekt wahr nehmen zu können.
+
+
+Die Grundidee ist es die Roboter in einem Produktionszyklus Stationen anfahren zu lassen und einen geschlossenen Produktionskreislauf zu erstellen.  Die Stationen sollen dabei Maschinen darstellen, welche Bauteile bearbeiten und den Roboter be- bzw. entladen. Diese Stationen sollen ebenso aus Arduino und weiteren notwendigen Bauteilen  bestehen. Die Grundidee wurde Schritt für Schritt detaillierter definiert, sodass sich in diesem Projekt drei Roboter auf einer Strecke hintereinander bewegen können und von einem Kran mit Bauteilen beladen werden. Anschließend sollen die Roboter selbstständig zu einer der zwei Maschinen (Bohrer) fahren, damit die Bauteile bearbeitet werden können. Zum Schluss sollen die Roboter die Bauteile wieder zum
+Kran transportieren. Dabei sollen sich die zwei Bohrer parallel nebeneinander befinden. 
+%Bild Produktionsstrecke Roboter/ Maschinen
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.5]{image/Konzept_Teststrecke.JPG}
+		\caption{Konzept der Produktionsstrecke}
+		\label{Grundidee}
+	\end{center}
+\end{figure}
+
+Daraus ergeben sich zwei Herausforderungen: Einer Kreuzung vor und einer nach den Bohrern.
+Eine weitere Herausforderung, für die Roboter ist das selbstständige Stehenbleiben und Losfahren an den Maschinen. Um sich dieser Problematik zu stellen und geeignete Lösungsansätze zu finden, wurde auf die Methode Paper Prototyping zurückgegriffen. Hiermit konnten Szenarien visuell dargestellt werden und weitere Schwerpunkte festgestellt werden. Für die Erkennung, dass ein
+Roboter an einer Station steht, wurden mehrere, sich ergänzende, Lösungsmöglichkeiten wie Fotowiderstände, Schranken und Breakpoints herausgearbeitet. Mittels Fotowiderstände könnte das Licht an den Stationen gemessen werden. Bei Veränderungen des Lichts kann daraus geschlussfolgert werden, dass sich ein Roboter an der Station befindet. Die Schranke soll als Hindernisobjekt dienen und mit einem Servomotor realisiert werden. Der Roboter nimmt dies wahr und bleibt stehen.   
+Der Breakpoint ist wiederum eine Unterbrechung der Schwarzen Linie, auf dem sich die Roboter bewegen. Der Roboter könnte dies erkennen und bleibt stehen .  Zudem sollen die Stationen ein visuelles oder akustisches Signal für den Betrachter zurückgeben.  Durch die parallele Aufteilung der zwei Maschinen hat der Roboter die Wahl, an der Kreuzung in eine bestimmte Richtung zu fahren. Dazu soll eine Kommunikation zwischen der Maschine und dem Roboter über eine Android App mittels Bluetooth realisiert werden. Damit die Roboter nach der Bohr-Station wieder zum Kran fahren können, soll die Kreuzung nach dieser Station durch einen flachen Winkel zu einer Linie zusammenführen. Ebenso besteht die Möglichkeit, dass die Roboter zusammenstoßen könnten. Da sie mit einem Ultraschallsensor ausgestattet sind, besteht hier der Lösungsansatz einer Verkleidung im hinteren Bereich des Roboters. Somit könnte sichergestellt werden, dass sie sich als Hindernisse
+wahrnehmen und stehen bleiben.
+
+\section{Feinkonzept}
+Um diese Ideen weiter zu konkretisieren, wurden zu jedem Modul, also zu der Maschine, dem
+Kran und den Robotern, Zustandsdiagramme erstellt. Mithilfe weiterer Visualisierungen wurden verschiedene Szenarien durchgespielt, die mehrere Lösungen und Ausbaustufen mit sich
+brachten. Aufgrund dessen wurde ein Aufgabenkatalog angefertigt, der die Kriterien dieses
+Projekt in Muss-, Soll- und Kann-Kriterien untergliedert
