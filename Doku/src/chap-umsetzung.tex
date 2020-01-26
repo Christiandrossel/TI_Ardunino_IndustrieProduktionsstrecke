@@ -1,9 +1,10 @@
 \chapter{Umsetzung}
-Umgesetzt wurde eine modulare Produktionsstrecke mit 3 fahrenden Robotern, welche sich auf einer vorgegebenen Strecke fort bewegen und dabei dynamisch eine unbelegte von 2 gleichen Stationen (nachfolgend Bohrer genannt) anfahren. Danach müssen diese eine 3. Station anfahren (nachfolgend Kran genannt).
+Umgesetzt wurde eine modulare Produktionsstrecke mit drei fahrenden Robotern, welche sich auf einer vorgegebenen Strecke fort bewegen und dabei dynamisch eine unbelegte von zwei gleichen Stationen (nachfolgend Bohrer genannt) anfahren (Abbildung~\ref{fig:strecke}). Danach müssen diese eine 3. Station anfahren (nachfolgend Kran genannt).
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{img/Produktionsstrecke.jpg}
 \caption{Die Produktionsstrecke beim Integrationstest}
+\label{fig:strecke}
 \end{center}
 \end{figure}
 %Darstellung der konkreten Umsetzung des Projekts inklusive besonderer aufgetretener Probleme/Herausforderungen und deren Lösung. Das Vorgehen sollte so nachvollziehbar sein, dass der Leser das Projekt vom Prinzip genauso umsetzen könnte (meint aber nicht, dass hier jeder Codeschnipsel erscheinen muss). 
@@ -12,9 +13,9 @@ Umgesetzt wurde eine modulare Produktionsstrecke mit 3 fahrenden Robotern, welch
 \section{Roboter}
 Der Roboter ist ein Keystudio Smart Small Turtle Robot, welcher auf einer vorgegebenen Strecke fährt und an bestimmten Stationen halten soll.
 \subsubsection{Linie folgen}
-Die Hauptaufgabe des Roboters besteht darin\todo[author=timon]{besteht statt liegt}, auf einer schwarzen Linie entlang zu fahren, um den Kurs an den Stationen vorbei zu absolvieren. Dafür werden die 3 Infrarotsensoren auf der Unterseite des Roboters genutzt, um fest zu stellen, wo auf der Linie sich der Roboter befindet.
+Die Hauptaufgabe des Roboters besteht darin, auf einer schwarzen Linie entlang zu fahren, um den Kurs an den Stationen vorbei zu absolvieren. Dafür werden die drei Infrarotsensoren auf der Unterseite des Roboters genutzt, um fest zu stellen, wo auf der Linie sich der Roboter befindet.
 
-Sollte er an einer Seite die Farbe Weiß fest stellen, so justiert er seine Fahrtrichtung, um im schwarzen Bereich zu bleiben. Wenn alle 3 Sensoren Weiß feststellen, so ist der Roboter über einen Breakpoint gefahren, eine weiße Fläche auf der schwarzen Strecke, an welcher der Roboter mit den Stationen kommuniziert, um seine weiteren Schritte in Erfahrung zu bringen.
+Sollte er an einer Seite die Farbe Weiß fest stellen, so justiert er seine Fahrtrichtung, um im schwarzen Bereich zu bleiben. Wenn alle drei Sensoren Weiß feststellen, so ist der Roboter über einen Breakpoint gefahren, eine weiße Fläche auf der schwarzen Strecke, an welcher der Roboter mit den Stationen kommuniziert, um seine weiteren Schritte in Erfahrung zu bringen.
 
 \subsubsection{Auffahrunfälle vermeiden}
 Während die Roboter auf der vorgesehenen schwarzen Linie fahren, kann es passieren, dass sie auf einen Roboter vor ihnen warten müssen. Um Auffahrunfälle zu vermeiden, sind Ultraschallsensoren an der Vorderseite der Roboter angebracht. Diese registrieren jedoch andere Roboter erst zu spät oder gar nicht, da die Kabel im oberen Bereich des Roboters keine ausreichende Reflektionsfläche für die Sensoren bieten und der Roboter dadurch nicht verlässlich erkannt werden kann.
@@ -22,18 +23,18 @@ Während die Roboter auf der vorgesehenen schwarzen Linie fahren, kann es passie
 Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt und an dessen Rückseite montiert wurde. Dadurch haben die Roboter dahinter ein klar erkennbares Hindernis auf der richtigen Höhe.
 
 \section{Bohrer}
-In dem Projekt werden zwei Bohrer eingesetzt, welche aus den Arduino-Uno-Starterkits zusammen gebaut wurden. Die meisten Bestandteile der Bohrer sind aus dem Starterkit, bis auf das Bluetooth Modul (HC-05), welches nachträglich zur Kommunikation mit den Robotern bestellt wurde. Ein Bohrer besteht aus dem Arduion und seiner Leiterplatte. Auf dieser ist ein Lichtsensor mit Potentiometer zum Einstellen der Empfindlichkeit und eine LCD-Statusanzeige angebracht
+In dem Projekt werden zwei Bohrer eingesetzt, welche aus den Arduino-Uno-Starterkits zusammen gebaut wurden. Die meisten Bestandteile der Bohrer sind aus dem Starterkit, bis auf das Bluetooth Modul (HC-05), welches nachträglich zur Kommunikation mit den Robotern bestellt wurde. Ein Bohrer besteht aus dem Arduino und seiner Leiterplatte. Auf dieser ist ein Photowiderstand mit Potentiometer zum Einstellen der Empfindlichkeit und eine LCD-Statusanzeige angebracht
 
 \subsubsection{Roboter erkennen}
-Nachdem der Bohrer vom Roboter die Nachricht bekommen hat, dass dieser zu ihm fährt, bereitet sich der Bohrer auf die Ankunft des Roboters vor und bestätigt keine Anfragen von weiteren Robotern. Durch einen Lichtsensor kann der ankommende Roboter erkannt werden und die Arbeit des Bohrers beginnt. Dank eines Potentiometers kann der Schwellwert des Lichtsensors angepasst werden. Sollte der Sensor Werte unter diesem Bereich liefern, so steht sehr wahrscheinlich ein Roboter vor ihm.
+Nachdem der Bohrer vom Roboter die Nachricht bekommen hat, dass dieser zu ihm fährt, bereitet sich der Bohrer auf die Ankunft des Roboters vor und bestätigt keine Anfragen von weiteren Robotern. Durch einen Photowiderstand kann der ankommende Roboter erkannt werden und die Arbeit des Bohrers beginnt. Dank eines Potentiometers kann der Schwellwert des Lichtsensors angepasst werden. Sollte der Sensor Werte unter diesem Bereich liefern, so steht sehr wahrscheinlich ein Roboter vor ihm.
 
 \subsubsection{Arbeiten}
 Die Arbeit des Bohrers wird im Rahmen des Projekts als Fortschrittsbalken auf einem LCD symbolisiert. Der Fortschritt startet sobald der Roboter vor den Bohrer gefahren ist. Nachdem der Fortschrittsbalken voll ist, ist die Arbeit abgeschlossen und der Bohrer sendet dem Roboter, dass er weiterfahren kann.
 
 \section{Kran}
-Der Kran besteht wie der Bohrer aus dem Starterkit und einem zusätzlichen Bluetooth Modul. Ebenfalls erkennt der Kran Roboter mittels Lichtsensors, wie bereits unter Bohrer beschrieben.
+Der Kran besteht wie der Bohrer aus dem Starterkit und einem zusätzlichen Bluetooth Modul. Ebenfalls erkennt der Kran Roboter mittels Lichtsensors nach dem gleichen Prinzip wie der Bohrer.
 \subsubsection{Arbeiten}
-Im Gegensatz zu den Bohrern spielt der Kran bei der Arbeit ein Musikstück ab. Dies wird über ein Piezzo-Element realisiert und startet sobald ein Roboter vor den Kran fährt. Ist das Lied zu Ende, sendet der Kran dem vor ihm stehenden Roboter ein Signal zum Weiterfahren über das Bluetooth Modul.
+Im Gegensatz zu den Bohrern spielt der Kran bei der Arbeit ein Musikstück ab. Dies wird über ein Piezo-Element realisiert und startet sobald ein Roboter vor den Kran fährt. Ist das Lied zu Ende, sendet der Kran dem vor ihm stehenden Roboter ein Signal zum Weiterfahren über das Bluetooth Modul.
 
 \section{Kommunikation}
 Ein großes Problem bei der Umsetzung war, dass die Bluetooth-Module der Turtle-Roboter (HC-06) nur als Slaves agieren können und damit sich nicht untereinander verbinden können. Dieses Problem wurde durch eine Android-App gelöst.
@@ -44,7 +45,7 @@ Ein großes Problem bei der Umsetzung war, dass die Bluetooth-Module der Turtle-
 \end{center}
 \end{figure}
 
-Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sie zeigt an welche Einheiten verbunden sind und welche was zuletzt gesendet hat über ein Textlog (Zu sehen am Screenshot in der Abbildung \ref{screen_app}). Sollte beispielsweise ein Turtle-Roboter an einem Bohrer stehen und dieser seine Arbeit beendet haben, so sendet der Bohrer eine Nachricht an die App. Die App leitet diese Information an den Roboter weiter, damit dieser seine Fahrt fortsetzen kann (Siehe Abbildung). Dabei sind die Mtteilungen so weit wie möglich in der größe reduziert. Es wird ein 'r' als "ready" von dem Bohrer oder Kran an den Roboter gesendet und der Roboter erhält bei der Abfrage welcher Bohrer frei sei eine 0 für 'Kein Bohrer ist frei' oder eine 1/2 für den entsprechenden Bohrer.
+Diese Android-App verbindet sich mit allen Teilnehmern und gibt die gesendeten Daten weiter. Sie zeigt an welche Einheiten verbunden sind und welche was zuletzt gesendet hat über ein Textlog (Abbildung~\ref{screen_app}). Sollte beispielsweise ein Turtle-Roboter an einem Bohrer stehen und dieser seine Arbeit beendet haben, so sendet der Bohrer eine Nachricht an die App. Die App leitet diese Information an den Roboter weiter, damit dieser seine Fahrt fortsetzen kann (Abbildung~\ref{ablauf_app}). Dabei sind die Mitteilungen so weit wie möglich in der Größe reduziert. Es wird ein 'r' als "ready" von Bohrer oder Kran an den Roboter gesendet und der Roboter erhält bei der Abfrage welcher Bohrer frei sei eine 0 für 'Kein Bohrer ist frei' oder eine 1 bzw. 2 für den entsprechenden Bohrer.
 
 Dazu kommt allerdings ein gewisser Overhead, da der Roboter der App mitteilen muss, an welcher Station er sich gerade befindet, damit die App, weiß an wen sie die Informationen schicken muss. Die Kommunikation ist an den Stationen Bohrer und Kran in der unten stehenden Abbildung \ref{ablauf_app} gezeigt.
 \begin{figure}[h]
