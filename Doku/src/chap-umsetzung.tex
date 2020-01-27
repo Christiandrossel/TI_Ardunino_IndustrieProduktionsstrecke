@@ -18,11 +18,16 @@ Sollte er an einer Seite die Farbe Weiß fest stellen, so justiert er seine Fahr
 
 \subsubsection{Auffahrunfälle vermeiden}
 Während die Roboter auf der vorgesehenen schwarzen Linie fahren, kann es passieren, dass sie auf einen Roboter vor ihnen warten müssen. Um Auffahrunfälle zu vermeiden, sind Ultraschallsensoren an der Vorderseite der Roboter angebracht. Diese registrieren jedoch andere Roboter erst zu spät oder gar nicht, da die Kabel im oberen Bereich des Roboters keine ausreichende Reflektionsfläche für die Sensoren bieten und der Roboter dadurch nicht verlässlich erkannt werden kann.
-
-Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt und an dessen Rückseite montiert wurde. Dadurch haben die Roboter dahinter ein klar erkennbares Hindernis auf der richtigen Höhe.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/Rodoter.jpg}
+\caption{Zusammengebauter Roboter mit Schild} \label{rodoter_img}
+\end{center}
+\end{figure}
+Das Problem konnte mit einem Schild gelöst werden, welches für jeden Roboter gedruckt und an dessen Rückseite montiert wurde. Dieses kann man in der Abbildung \ref{rodoter_img} erkennen. Dadurch haben die Roboter dahinter ein klar erkennbares Hindernis auf der richtigen Höhe.
 
 \section{Bohrer}
-In dem Projekt werden zwei Bohrer eingesetzt, welche aus den Arduino-Uno-Starterkits zusammen gebaut wurden. Die meisten Bestandteile der Bohrer sind aus dem Starterkit, bis auf das Bluetooth Modul (HC-05), welches nachträglich zur Kommunikation mit den Robotern bestellt wurde. Ein Bohrer besteht aus dem Arduion und seiner Leiterplatte. Auf dieser ist ein Lichtsensor mit Potentiometer zum Einstellen der Empfindlichkeit und eine LCD-Statusanzeige angebracht
+In dem Projekt werden zwei Bohrer eingesetzt, welche aus den Arduino-Uno-Starterkits zusammen gebaut wurden. Die meisten Bestandteile der Bohrer sind aus dem Starterkit, bis auf das Bluetooth Modul (HC-05), welches nachträglich zur Kommunikation mit den Robotern bestellt wurde. Ein Bohrer besteht aus dem Arduion und seiner Leiterplatte. Auf dieser ist ein Lichtsensor mit Potentiometer zum Einstellen der Empfindlichkeit und eine LCD-Statusanzeige angebracht.
 
 \subsubsection{Roboter erkennen}
 Nachdem der Bohrer vom Roboter die Nachricht bekommen hat, dass dieser zu ihm fährt, bereitet sich der Bohrer auf die Ankunft des Roboters vor und bestätigt keine Anfragen von weiteren Robotern. Durch einen Lichtsensor kann der ankommende Roboter erkannt werden und die Arbeit des Bohrers beginnt. Dank eines Potentiometers kann der Schwellwert des Lichtsensors angepasst werden. Sollte der Sensor Werte unter diesem Bereich liefern, so steht sehr wahrscheinlich ein Roboter vor ihm.
@@ -32,6 +37,12 @@ Die Arbeit des Bohrers wird im Rahmen des Projekts als Fortschrittsbalken auf ei
 
 \section{Kran}
 Der Kran besteht wie der Bohrer aus dem Starterkit und einem zusätzlichen Bluetooth Modul. Ebenfalls erkennt der Kran Roboter mittels Lichtsensors, wie bereits unter Bohrer beschrieben.
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=.5\textwidth]{img/Kran.jpg}
+\caption{Zusammengebauter Kran mit Schranke aus Pappe} \label{kran_img}
+\end{center}
+\end{figure}
 \subsubsection{Arbeiten}
 Im Gegensatz zu den Bohrern spielt der Kran bei der Arbeit ein Musikstück ab. Dies wird über ein Piezzo-Element realisiert und startet sobald ein Roboter vor den Kran fährt. Ist das Lied zu Ende, sendet der Kran dem vor ihm stehenden Roboter ein Signal zum Weiterfahren über das Bluetooth Modul.
 
